@@ -34,8 +34,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 const example = [
-  'apple',
-  'banana',
   'ananas',
   'oil',
   'apple',

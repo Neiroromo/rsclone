@@ -8,16 +8,21 @@
 - [EJS-шаблонизатор] - https://ejs.co/
 
 
-#install project
-1.clone vetky...
+# install project
+
+1.КЛОНИРУЕМ ВЕТКУ
 2.open in vscode
 3.в консоле nmp i
 4.скачай плагины в vscode: 1. ESLint 2. Prettier
-5.в консоле npx eslint --init, 
-
+5.CTR+SHIFT+P -> Manage Library Execution -> ENTER -> ALLOW EVERYWHERE (если все успешно - то в файле ./routes/index.js должно быть 3 проблемы(ошибки) и они должны быть подчеркнуты красной волнистой линией)
+6.(CTRL+'<')Меню File -> Preferences -> Settings -> в строке search settings пишем 'format on save' ->  ставим галочку под пунктом editor: format on save(если все успешно, то при сохранение файла все двойные кавычки автоматически конвертируются в одинарные)
+7.для запуска сервера : npm start
+8.adress: localhost:3000/
+9.статические файлы(не ejs) можно окрывать по адресу из папки public(localhost:3000/html/index.html например)
+ 
 #  функции приложения и фичи
 -eslint(10)
--webpack(10)
+
 -MVC(20)
 Использован RESTful API (30 баллов)
 Подключение и работа с БД (30 баллов)
