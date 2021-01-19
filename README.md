@@ -8,6 +8,13 @@
 - [EJS-шаблонизатор] - https://ejs.co/
 
 
+#install project
+1.clone vetky...
+2.open in vscode
+3.в консоле nmp i
+4.скачай плагины в vscode: 1. ESLint 2. Prettier
+5.в консоле npx eslint --init, 
+
 #  функции приложения и фичи
 -eslint(10)
 -webpack(10)

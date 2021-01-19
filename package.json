@@ -1,46 +1,28 @@
 {
-  "name": "codewars",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack serve",
-    "index": "eslint --fix ./src/index.js",
-    "info": "eslint --fix ./src/js/info.js",
-    "dev": "webpack --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Neiroromo/codewars"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Neiroromo/codewars/issues"
-  },
-  "homepage": "https://github.com/Neiroromo/codewars#readme",
-  "devDependencies": {
-    "css-loader": "^5.0.1",
-    "eslint": "^7.15.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-webpack-plugin": "^2.4.1",
-    "html-webpack-plugin": "^4.5.0",
-    "prettier": "^2.2.1",
-    "prettier-webpack-plugin": "^1.2.0",
-    "sass": "^1.30.0",
-    "sass-loader": "^10.1.0",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.10.1",
-    "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0"
-  },
-  "dependencies": {
-    "serve": "^11.3.2"
-  }
+    "name": "rsclone",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "bootstrap": "^4.6.0",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "ejs": "~2.6.1",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "http-errors": "~1.6.3",
+        "jquery": "^3.5.1",
+        "morgan": "~1.9.1",
+        "pbkdf2-password": "^1.2.1"
+    },
+    "devDependencies": {
+        "eslint": "^7.18.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-config-prettier": "^7.2.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-prettier": "^3.3.1",
+        "prettier": "^2.2.1"
+    }
 }
