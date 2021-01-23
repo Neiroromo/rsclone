@@ -1,0 +1,84 @@
+
+  <nav>
+    <button data-toggle="modal" data-target="#myModal" class="btn btn-link text-dark font-weight-bold" id="btnLog">login</button>
+    <div class="dropdown" id="btnUser" hidden>
+      <button class="btn btn-link text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        user
+      </button>
+      <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item border" href="#">profile</a>
+        <a class="dropdown-item border" href="" id="btnExit">exit</a>            
+      </div>
+    </div>
+</nav>  
+
+<div class="modal" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content login">
+        <div class="modal-header">
+          <h5 class="modal-title">Login window</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">login</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                
+              </form>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+            <button type="button" class="btn btn-primary" id="linkSignin">sign up</button>
+            <button type="submit" class="btn btn-primary submit-btn btn-confirm" data-dismiss="modal">Submit</button>
+            
+        </div>                 
+                
+      </div>
+      <div class="modal-content signin hide-modal">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign Up Window</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">login</label>
+                  <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+                  </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword2">password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword2">
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                  <label class="form-check-label" for="exampleCheck2">Check me out</label>
+                </div>
+                
+              </form>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+          <button type="button" class="btn btn-primary" id="linkLogin">Login</button>
+          
+          <button type="submit" class="btn btn-primary btn-confirm">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
