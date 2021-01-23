@@ -1,0 +1,38 @@
+<!-- 
+    title - лого, 
+    userName !! в коде есть проверка переменной !!, 
+    profileBtnTitle - текст в кнопке "профиль", 
+    loginBtnTitle - текст в кнопке "войти", 
+    logoutBtnTitle - текст в кнопке "выйти" 
+-->
+
+<header class="container-fluid">
+    <div class="row">
+        <div class="col-8 header__logo">
+            <%= title %>
+        </div>
+        <div class="col-4  header__user-info">
+            <% if (userName) { %>
+            <input type="checkbox" id="user-checkbox">
+            <label for="user-checkbox">
+                <%= userName %>
+            </label>
+            <div class="header__popup">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#">
+                        <%= profileBtnTitle %>
+                    </a></li>
+                    <li class="list-group-item"><a href="#">
+                        <%= logoutBtnTitle %>
+                    </a></li>
+                </ul>
+            </div>
+            <% } else {%>
+                <button class="header__login-btn">
+                    <%= loginBtnTitle %>
+                </button> 
+            <% } %>
+        </div>
+    </div>
+    
+</header>
