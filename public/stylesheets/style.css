@@ -26,11 +26,15 @@ header {
 }
 
 .btn-confirm {
-  background-color: #A4ECB0;
-  color: #000000;
+  background-color: #A4ECB0 !important;
+  color: #000000 !important;
   border: none;
 }
 
 .btn:focus {
   outline: 0 !important;
+}
+
+.pagination {
+  justify-content: center;
 }
