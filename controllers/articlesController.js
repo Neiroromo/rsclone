@@ -65,6 +65,7 @@ exports.updateArticle = catchAsync(async (req, res) => {
     },
   });
 });
+
 exports.deleteArticle = catchAsync(async (req, res) => {
   const article = await Article.findOneAndDelete(req.params.name);
   res.status(201).json({
