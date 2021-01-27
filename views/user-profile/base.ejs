@@ -27,10 +27,10 @@
                     </span>
                 </button>
                 <div class=" dropdown-menu dropdown-menu-right settings__list">
-                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#exampleModalCenter" onclick="listItemBehavior.changeSettings = 'login'">
                         <%= changeUserNameBtnTitle %>
                     </button>
-                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#exampleModalCenter" onclick="listItemBehavior.changeSettings = 'password'">
                         <%= changePasswordBtnTitle %>
                     </button>
                     <button class="dropdown-item" type="button" data-toggle="modal" data-target="#deleteUser">
@@ -41,14 +41,14 @@
             </div>
             <div class="col-sm-2 col-md-4"><!--gap--></div>
             <div class=" col-sm-2 col-md-2 main-create-btn-container">
-                <button class="btn btn-success main-create-btn">
+                <button class="btn btn-success main-create-btn" onclick="listItemBehavior.createNewArticle()">
                     <span>
                         <%= createBtnTitle %>
                     </span>
                 </button>
             </div>
             <div class=" col-sm-2 col-md-2 main-delete-btn-container">
-                <button class="btn btn-danger main-delete-btn" disabled>
+                <button class="btn btn-danger main-delete-btn" data-toggle="modal" data-target="#deleteArticle" disabled>
                     <span>
                         <%= deleteBtnTitle %>
                     </span>
@@ -58,6 +58,16 @@
         <div class="row align-items-center">
             <ul class="list-group py-5 container">
                 <!-- вставлять статьи сюда -->
+                <%- include('list-group-item',{
+                    articleName: 'test',
+                    articleDesc: 'test disc',
+                    articleID: 123
+                })%>
+                <%- include('list-group-item',{
+                    articleName: 'test2',
+                    articleDesc: 'test2 disc',
+                    articleID: 222
+                })%>
             </ul>
         </div>
         
@@ -66,8 +76,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">
-                    <%= changeUserSettingsTitle%>
+                <h5 class="modal-title" id="settingsTitle">
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -76,17 +85,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- поменять поле на более подходящее -->
-                        <label for="exampleInputPassword1">
-                            <%= changeUserSettingsTitle%>
+                        <label for="exampleInputPassword1" id='settingsBody'>
                         </label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" class="form-control change-value" id="exampleInputPassword1" placeholder="Value">
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="listItemBehavior.changeSettings = ''">
                     <%= closeBtnLabel%>
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" onclick="listItemBehavior.changeUserSettings()">
                     <%= saveBtnLabel %>
                 </button>
                 </div>
@@ -113,7 +121,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     <%= closeBtnLabel%>
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" onclick="listItemBehavior.deleteProfile()">
                     <%= deleteBtnLabel%>
                 </button>
                 </div>
@@ -137,10 +145,10 @@
                     <%= deleteArticleModalBody%>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="listItemBehavior.deleteIDFromStack()">
                     <%= closeBtnLabel%>
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" id="article-delete-btn" class="btn btn-primary" onclick="listItemBehavior.deleteArticlesFromServer()">
                     <%= deleteBtnLabel%>
                 </button>
                 </div>
