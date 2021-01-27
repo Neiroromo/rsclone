@@ -6,8 +6,17 @@ const usersRouter = require('./routes/usersRouter');
 const indexRouter = require('./routes/indexRouter');
 const articlesRouter = require('./routes/articlesRouter');
 const globalErrorHandler = require('./controllers/errorController');
+const cors = require('cors');
 
 const app = express();
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use("/api/v1/articles", articlesRouter);
-app.use('/', indexRouter);
+app.get('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/articles', articlesRouter);
 app.use(globalErrorHandler);

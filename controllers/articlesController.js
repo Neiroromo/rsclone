@@ -13,6 +13,9 @@ exports.showAllArticles = catchAsync(async (req, res) => {
   const articles = await features.query;
   res.json({
     status: 'OK',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     data: {
       articles,
     },
@@ -21,12 +24,11 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
+  console.log(req.body);
   const articles = await Article.create({
-    name: req.body.name,
-    author: req.body.author,
-    category: req.body.category,
-    article: req.body.article,
-    views: req.body.views,
+    userID: req.body.userID,
+    title: req.body.title,
+    // data: asd статья
   });
 
   res.json({
@@ -67,6 +69,7 @@ exports.updateArticle = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
+  console.log(req);
   const article = await Article.findOneAndDelete(req.params.name);
   res.status(201).json({
     status: 'success',

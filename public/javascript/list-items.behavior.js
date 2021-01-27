@@ -1,3 +1,5 @@
+// const axios = require('axios').default;
+
 const listItemBehavior = {
   artilesID: [],
   selectingState: false,
@@ -89,8 +91,46 @@ const listItemBehavior = {
   createNewArticle() {
     alert('создание новой статьи');
   },
-  deleteProfile() {
-    alert('Удалить профиль');
+  async deleteProfile() {
+    // получить все статьи
+    // let url = 'http://localhost:8000/api/v1/articles/';
+    // let res = await fetch(`${url}`).then((response) => response.json());
+    // let allArticles = { ...res.data.articles };
+    // console.log(allArticles);
+    // добавить статью
+    let save = {
+      userID: 123,
+      title: 'test add article title 5',
+      desc: 'test add article description',
+    };
+    let response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(save),
+    });
+    // удалить статью
+    // let articleTitle = { name: 'test add article title' };
+    // let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(articleTitle),
+    // });
+    // обновить статью
+    // let articleTitle = {
+    //   name: 'test add article title',
+    //   title: 'updated title',
+    // };
+    // let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
+    //   method: 'UPDATE',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(articleTitle),
+    // });
   },
   changeUserSettings() {
     const setting = this.changeSettings;
