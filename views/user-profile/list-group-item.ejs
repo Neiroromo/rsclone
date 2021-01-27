@@ -1,0 +1,25 @@
+<!-- 
+    articleName,
+    articleDesc - краткое описание статьи,
+    articleID
+ -->
+ 
+<li class=" list-group-item article-item" data-articleID="<%= articleID%>" >
+    <input type="checkbox" class="col-1 article-checkbox" onchange="listItemBehavior.selectArticle(event)">
+    <div class="col-2 article-name" onclick="listItemBehavior.openArticle(event)">
+        <%= articleName %>
+    </div>
+    <div class="col-7 article-desc" onclick="listItemBehavior.openArticle(event)">
+        <%= articleDesc%>
+    </div>
+    <button class="col-1 btn btn-outline-warning article-edit-btn" onclick="listItemBehavior.editArticle(event)" >
+        <span class="material-icons">
+            create
+        </span>
+    </button>
+    <button class="col-1 btn btn-outline-danger article-delete-btn" data-toggle="modal" data-target="#deleteArticle" onclick="listItemBehavior.addIDToStack(event)">
+        <span class="material-icons">
+            delete
+        </span>
+    </button>
+</li>
