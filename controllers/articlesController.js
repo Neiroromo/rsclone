@@ -4,6 +4,7 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
+  console.log(req.cookies.user);
   console.log(req.query);
   const features = new APIFeatures(Article.find(), req.query)
     .filter()
@@ -13,15 +14,12 @@ exports.showAllArticles = catchAsync(async (req, res) => {
   const articles = await features.query;
   res.json({
     status: 'OK',
-    data: {
-      articles,
-    },
-    message: 'you watch me!',
+    articles,
   });
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
-  const articles = await Article.create({
+  const article = await Article.create({
     name: req.body.name,
     author: req.body.author,
     category: req.body.category,
@@ -31,25 +29,19 @@ exports.createArticle = catchAsync(async (req, res) => {
 
   res.json({
     status: 'OK',
-    data: {
-      articles,
-    },
-    message: 'you watch me!',
+    createdArticle: article,
   });
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  console.log(req.params.name);
   const article = await Article.findOne({ name: req.params.name });
 
   if (!article) {
-    return next(new AppError('no article found with that name', 404));
+    return next(new AppError('Данной статьи  не существует', 404));
   }
   res.status(200).json({
     status: 'success',
-    data: {
-      article,
-    },
+    article,
   });
 });
 
@@ -60,9 +52,7 @@ exports.updateArticle = catchAsync(async (req, res) => {
   });
   res.status('200').json({
     result: 'success',
-    data: {
-      article,
-    },
+    article,
   });
 });
 
