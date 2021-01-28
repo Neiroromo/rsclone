@@ -34,7 +34,7 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.signup = catchAsync(async (req, res) => {
+exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -56,18 +56,16 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  if (!req.body.email || !req.body.password) {
+    console.log('wtd');
     return next(
-      new AppError('Пожалуйста введите коректную почту и пароль'),
-      400
+      new AppError('Пожалуйста введите коректную почту и пароль', 400)
     );
   }
   const user = await User.findOne({ email }).select('+password');
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Неправильный логин или пароль', 401));
   }
-
   createSendToken(user, 200, res);
 });
 

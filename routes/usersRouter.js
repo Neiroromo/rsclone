@@ -8,7 +8,8 @@ usersRouter.post('/signup', authController.signup);
 usersRouter.post('/login', authController.login);
 // userRouter.post('/forgotPassword', authController.forgotPassword);
 // userRouter.post('/resetPassword', authController.resetPassword);
-
+usersRouter.post('/deleteMe', authController.protect, usersController.deleteMe);
+usersRouter.post('/updateMe', authController.protect, usersController.updateMe);
 usersRouter
   .route('/')
   .get(usersController.getAllUsers)

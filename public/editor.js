@@ -8,7 +8,7 @@ const editor = new EditorJS({
       class: ImageTool,
       config: {
         endpoints: {
-          byFile: 'http://localhost:8000/api/v1/articles/uploaded', // Your backend file uploader endpoint
+          byFile: 'http://localhost:8000/api/v1/articles/upload', // Your backend file uploader endpoint
           byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url не работает пока что
         },
       },
