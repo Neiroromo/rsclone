@@ -1,10 +1,9 @@
 // const AppError = require('../utils/appError');
 
-const sendErrorDev = (err, res) => {
+const sendErrorDev = (err, req, res) => {
   console.log(`owibka ${err.message}`);
-  res.error(err);
-
-  res.status(err.statusCode).json({
+  console.log(res);
+  return res.status(404).json({
     status: err.status,
     error: err,
     message: err.message,
@@ -37,5 +36,5 @@ const sendErrorDev = (err, res) => {
 //   }
 // };
 module.exports = (err, req, res) => {
-  sendErrorDev(err, res);
+  return sendErrorDev(err, res);
 };

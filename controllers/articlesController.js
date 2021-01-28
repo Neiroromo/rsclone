@@ -2,6 +2,32 @@ const Article = require('../models/articlesModel');
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
+const multer = require('multer');
+
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/articles');
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `user--${Date.now()}.${ext}`);
+  },
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('Not an image! Please upload only images.', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadArticlePhoto = upload.single('image');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
   console.log(req.cookies.user);
@@ -26,7 +52,7 @@ exports.createArticle = catchAsync(async (req, res) => {
     article: req.body.article,
     views: req.body.views,
   });
-
+  console.log(req.file);
   res.json({
     status: 'OK',
     createdArticle: article,
