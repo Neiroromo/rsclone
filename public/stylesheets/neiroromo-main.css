@@ -1,0 +1,103 @@
+/* header */
+header {
+  background-color: rgba(201, 114, 114, 0.5);
+}
+
+.header__user-info {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+#user-checkbox {
+  display: none;
+}
+
+.header__popup {
+  visibility: hidden;
+  position: absolute;
+  top: 1.5rem;
+}
+
+#user-checkbox:checked ~ .header__popup {
+  visibility: visible;
+}
+/* header end */
+
+/* footer */
+footer {
+  background-color: rgba(121, 80, 80, 0.473);
+  position: fixed;
+  bottom: 0;
+}
+/* footer end */
+
+/* user profile */
+.user-profile-container {
+  width: 80vw;
+  border: 1px solid black;
+}
+
+.user-name {
+}
+.settings__btn-container {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  font-size: 30px;
+}
+#settings__checkbox {
+  display: none;
+}
+
+.article-name,
+.article-desc {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.article-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.article-edit-btn,
+.article-delete-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  padding: 0;
+  margin: 0;
+}
+
+.selected {
+  background-color: rgb(121, 121, 121);
+}
+.open-article-elem:hover {
+  cursor: pointer;
+}
+/* user profile end */
+
+/* article view */
+.workspace {
+  border: 1px solid black;
+}
+.workspace__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 0 10px;
+}
+.workspace__body {
+  max-height: calc(100vh - 94px);
+  overflow-y: scroll;
+  border: 1px solid red;
+}
+.history {
+  border: 1px solid green;
+  background-color: rgba(120, 219, 133, 0.753);
+  width: 100%;
+}
+/* article view end*/

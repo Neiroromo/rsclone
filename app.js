@@ -5,6 +5,19 @@ const logger = require('morgan');
 const usersRouter = require('./routes/usersRouter');
 const indexRouter = require('./routes/indexRouter');
 const articlesRouter = require('./routes/articlesRouter');
+const globalErrorHandler = require('./controllers/errorController');
+const cors = require('cors');
+
+const app = express();
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,POST,DELETE,PATCH',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 const morgan = require('morgan');
 // const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
@@ -32,6 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// app.use("/api/v1/articles", articlesRouter);
 app.get('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/articles', articlesRouter);

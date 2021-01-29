@@ -30,6 +30,7 @@ const upload = multer({
 exports.uploadArticlePhoto = upload.single('image');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
+  console.log(`showAllArticles: ${req.query}`);
   console.log(req.cookies.user);
   console.log(req.query);
   const features = new APIFeatures(Article.find(), req.query)
@@ -40,17 +41,23 @@ exports.showAllArticles = catchAsync(async (req, res) => {
   const articles = await features.query;
   res.json({
     status: 'OK',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    data: {
+      articles,
+    },
+    message: 'you watch me!',
     articles,
   });
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
-  const article = await Article.create({
-    name: req.body.name,
-    author: req.body.author,
-    category: req.body.category,
-    article: req.body.article,
-    views: req.body.views,
+  console.log(`createArticle: ${req.body}`);
+  const articles = await Article.create({
+    userID: req.body.userID,
+    title: req.body.title,
+    // data: asd статья
   });
   console.log(req.file);
   res.json({
@@ -72,6 +79,7 @@ exports.getOneArticle = catchAsync(async (req, res, next) => {
 });
 
 exports.updateArticle = catchAsync(async (req, res) => {
+  console.log(`update: ${req}`);
   const article = await Article.findOneAndUpdate(req.params.name, req.body, {
     new: true,
     runValidators: true,
@@ -83,9 +91,12 @@ exports.updateArticle = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
-  const article = await Article.findOneAndDelete(req.params.name);
+  console.log('delete: ' + req.body);
+  req.body.forEach(async (element) => {
+    console.log('deleting now: ' + element);
+    const article = await Article.findOneAndDelete(element);
+  });
   res.status(201).json({
     status: 'success',
-    article,
   });
 });
