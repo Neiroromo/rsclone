@@ -94,7 +94,8 @@ exports.deleteArticle = catchAsync(async (req, res) => {
   console.log('delete: ' + req.body);
   req.body.forEach(async (element) => {
     console.log('deleting now: ' + element);
-    const article = await Article.findOneAndDelete(element);
+    const article = await Article.findOneAndDelete({ title: element });
+    console.log('deleted: ' + article);
   });
   res.status(201).json({
     status: 'success',

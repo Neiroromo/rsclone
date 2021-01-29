@@ -5,7 +5,7 @@ const logger = require('morgan');
 const usersRouter = require('./routes/usersRouter');
 const indexRouter = require('./routes/indexRouter');
 const articlesRouter = require('./routes/articlesRouter');
-const globalErrorHandler = require('./controllers/errorController');
+// const globalErrorHandler = require('./controllers/errorController');
 const cors = require('cors');
 
 const app = express();
@@ -21,7 +21,6 @@ app.use(cors(corsOptions));
 const morgan = require('morgan');
 // const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
-const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

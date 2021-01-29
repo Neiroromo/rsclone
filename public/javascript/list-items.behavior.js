@@ -1,7 +1,7 @@
 import addArticleListToDOM from './index.js';
 
 const listItemBehavior = {
-  artilesID: [],
+  articlesID: [],
   selectingState: false,
   changeSettings: '',
   selectArticle(e) {
@@ -36,22 +36,29 @@ const listItemBehavior = {
   },
   addIDToStack(articleID) {
     if (typeof articleID === 'string') {
-      this.artilesID.push(articleID);
+      this.articlesID.push(articleID);
     } else {
       const id = this.getArticleID(articleID);
-      this.artilesID.push(id);
+      this.articlesID.push(id);
     }
+    console.log('add to stack');
+    console.log(articleID);
+    console.log('stack rgtNow');
+    console.log(this.articlesID);
   },
   deleteIDFromStack(articleID) {
     if (!articleID) return;
-    console.log('delete from stack' + articleID);
+    console.log('delete from stack');
+    console.log(articleID);
+    console.log('stack rgtNow');
+    console.log(this.articlesID);
     if (this.selectingState) {
-      const index = this.artilesID.indexOf(articleID);
+      const index = this.articlesID.indexOf(articleID);
       if (index > -1) {
-        this.artilesID.splice(index, 1);
+        this.articlesID.splice(index, 1);
       }
     } else {
-      this.artilesID = [];
+      this.articlesID = [];
     }
   },
   toggleMainDeleteBtnState() {
@@ -86,8 +93,11 @@ const listItemBehavior = {
     }
   },
   async deleteArticlesFromServer() {
-    if (this.artilesID.length === 0) return;
-    const articleTitles = this.artilesID;
+    if (this.articlesID.length === 0) return;
+    console.log('stack rgtNow');
+    console.log(this.articlesID);
+
+    const articleTitles = this.articlesID;
     const response = await fetch(
       'http://127.0.0.1:8000/api/v1/articles/:name/',
       {
@@ -99,8 +109,8 @@ const listItemBehavior = {
       }
     ).then((res) => res.json());
     const { status } = response;
-    console.log(status);
-    this.artilesID = [];
+    this.articlesID = [];
+
     const click = new Event('click', {
       bubbles: true,
     });
@@ -128,7 +138,6 @@ const listItemBehavior = {
     // let url = 'http://localhost:8000/api/v1/articles/';
     // let res = await fetch(`${url}`).then((response) => response.json());
     // let allArticles = { ...res.data.articles };
-    // console.log(allArticles);
     // добавить статью
     // const save = {
     //   userID: 123,
