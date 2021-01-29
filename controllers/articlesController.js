@@ -4,7 +4,7 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
-  console.log(req.query);
+  console.log(`showAllArticles: ${req.query}`);
   const features = new APIFeatures(Article.find(), req.query)
     .filter()
     .sort()
@@ -24,7 +24,7 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
-  console.log(req.body);
+  console.log(`createArticle: ${req.body}`);
   const articles = await Article.create({
     userID: req.body.userID,
     title: req.body.title,
@@ -41,7 +41,7 @@ exports.createArticle = catchAsync(async (req, res) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  console.log(req.params.name);
+  console.log(`getOneArticle: ${req.params.name}`);
   const article = await Article.findOne({ name: req.params.name });
 
   if (!article) {
@@ -56,6 +56,7 @@ exports.getOneArticle = catchAsync(async (req, res, next) => {
 });
 
 exports.updateArticle = catchAsync(async (req, res) => {
+  console.log(`update: ${req}`);
   const article = await Article.findOneAndUpdate(req.params.name, req.body, {
     new: true,
     runValidators: true,
@@ -69,10 +70,12 @@ exports.updateArticle = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
-  console.log(req);
-  const article = await Article.findOneAndDelete(req.params.name);
+  console.log('delete: ' + req.body);
+  req.body.forEach(async (element) => {
+    console.log('deleting now: ' + element);
+    const article = await Article.findOneAndDelete(element);
+  });
   res.status(201).json({
     status: 'success',
-    article,
   });
 });

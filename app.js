@@ -11,7 +11,7 @@ const cors = require('cors');
 const app = express();
 const corsOptions = {
   origin: '*',
-  methods: 'GET,POST,DELETE',
+  methods: 'GET,POST,DELETE,PATCH',
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };

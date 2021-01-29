@@ -1,4 +1,4 @@
-// const axios = require('axios').default;
+import addArticleListToDOM from './index.js';
 
 const listItemBehavior = {
   artilesID: [],
@@ -9,13 +9,15 @@ const listItemBehavior = {
     const article = checkbox.parentNode;
     const articleID = article.dataset.articleid;
 
-    this.highlightSelectedArticle(article);
     if (checkbox.checked) {
       this.addIDToStack(articleID);
     } else {
       this.deleteIDFromStack(articleID);
     }
-    this.toggleMainDeleteBtnState();
+    this.highlightSelectedArticle(article);
+
+    this.changeSelectingState();
+    // this.toggleOpeningArticles();
   },
   getArticleID(e) {
     const elem = e.target;
@@ -41,6 +43,8 @@ const listItemBehavior = {
     }
   },
   deleteIDFromStack(articleID) {
+    if (!articleID) return;
+    console.log('delete from stack' + articleID);
     if (this.selectingState) {
       const index = this.artilesID.indexOf(articleID);
       if (index > -1) {
@@ -54,16 +58,14 @@ const listItemBehavior = {
     const mainDeleteBtn = document.querySelector('.main-delete-btn');
     if (mainDeleteBtn.hasAttribute('disabled')) {
       mainDeleteBtn.removeAttribute('disabled');
-      this.changeSelectingState();
-      this.toggleArticlesDeleteBtns();
-    } else if (this.artilesID.length === 0) {
+    } else {
       mainDeleteBtn.setAttribute('disabled', 'disabled');
-      this.changeSelectingState();
-      this.toggleArticlesDeleteBtns();
     }
   },
-  toggleArticlesDeleteBtns() {
-    const buttons = document.querySelectorAll('.article-delete-btn');
+  toggleArticlesBtns() {
+    const buttons = document.querySelectorAll(
+      '.article-delete-btn, .article-edit-btn'
+    );
     buttons.forEach((button) => {
       if (this.selectingState) {
         button.setAttribute('disabled', 'disabled');
@@ -73,16 +75,45 @@ const listItemBehavior = {
     });
   },
   changeSelectingState() {
-    this.selectingState = !this.selectingState;
+    const checkboxes = document.querySelectorAll('input:checked');
+    if (
+      (checkboxes.length > 0 && !this.selectingState) ||
+      (checkboxes.length === 0 && this.selectingState)
+    ) {
+      this.selectingState = !this.selectingState;
+      this.toggleArticlesBtns();
+      this.toggleMainDeleteBtnState();
+    }
   },
-  deleteArticlesFromServer() {
-    //   создания запроса на удаление статей
-    alert(`Удалить статьи  ${this.artilesID}`);
+  async deleteArticlesFromServer() {
+    if (this.artilesID.length === 0) return;
+    const articleTitles = this.artilesID;
+    const response = await fetch(
+      'http://127.0.0.1:8000/api/v1/articles/:name/',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(articleTitles),
+      }
+    ).then((res) => res.json());
+    const { status } = response;
+    console.log(status);
+    this.artilesID = [];
+    const click = new Event('click', {
+      bubbles: true,
+    });
+    document.querySelector('.dismiss-delete-btn').dispatchEvent(click);
+    addArticleListToDOM();
+    this.changeSelectingState();
   },
   openArticle(e) {
     //   открыть статью
-    const id = this.getArticleID(e);
-    alert(`открыть статью ${id}`);
+    if (!this.selectingState) {
+      const id = this.getArticleID(e);
+      alert(`открыть статью ${id}`);
+    }
   },
   editArticle(e) {
     const id = this.getArticleID(e);
@@ -92,26 +123,27 @@ const listItemBehavior = {
     alert('создание новой статьи');
   },
   async deleteProfile() {
+    alert('delete');
     // получить все статьи
     // let url = 'http://localhost:8000/api/v1/articles/';
     // let res = await fetch(`${url}`).then((response) => response.json());
     // let allArticles = { ...res.data.articles };
     // console.log(allArticles);
     // добавить статью
-    let save = {
-      userID: 123,
-      title: 'test add article title 5',
-      desc: 'test add article description',
-    };
-    let response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(save),
-    });
+    // const save = {
+    //   userID: 123,
+    //   title: 'test add article title 5',
+    //   desc: 'test add article description',
+    // };
+    // const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(save),
+    // });
     // удалить статью
-    // let articleTitle = { name: 'test add article title' };
+    // let articleTitle = { title: 'test add article title' };
     // let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
     //   method: 'DELETE',
     //   headers: {
@@ -119,13 +151,13 @@ const listItemBehavior = {
     //   },
     //   body: JSON.stringify(articleTitle),
     // });
-    // обновить статью
-    // let articleTitle = {
-    //   name: 'test add article title',
+    // // обновить статью
+    // const articleTitle = {
+    //   name: 'test add article title 5',
     //   title: 'updated title',
     // };
-    // let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
-    //   method: 'UPDATE',
+    // await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
+    //   method: 'PATCH',
     //   headers: {
     //     'Content-Type': 'application/json',
     //   },
@@ -137,4 +169,25 @@ const listItemBehavior = {
     const { value } = document.querySelector('.change-value');
     alert(`изменить ${setting} на '${value}'`);
   },
+  async getArticlesList(author, page, limitOnPage) {
+    // если автор указан как *, то выводит все статьи
+    // если страницы указаны как * или 0, то выводит все статьи с указанным автором
+    if (author === '*') {
+      author = '';
+    } else {
+      author = `author=${author}&`;
+    }
+    if (page === '*' || page === 0) {
+      page = '';
+      limitOnPage = '';
+    } else {
+      page = `page=${page}&limit=${limitOnPage}`;
+    }
+    const url = `http://localhost:8000/api/v1/articles?${author}${page}`;
+    const res = await fetch(`${url}`).then((response) => response.json());
+    const allArticles = { ...res.data.articles };
+    return allArticles;
+  },
 };
+
+export default listItemBehavior;
