@@ -1,37 +1,124 @@
-<!-- 
-    articleTitle,
-    articleBody
- -->
- 
-    <div class="container-fluid">
+    <div class="container-fluid article-page-container">
         <div class="row">
             <div class="col-md-9 container workspace">
                 <div class="row workspace__header">
-                    <div class="title">
-                        <h4>
-                            <%= articleTitle%>
-                        </h4>
+                    <div id="title">
+                        <input class="edit-article-title" type="text" value="Тестовый заголовок" disabled>
                     </div>
                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="d-none btn btn-success open-save-modal" data-toggle="modal" data-target="#saveModal">
+                            <span class="material-icons">
+                                save
+                            </span>
+                        </button>
+                        <button type="button" class="d-none btn btn-danger open-discard-modal" data-toggle="modal" data-target="#discardModal ">
+                            <span class="material-icons">
+                                clear
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-secondary switch-to-edit">
                             <span class="material-icons">
                                 create
                                 </span>
                         </button>
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary hideShow-history">
                             <span class="material-icons">
                                 arrow_right_alt
                                 </span>
                         </button>
                     </div>
                 </div>
-                <div class="row workspace__body">
-                    <%= articleBody%>
-                    
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium ducimus voluptates quasi laudantium. Neque ad, eligendi temporibus illum harum voluptatibus quam. Voluptate consectetur praesentium tempore explicabo molestias porro tempora, facere fugiat deleniti officiis alias necessitatibus, eveniet beatae quis itaque dolores at! Architecto, atque nostrum. Necessitatibus, fugit repellendus, voluptatem at inventore rem assumenda natus asperiores velit laboriosam molestiae maiores facere optio possimus labore laborum minima nemo nisi pariatur, totam itaque! Doloribus distinctio eum, perferendis incidunt tenetur suscipit temporibus quos molestias harum. Quaerat iusto expedita, delectus doloribus assumenda itaque, repellendus exercitationem neque voluptate qui obcaecati modi labore ad. Nulla earum officia error magnam minima eligendi iure exercitationem distinctio officiis, numquam veritatis, veniam ullam, dolorem quo. Exercitationem, minima debitis? Pariatur, tenetur distinctio. Repudiandae ea minus quam accusantium enim ipsam repellat facere iure? Delectus ea quis ullam omnis, iusto dolores molestias! Deleniti nisi sapiente in architecto, inventore adipisci voluptates consectetur cupiditate natus odio, possimus quo laboriosam optio facere itaque magnam obcaecati minus minima commodi, animi autem eos. Nemo est aliquam deserunt blanditiis totam molestiae voluptate, quidem ea? At dolor nemo consequuntur non beatae cumque temporibus, dolorum vel rerum! Tenetur iste reiciendis dolore beatae inventore tempora aut necessitatibus velit ex distinctio omnis, vitae, doloribus illum perspiciatis quo est laboriosam vero quas sed aspernatur maxime? Accusamus ea obcaecati sit omnis expedita ipsam voluptate dolore ipsa amet repellendus voluptatibus saepe illo cum natus labore asperiores consectetur voluptates deleniti corrupti necessitatibus beatae aspernatur, sequi ratione perspiciatis. Recusandae quos nam, tenetur amet nisi illum debitis error veniam quod molestiae dolor odio distinctio quas suscipit id iure accusamus fugit provident sit et reprehenderit repudiandae deserunt tempore dolores. Quidem eaque atque dolorem, nam eos, repellat cumque praesentium beatae vitae cupiditate illum dolores iste voluptatem? Iusto necessitatibus quam saepe earum illo voluptatum consectetur perspiciatis vitae impedit dolore. Vero sit vitae quia saepe perferendis illo? Sit, qui. Odit officia explicabo quis, ab fuga voluptatibus iste rerum quisquam? Dolorem ducimus excepturi dignissimos totam iure! Corporis expedita quam esse doloribus, quia necessitatibus rerum, labore obcaecati deserunt facere voluptatem repudiandae sint soluta? Iure id tempora excepturi libero praesentium, necessitatibus veniam ab adipisci beatae. Non natus possimus molestias quia expedita quae quibusdam inventore consectetur, voluptatibus ut, repellat, a eaque hic debitis laborum earum laudantium. Quas totam recusandae dolore rerum eligendi saepe magnam natus soluta sapiente quidem assumenda, et eius porro fugit iure temporibus repellat quasi quibusdam. Quisquam laudantium voluptate mollitia tenetur, deserunt sunt ex pariatur nam repellendus, harum incidunt dolores quidem adipisci ab. Illo, animi deserunt, eveniet porro ratione beatae vitae reprehenderit natus nesciunt praesentium fugiat culpa distinctio dolorum. Adipisci nam cupiditate mollitia porro autem alias eveniet harum, rem ipsam a minima impedit nisi, non est. Soluta nihil iure veniam neque magni minima, dolor, itaque reprehenderit nulla ipsa enim. Ullam amet exercitationem non provident nemo harum deserunt magni doloremque facilis? Molestiae libero ut ipsa recusandae. Minima animi, facere blanditiis ex aperiam nesciunt. Corrupti voluptates molestias tempora officiis maxime, consequatur libero porro doloremque reiciendis ad, ipsam alias rerum, debitis ducimus architecto facere explicabo distinctio! Fuga voluptatibus dignissimos earum saepe sunt deleniti maiores voluptates? Facilis id deleniti error sequi iste, quia magni. Error itaque voluptates nisi neque dolorum enim. Dolores sequi modi, debitis dignissimos assumenda aliquid, porro similique eos illum eligendi possimus hic nostrum! Nesciunt, delectus qui adipisci possimus quam quis neque dolorum iusto maiores alias explicabo facilis recusandae placeat repudiandae non error temporibus nisi minus debitis at accusantium ex magni voluptatem. Non iusto alias rem aliquid dolore modi expedita eaque possimus facere reprehenderit, vero quis quo odit similique eum! Amet voluptatum blanditiis nulla consequuntur deleniti esse accusantium animi quo consectetur minus nostrum velit incidunt, expedita perferendis? Vero, aut?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis expedita voluptas dicta ipsam quam voluptatibus, quas impedit accusantium vitae culpa sint blanditiis nisi dolores quidem sit accusamus ipsum quos voluptatem tempora architecto cupiditate deserunt ipsa! Repudiandae facere in aut ipsam ducimus alias minus illum qui eaque repellat vero, quasi quaerat. Impedit debitis tempora earum aliquid, voluptas ipsum doloremque minus adipisci laudantium, pariatur dolore ut deserunt rerum. Debitis magni temporibus magnam quo repellat, amet modi exercitationem praesentium aspernatur perspiciatis vitae voluptas at. Sit maiores quo voluptatem id praesentium, dignissimos soluta repellendus necessitatibus facilis quos temporibus sed pariatur provident aspernatur illo asperiores reprehenderit unde velit possimus eaque, assumenda voluptatibus deserunt! Nobis aliquam velit ad hic vitae, doloremque molestias possimus officia accusantium id optio, delectus recusandae numquam fugit natus modi suscipit quis distinctio cupiditate? Qui, sed! Quisquam quia eveniet laborum, laboriosam aperiam provident velit suscipit sed. Laudantium voluptas, rerum assumenda adipisci vel minus fuga dolorem quasi iusto. Repudiandae numquam id quas enim rerum sint quidem reiciendis consequuntur iusto fugiat cupiditate tempora deserunt doloribus sit, saepe vel, quibusdam laboriosam harum molestiae animi incidunt quisquam inventore. Voluptatem fugit quidem esse, consequuntur quaerat nam eaque iste natus totam nostrum a quod earum doloremque illo inventore architecto, itaque rem soluta atque! Iusto minima ducimus odio nobis incidunt, maxime aut rerum totam eveniet, labore possimus fugiat quia quas, minus obcaecati neque magnam iure asperiores nemo? Dolore quod nesciunt consequuntur. Magni tempore modi alias facere fugit officiis nostrum praesentium. Explicabo nemo, harum consectetur in obcaecati id magnam. Fuga, tenetur pariatur. Nam autem et iusto magnam illo totam officia dolor, a repudiandae vel doloremque fugiat eaque ea voluptate iure id veritatis eveniet porro beatae eos, numquam velit consectetur. Omnis hic eum beatae enim cum maiores, totam molestiae, iusto dicta doloremque repudiandae? Delectus exercitationem ipsam dicta nulla, ratione dignissimos eum eius harum optio qui nisi ea magnam dolorem sequi laborum esse in dolore, dolorum sed quidem numquam cumque. Magni beatae, laboriosam quos optio quisquam dignissimos facere nihil ab blanditiis distinctio, maxime qui amet eligendi praesentium, eum odio voluptatibus inventore consectetur veniam perferendis adipisci! Culpa iste officia cumque laudantium possimus, inventore cum voluptate ea fugiat, consequatur, dolore architecto et esse porro nostrum placeat. Distinctio mollitia aspernatur minima est, maiores sit, odio dolor odit, recusandae a dolore pariatur dolorum! Deserunt expedita cumque eius aut qui veniam dolorum nulla amet reiciendis autem? Beatae itaque consequatur, voluptatum aspernatur et dolor illo laboriosam quasi totam sapiente quisquam blanditiis, atque reiciendis deserunt vero dolores eos quos eum fugiat dicta, nisi praesentium dolorum. Pariatur, sed nisi. Nobis quas iure ipsa corrupti ipsam explicabo modi, quibusdam, similique maxime atque, officia accusamus iusto deserunt non! Eligendi repellat velit consequatur nobis dignissimos iste dolore error harum odio modi, voluptates explicabo sequi aliquid atque enim ullam totam cupiditate voluptas obcaecati possimus, sapiente quam similique doloremque et! Facere, iusto blanditiis neque aliquid voluptatibus sunt mollitia quibusdam praesentium dolores eum beatae error assumenda autem at, quia quae. Nostrum fugiat eius suscipit ipsam, explicabo quam est illo ipsa necessitatibus voluptas, aut voluptates numquam nobis id!
+                <div class="row workspace__body" id="editorjs">
                 </div>
             </div>
-            <div class="col-md-3 history"></div>
+            <div class="col-md-3 history">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center text-uppercase font-weight-bold">Предыдущие версии</div>
+                    <table class="table">
+                        <thead>
+                        <tr class="thead">
+                            <th>Пользователь</th>
+                            <th>Дата</th>
+                            <th>Изменения</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-changedArticleID="123">
+                            <td>Пример</td>
+                            <td>14.02.1992</td>
+                            <td class="text-success">+342байт</td>
+                        </tr>
+                        <tr data-changedArticleID="321">
+                            <td>Пример 2</td>
+                            <td>14.02.1994</td>
+                            <td class="text-danger">-342байт</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
         </div>
+
+                <!-- Modal save Article-->
+                <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Сохранение
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="form-group">
+                                <label for="article-desc">Добавьте краткое описание:</label>
+                                <textarea class="form-control" id="article-desc" rows="6" maxlength="225"></textarea>
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            отмена
+                        </button>
+                        <button type="button" class="btn btn-primary save-article-to-server" data-dismiss="modal">
+                            сохранить
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                        <!-- Modal discard changes-->
+        <div class="modal fade" id="discardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Отменить изменения
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    Данное действие сбросит изменения.
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">
+                    оставить
+                </button>
+                <button type="button" class="btn btn-primary discard-article" data-dismiss="modal">
+                    сбросить
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
+
     </div>

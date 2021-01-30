@@ -53,13 +53,34 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
-  console.log(`createArticle: ${req.body}`);
+  console.log(`createArticle`);
+
+  const { userChangedID, fileSize } = req.body;
+  let { articleID } = req.body;
+  let authorID;
+  const changes = fileSize;
+  if (articleID === null) {
+    // найти максимальный articleID в БД и articleID = maxDBArticleID + 1
+    articleID = 1; //!! изменить
+    authorID = userChangedID;
+  } else {
+    // найти автора статьи с articleID
+    authorID = 'old author';
+  }
+
   const articles = await Article.create({
-    userID: req.body.userID,
+    articleID,
+    authorID,
+    userChangedID,
     title: req.body.title,
-    // data: asd статья
+    desc: req.body.desc,
+    data: req.body.outputData,
+    date: req.body.date,
+    changes,
+  }).catch((error) => {
+    console.log(error);
   });
-  console.log(req.file);
+  // console.log(req.file);
   res.json({
     status: 'OK',
     createdArticle: article,
@@ -67,7 +88,8 @@ exports.createArticle = catchAsync(async (req, res) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  const article = await Article.findOne({ name: req.params.name });
+  console.log(req.params);
+  const article = await Article.findOne({ _id: req.params.name });
 
   if (!article) {
     return next(new AppError('Данной статьи  не существует', 404));
