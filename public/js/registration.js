@@ -1,3 +1,5 @@
+import loginProfile from './loginExitProfile.js';
+
 const btnRegister = document.querySelector('#btnReg');
 const regLogin = document.querySelector('#regLogin');
 const regPassword = document.querySelector('#regPassword');
@@ -32,6 +34,7 @@ async function regUser() {
     }).then((res) => res.json());
     localStorage.setItem('userName', response.data.user.name);
     localStorage.setItem('userID', response.data.user._id);
+    loginProfile(response.data.user.name);
   } catch (err) {
     alert(err);
   }

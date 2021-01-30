@@ -1,11 +1,13 @@
+import authUser from './authorization.js';
+import loginProfile from './loginExitProfile.js';
+
+
 const loginForm = document.querySelector('.login');
 const signinForm = document.querySelector('.signin');
 const loginLinks = document.querySelectorAll('.link-login');
 const signinLink = document.querySelector('#linkSignin');
 const btnLog = document.querySelector('#btnLog');
-const btnUser = document.querySelector('#btnUser');
-const btnExit = document.querySelector('#btnExit');
-const btnSubmit = document.querySelector('.submit-btn');
+// const btnSubmit = document.querySelector('.submit-btn');
 // const regResultForm = document.querySelector(".result-register");
 
 function showLoginForm() {
@@ -19,15 +21,6 @@ function showSigninForm() {
   signinForm.classList.remove('hide-modal');
 }
 
-function loginProfile() {
-  btnUser.removeAttribute('hidden');
-  btnLog.setAttribute('hidden', '');
-}
-
-function exitProfile() {
-  btnUser.setAttribute('hidden', '');
-  btnLog.removeAttribute('hidden');
-}
 
 /* function showRegResult() {
   signinForm.classList.add("hide-modal");
@@ -37,5 +30,8 @@ function exitProfile() {
 loginLinks.forEach((item) => item.addEventListener('click', showLoginForm));
 signinLink.addEventListener('click', showSigninForm);
 btnLog.addEventListener('click', showLoginForm);
-btnSubmit.addEventListener('click', loginProfile);
-btnExit.addEventListener('click', exitProfile);
+btnAuth.addEventListener('click', authUser);
+//btnAuth.addEventListener('click', loginProfile);
+// btnSubmit.addEventListener('click', loginProfile);
+//btnExit.addEventListener('click', exitProfile);
+// btnUserProfile.addEventListener('click', )

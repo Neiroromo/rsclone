@@ -1,13 +1,13 @@
 <nav>
   <button data-toggle="modal" data-target="#myModal" class="btn btn-link text-dark font-weight-bold"
     id="btnLog">login</button>
-  <div class="dropdown" id="btnUser" hidden>
-    <button class="btn btn-link text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  <div class="dropdown" id='divProfile' hidden>
+    <button class="btn btn-link text-dark btn-user" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       user
     </button>
     <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item border" href="#">profile</a>
+      <a class="dropdown-item border" href="#" id="profile">profile</a>
       <a class="dropdown-item border" href="" id="btnExit">exit</a>
     </div>
   </div>
@@ -18,6 +18,7 @@
     <div class="modal-content login">
       <div class="modal-header">
         <h5 class="modal-title">Login window</h5>
+        <span class="text-danger err-message"></span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -25,13 +26,13 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail1">login</label>
-            <input type="email" aria-required="true" class="form-control" id="exampleInputEmail1"
+            <label for="authEmail">Email</label>
+            <input type="email" aria-required="true" class="form-control" id="authEmail"
               aria-describedby="emailHelp">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="authPassword">password</label>
+            <input type="password" class="form-control" id="authPassword">
           </div>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -43,7 +44,7 @@
       <div class="modal-footer">
         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
         <button type="button" class="btn btn-primary" id="linkSignin">sign up</button>
-        <button type="submit" class="btn btn-primary submit-btn btn-confirm" data-dismiss="modal">Submit</button>
+        <button type="submit" class="btn btn-primary submit-btn btn-confirm" id="btnAuth" data-dismiss="modal">Login</button>
 
       </div>
 
@@ -58,19 +59,19 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail2">login</label>
-            <input required type="email" class="form-control" id="regLogin" aria-describedby="emailHelp">
+            <label for="regLogin">login</label>
+            <input required type="text" class="form-control" id="regLogin" aria-describedby="emailHelp">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword2">password</label>
+            <label for="regPassword">password</label>
             <input required type="password" class="form-control" id="regPassword">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword2">confirm password</label>
+            <label for="regPasswordConfirm">confirm password</label>
             <input required type="password" class="form-control" id="regPasswordConfirm">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail2">Email</label>
+            <label for="regEmail">Email</label>
             <input required type="email" class="form-control" id="regEmail" aria-describedby="emailHelp">
           </div>
 
@@ -85,7 +86,7 @@
         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
         <button type="button" class="btn btn-primary link-login" id="linkLogin">Login</button>
 
-        <button type="submit" class="btn btn-primary btn-confirm" id="btnReg">Register</button>
+        <button type="submit" class="btn btn-primary btn-confirm" id="btnReg" data-dismiss="modal">Register</button>
       </div>
     </div>
   </div>
