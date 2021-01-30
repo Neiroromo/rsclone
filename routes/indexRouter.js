@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     const allArt = data.data.articles;
     console.log(allArt);
 
-    res.render('main', {
+    res.render('', {
       allArticles: allArt,
     });
   } catch (err) {

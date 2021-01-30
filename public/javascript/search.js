@@ -2,10 +2,9 @@
 
 const searchForm = document.querySelector('#searchForm');
 const listArticle = document.querySelectorAll('.list-article a');
-const btnSearch = document.querySelector('.btn-search');
 const divArticle = document.querySelector('.list-article');
 
-async function searchArticle(req, res) {
+export default async function searchArticle(req, res) {
   const searchText = searchForm.value.trim().replace(/ /g, '+');
 
   try {
@@ -43,7 +42,6 @@ async function searchArticle(req, res) {
 }
 
 // searchForm.addEventListener('input', searchArticle);
-btnSearch.addEventListener('click', searchArticle);
 
 /* if (searchText !== '') {
   listArticle.forEach((element) => {

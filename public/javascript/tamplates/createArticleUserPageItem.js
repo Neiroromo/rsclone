@@ -1,4 +1,4 @@
-export default function createArticleItem(name, desc) {
+export default function createArticleUserPageItem(name, desc) {
   const articleHTML = `<li class=" list-group-item article-item" data-articleID="${name}" >
       <input type="checkbox" class="col-1 article-checkbox" >
       <div class="col-2 article-name open-article-elem">

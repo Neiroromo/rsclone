@@ -1,4 +1,4 @@
-import addArticleListToDOM from './index.js';
+import pageRender from './page-render.js';
 
 const listItemBehavior = {
   articlesID: [],
@@ -115,7 +115,7 @@ const listItemBehavior = {
       bubbles: true,
     });
     document.querySelector('.dismiss-delete-btn').dispatchEvent(click);
-    addArticleListToDOM();
+    pageRender.articlesUserPageAddToDOM();
     this.changeSelectingState();
   },
   openArticle(e) {
