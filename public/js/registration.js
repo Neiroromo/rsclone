@@ -19,20 +19,19 @@ async function regUser() {
     email: emailReg,
   };
 
-  console.log(userReg);
-  console.log(JSON.stringify(userReg));
+  // console.log(userReg);
+  // console.log(JSON.stringify(userReg));
 
   try {
     const response = await fetch(regAPI, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(userReg),
-    });
-
-    const regResult = response.json();
-    console.log(regResult);
+    }).then((res) => res.json());
+    localStorage.setItem('userName', response.data.user.name);
+    localStorage.setItem('userID', response.data.user._id);
   } catch (err) {
     alert(err);
   }
