@@ -1,39 +1,16 @@
 <div class="mt-5">
-    <div class="list-article">
-      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Article 1</h5>
-          <small>Author</small>
-          
-        </div>
-        <p class="mb-1">Donec id elit non mi porta gravida at eget metus.</p>
-        
-      </a>
-      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Article 2</h5>
-          <small>Author</small>
-          
-        </div>
-        <p class="mb-1">Donec id elit.</p>
-        
-      </a>
-      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Article 3</h5>
-          <small>Author</small>
-          
-        </div>
-        <p class="mb-1">Maecenas sed diam eget risus varius blandit.</p>
-        
-      </a>
-      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Article 4</h5>
-          <small>Author</small>
-          
-        </div>
-        <p class="mb-1">Risus varius blandit.</p>
-        
-      </a>
-    </div>
+  <div class="list-article">
+
+    <% for(let i = 0; i < allArticles.length; i += 1) {%>
+
+     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
+       <div class="d-flex w-100 justify-content-between">
+         <h5 class="mb-1"><%=allArticles[i].name %></h5>
+         <small><%=allArticles[i].author %></small>
+       </div>
+       <p class="mb-1"><%=allArticles[i].desc %></p>
+     </a>
+
+    <%} %>
+  </div>
+</div>
