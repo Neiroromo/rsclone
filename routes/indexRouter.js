@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
     const result = await fetch(urlAllArticles);
     const data = await result.json();
     const allArt = data.data.articles;
+    console.log(allArt);
 
     res.render('main', {
       allArticles: allArt,
