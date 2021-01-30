@@ -1,4 +1,4 @@
-//const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 const searchForm = document.querySelector('#searchForm');
 const listArticle = document.querySelectorAll('.list-article a');
@@ -34,19 +34,18 @@ async function searchArticle(req, res) {
                                 </a>`;
     }
 
-    /*res.render('articles', {
+    /* res.render('articles', {
       allArticles: allArt,
-    });*/
+    }); */
   } catch (err) {
     console.log(err);
   }
 }
 
-//searchForm.addEventListener('input', searchArticle);
+// searchForm.addEventListener('input', searchArticle);
 btnSearch.addEventListener('click', searchArticle);
 
-
-/*if (searchText !== '') {
+/* if (searchText !== '') {
   listArticle.forEach((element) => {
     if (element.textContent.toLowerCase().search(searchText) === -1) {
       element.classList.add('hide-article');
@@ -58,4 +57,4 @@ btnSearch.addEventListener('click', searchArticle);
   listArticle.forEach((element) => {
     element.classList.remove('hide-article');
   });
-}*/
+} */

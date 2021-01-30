@@ -31,8 +31,8 @@ async function regUser() {
       body: JSON.stringify(userReg),
     });
 
-    const regResult = await response.json();
-    alert(regResult.message);
+    const regResult = response.json();
+    console.log(regResult);
   } catch (err) {
     alert(err);
   }
