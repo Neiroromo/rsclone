@@ -56,12 +56,17 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   if (!req.body.email || !req.body.password) {
     console.log('wtd');
     return next(
       new AppError('Пожалуйста введите коректную почту и пароль', 400)
     );
   }
+
+  const { password } = req.body;
+  const { email } = req.body;
+
   const user = await User.findOne({ email }).select('+password');
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Неправильный логин или пароль', 401));
