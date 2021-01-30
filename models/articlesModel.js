@@ -2,28 +2,43 @@ const mongoose = require('mongoose');
 // const validator = require('validator');
 
 const articlesSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    dropDups: true,
+  articleID: {
+    type: Number,
     required: true,
-    minlength: 6,
-    maxlength: 25,
-    unique: true,
     trim: true,
   },
-  description: {
-    type: String,
+  authorID: {
+    type: Number,
+    required: true,
+    trim: true,
   },
-  author: {
+  userChangedID: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  title: {
     type: String,
     required: true,
-    minlength: 6,
+    trim: true,
   },
-  category: {
+  desc: {
     type: String,
+    required: true,
+    trim: true,
   },
-  views: {
+  data: {
+    type: Object,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+  changes: {
     type: Number,
+    required: true,
+    trim: true,
   },
   article: Object,
 });

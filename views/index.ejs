@@ -3,14 +3,51 @@
 
 <head>
   <title></title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="shortcut icon" href="#" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" defer></script>
+
+  <link rel='stylesheet' href='/stylesheets/neiroromo-main.css' />
+  <link rel='stylesheet' href='/stylesheets/neiroromo-reset.css' />
+  <script type="module" src="/javascript/index.js"></script>
+  <script type="module" src="/javascript/profile-btn-listeners.js"></script>
+  <script type="module" src="/javascript/list-items.behavior.js"></script>
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+  <!-- <script type="module" src="editor.js"></script> -->
 </head>
 
 <body>
-  <h1></h1>
-  <p>Welcomeee to</p>
-  <button type="button" class="btn btn-primary">Primary</button>
-</body>
+  <%#- include('user-profile/base', {
+    userName: 'test',
+    changeUserNameBtnTitle: 'изменить ник',
+    changePasswordBtnTitle: 'изменить пароль',
+    deleteUserBtnTitle: 'удалить профиль',
+    createBtnTitle: 'создать',
+    deleteBtnTitle: 'удалить',
+    closeBtnLabel: 'закрыть',
+    saveBtnLabel: 'сохранить',
+    deleteBtnLabel: 'удалить',
+    deleteUserDataModalLabel: 'Удаление информации профиля',
+    deleteUserDataModalBody: 'Данное действие удалит профиль и все связанные с ним статьи',
+    deleteArticleModalLabel: 'Удаление статьи',
+    deleteArticleModalBody: 'Данное действие удалит выбранные статьи.' 
+  })#%>
 
+  <%#- include('article-viewer/base')#%>
+
+</body>
 </html>

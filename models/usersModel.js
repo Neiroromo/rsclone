@@ -18,28 +18,28 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'Пожалуйста введите пароль'],
     minlength: 8,
     select: false,
   },
   passwordConfirm: {
     type: String,
-    required: true,
+    required: [true, 'Вы забыли ввести пароль подтверждения'],
     validate: {
       validator(val) {
         return val === this.password;
       },
-      message: 'wrong confirm password',
+      message: 'Пароль подверждения не совпадает',
     },
   },
   email: {
     type: String,
     lowercase: true,
-    required: true,
+    required: [true, 'Пожалуйста введите почту!'],
     minlength: 5,
     maxlength: 20,
     unique: true,
-    validate: [validator.isEmail, 'please provie a valid email adress'],
+    validate: [validator.isEmail, 'Введена не валидная почта'],
   },
   photo: {
     type: String,

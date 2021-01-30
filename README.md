@@ -1,7 +1,7 @@
 # codewars
 
 - [figma](https://www.figma.com/file/avcglC7Kg0KGlazPiuOJhu/clonewars)
-- [db](https://dbdesigner.page.link/cKo6h3y71Kt9VGow7)
+- [db](https://dbdesigner.page.link/bgAjNBakaH7jQhZS6)
 - [trello](https://trello.com/invite/b/Hn0x0n3i/8a11d078bbabad748e3e68293925225c/clonewars)
 # literature 
 - [Node.js] - (https://rutracker.org/forum/viewtopic.php?t=5619478) - Описание:  создаются прототипы www.instapaper.com , www.getpocket.com. прогресс: 80/400.
