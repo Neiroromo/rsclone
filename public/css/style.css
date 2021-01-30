@@ -1,3 +1,45 @@
 .class {
-    color: blue
+  color: blue
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+header {
+  background-color: #C4C4C4;
+  ;
+}
+
+.hide-modal,
+.hide-article {
+  display: none;
+}
+
+#linkSignin,
+#linkLogin {
+  border: none;
+  text-decoration: underline;
+  background-color: #FFFFFF;
+  color: #1057E1;
+  ;
+}
+
+.btn-confirm {
+  background-color: #A4ECB0 !important;
+  color: #000000 !important;
+  border: none;
+}
+
+.btn:focus {
+  outline: 0 !important;
+}
+
+.pagination {
+  justify-content: center;
 }
