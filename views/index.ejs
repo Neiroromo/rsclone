@@ -31,7 +31,7 @@
 </head>
 
 <body>
-  <%- include('user-profile/base', {
+  <%#- include('user-profile/base', {
     userName: 'test',
     changeUserNameBtnTitle: 'изменить ник',
     changePasswordBtnTitle: 'изменить пароль',
@@ -45,7 +45,9 @@
     deleteUserDataModalBody: 'Данное действие удалит профиль и все связанные с ним статьи',
     deleteArticleModalLabel: 'Удаление статьи',
     deleteArticleModalBody: 'Данное действие удалит выбранные статьи.' 
-  })%>
+  })#%>
+
+  <%- include('article-viewer/base')%>
 
 </body>
 </html>

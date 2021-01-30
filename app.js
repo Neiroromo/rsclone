@@ -24,7 +24,7 @@ const AppError = require('./utils/appError');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(morgan('combined'));
+// app.use(morgan('combined')); !!важно
 app.use(
   '/css',
   express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css'))
