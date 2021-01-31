@@ -10,6 +10,8 @@ const pageRender = {
   mainPageArticlesContainer: document.querySelector('.list-article'),
   pageNumber: 1,
   articlesLimitOnPage: 10,
+  numberOfArticles: null,
+  numberOfUserArticles: null,
   userName: '',
   userID: '',
   clearCurrantPage() {
