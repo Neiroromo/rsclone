@@ -17,7 +17,7 @@ const pageRender = {
   mainPageArticlesContainer: '',
   userPageArticleListContainer: '',
   pageNumber: 1,
-  articlesLimitOnPage: 2,
+  articlesLimitOnPage: 1,
   numberOfArticles: null,
   maxPagesCount: null,
   searchTitle: '',
@@ -122,10 +122,12 @@ const pageRender = {
   },
 
   async getMaxArticleCount() {
-    const userID = this.userID;
+    const userID = loginCheck.userID;
+    let title = '';
     if (userID === '') userID = '*';
+    // if (this.searchTitle !== '') title = `?title=${this.searchTitle}`;
     console.log(userID);
-    const url = `http://localhost:8000/api/v1/articles/${userID}`;
+    const url = `http://localhost:8000/api/v1/articles${title}/${userID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     this.numberOfArticles = res.maxCount;
     this.maxPagesCount = Math.ceil(

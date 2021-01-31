@@ -45,6 +45,11 @@ export default function createArticlePage() {
                        </tr>
                        </thead>
                        <tbody class="changed-articles">
+                       <tr data-changedArticleID="">
+    <td>Пользователь</td>
+    <td>12-12-1231</td>
+    <td class="">321</td>
+  </tr>
                        </tbody>
                    </table>
                </div>

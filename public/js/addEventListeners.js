@@ -1,14 +1,6 @@
 import pageRender from './page-render.js';
 import editor from './editor.behavior.js';
 import listItemBehavior from './list-items.behavior.js';
-// eslint-disable-next-line import/no-cycle
-import {
-  showPreviousPage,
-  showNextPage,
-  showFirstPage,
-  showLastPage,
-} from './pagination.js';
-import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
 import loginCheck from './loginCheck.js';
 import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
 import changeBtnAvailable from './pagination.js';
