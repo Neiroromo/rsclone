@@ -1,4 +1,4 @@
-import loginProfile from './loginExitProfile.js';
+import { loginProfile } from './loginExitProfile.js';
 
 const btnRegister = document.querySelector('#btnReg');
 const regLogin = document.querySelector('#regLogin');
@@ -31,6 +31,7 @@ export default async function regUser() {
       },
       body: JSON.stringify(userReg),
     }).then((res) => res.json());
+    console.log(response);
     localStorage.setItem('userName', response.data.user.name);
     localStorage.setItem('userID', response.data.user._id);
     loginProfile(response.data.user.name);

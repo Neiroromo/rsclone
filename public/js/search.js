@@ -1,14 +1,13 @@
 // const fetch = require('node-fetch');
 
-const searchForm = document.querySelector('#searchForm');
-const listArticle = document.querySelectorAll('.list-article a');
-const divArticle = document.querySelector('.list-article');
-
-export default async function searchArticle(req, res) {
+export default async function searchArticle() {
+  const searchForm = document.querySelector('#searchForm');
+  const divArticle = document.querySelector('.list-article');
   const searchText = searchForm.value.trim().replace(/ /g, '+');
 
   try {
     let urlSearch;
+
     divArticle.innerHTML = '';
     if (searchText !== '') {
       urlSearch = `http://localhost:8000/api/v1/articles?title=${searchText}`;
@@ -27,7 +26,7 @@ export default async function searchArticle(req, res) {
       divArticle.innerHTML += `<a href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-1 mb-1">
                                     <div class="d-flex w-100 justify-content-between">
                                       <h5 class="mb-1">${allArt[i].title}</h5>
-                                      <small>${allArt[i].author}</small>
+                                      <small>${allArt[i].authorID}</small>
                                     </div>
                                   <p class="mb-1">${allArt[i].desc}</p>
                                 </a>`;

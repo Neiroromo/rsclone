@@ -1,5 +1,5 @@
 // const btnAuth = document.querySelector('#btnAuth');
-import loginProfile from './loginExitProfile.js';
+import { loginProfile } from './loginExitProfile.js';
 
 const authEmail = document.querySelector('#authEmail');
 const authPassword = document.querySelector('#authPassword');
@@ -18,26 +18,24 @@ export default async function authUser() {
   console.log(userAuth);
   console.log(JSON.stringify(userAuth));
 
-  
-    const response = await fetch(authAPI, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(userAuth),
-    }).then((res) => res.json()).catch((error) => error.json());
-    
-    if (response.status === 'fail') {
-      console.log(response.message);
-    } else {
-      const dataUser = response.data.user.name;
+  const response = await fetch(authAPI, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(userAuth),
+  })
+    .then((res) => res.json())
+    .catch((error) => error.json());
+
+  if (response.status === 'fail') {
+    console.log(response.message);
+  } else {
+    const dataUser = response.data.user.name;
     localStorage.setItem('userName', dataUser);
     localStorage.setItem('userID', response.data.user._id);
     loginProfile(dataUser);
-    }
-    
-  
-  
+  }
 }
 
 // btnAuth.addEventListener('click', authUser);

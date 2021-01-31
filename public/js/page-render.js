@@ -7,6 +7,7 @@ const pageRender = {
   pageState: 'read',
   pageContainer: document.querySelector('body'),
   renderContainer: document.querySelector('main'),
+  mainPageArticlesContainer: document.querySelector('.list-article'),
   articlesLimitOnPage: 10,
   userName: '',
   userID: '',
