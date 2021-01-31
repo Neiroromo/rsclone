@@ -1,90 +1,52 @@
 import pageRender from './page-render.js';
-import addListeners from './addEventListeners.js';
-import listItemBehavior from './list-items.behavior.js';
-import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
 
-let currentPage = pageRender.pageNumber;
+export default function changeBtnAvailable() {
+  console.log('123', pageRender.pageNumber, pageRender.maxPagesCount);
+  if (pageRender.pageNumber <= 1) {
+    if (pageRender.maxPagesCount === 1) {
+      document.querySelector('.first-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.prev-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.next-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.last-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.first-page').childNodes[1].classList.remove('font-weight-bold');
+      document.querySelector('.prev-page').childNodes[1].classList.remove('font-weight-bold');
+      document.querySelector('.next-page').childNodes[1].classList.remove('font-weight-bold');
+      document.querySelector('.last-page').childNodes[1].classList.remove('font-weight-bold');
+    } else {
+      document.querySelector('.first-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.prev-page').classList.add('disabled', 'unclickable');
+      document.querySelector('.first-page').childNodes[1].classList.remove('font-weight-bold');
+      document.querySelector('.prev-page').childNodes[1].classList.remove('font-weight-bold');
 
+      document.querySelector('.last-page').classList.remove('disabled', 'unclickable');
+      document.querySelector('.next-page').classList.remove('disabled', 'unclickable');
+      document.querySelector('.last-page').childNodes[1].classList.add('font-weight-bold');
+      document.querySelector('.next-page').childNodes[1].classList.add('font-weight-bold');
+    }
+    document.querySelector('.current-page').innerHTML = '1';
+  } else if (pageRender.pageNumber >= pageRender.maxPagesCount) {
+    document.querySelector('.next-page').classList.add('disabled', 'unclickable');
+    document.querySelector('.last-page').classList.add('disabled', 'unclickable');
+    document.querySelector('.next-page').childNodes[1].classList.remove('font-weight-bold');
+    document.querySelector('.last-page').childNodes[1].classList.remove('font-weight-bold');
 
-// function getMainArticles () {
-//   listItemBehavior.getArticlesList('*', currentPage, pageRender.articlesLimitOnPage)
-//     .then((res) => {
-//       const articles = Object.values(res);
-//       articles.forEach((article) => {
-//         const {
-//           title,
-//           desc,
-//           authorID
-//         } = article;
-//         const DOMElement = pageRender.getDOMElemets(
-//           createArticleMainPageItem(title, authorID, desc)
-//         );
-//         console.log(pageRender.mainPageArticlesContainer);
-//         document.querySelector('.list-article').append(DOMElement);
-//       });
-//     });
-// }
+    document.querySelector('.first-page').classList.remove('disabled', 'unclickable');
+    document.querySelector('.prev-page').classList.remove('disabled', 'unclickable');
+    document.querySelector('.first-page').childNodes[1].classList.add('font-weight-bold');
+    document.querySelector('.prev-page').childNodes[1].classList.add('font-weight-bold');
 
-export function showPreviousPage(actPage) {
-  currentPage -= 1;
-
-  actPage.innerHTML = `${currentPage}`;
-  console.log(currentPage);
-  document.querySelector('.list-article').innerHTML = '';
-  getMainArticles();
-}
-
-export function showNextPage(actPage) {
-  currentPage += 1;
-
-  actPage.innerHTML = `${currentPage}`;
-
-  console.log(currentPage);
-  document.querySelector('.list-article').innerHTML = '';
-
-  getMainArticles();
-}
-
-export function showFirstPage(actPage) {
-  currentPage = 1;
-
-  actPage.innerHTML = `${currentPage}`;
-
-  console.log(currentPage);
-  document.querySelector('first-page').classList.add('.disabled');
-  document.querySelector('prev-page').classList.add('.disabled');
-
-  /*if (currentPage !== 1) {
-    document.querySelector('first-page').classList.remove('.disabled');
-    document.querySelector('prev-page').classList.remove('.disabled');
+    document.querySelector('.current-page').innerHTML = `${pageRender.maxPagesCount}`;
   } else {
-    document.querySelector('first-page').classList.add('.disabled');
-    document.querySelector('prev-page').classList.add('.disabled');
-  }*/
+    document.querySelector('.first-page').classList.remove('disabled', 'unclickable');
+    document.querySelector('.prev-page').classList.remove('disabled', 'unclickable');
+    document.querySelector('.next-page').classList.remove('disabled', 'unclickable');
+    document.querySelector('.last-page').classList.remove('disabled', 'unclickable');
 
-  document.querySelector('.list-article').innerHTML = '';
-  getMainArticles();
-}
+    document.querySelector('.first-page').childNodes[1].classList.add('font-weight-bold');
+    document.querySelector('.prev-page').childNodes[1].classList.add('font-weight-bold');
+    document.querySelector('.next-page').childNodes[1].classList.add('font-weight-bold');
+    document.querySelector('.last-page').childNodes[1].classList.add('font-weight-bold');
 
-export function showLastPage(countArticles, actPage) {
-  const countPages = Math.ceil(countArticles / pageRender.articlesLimitOnPage);
-  currentPage = countPages;
-
-  actPage.innerHTML = `${currentPage}`;
-  console.log(currentPage);
-  document.querySelector('last-page').classList.add('.disabled');
-  document.querySelector('next-page').classList.add('.disabled');
-
-  /*if (currentPage !== 1) {
-    document.querySelector('first-page').classList.remove('.disabled');
-    document.querySelector('prev-page').classList.remove('.disabled');
-  } else {
-    document.querySelector('first-page').classList.add('.disabled');
-    document.querySelector('prev-page').classList.add('.disabled');
-  }*/
-
-  document.querySelector('.list-article').innerHTML = '';
-
-  getMainArticles();
-  return currentPage;
-}
+    document.querySelector('.current-page').innerHTML = `${pageRender.pageNumber}`;
+  }
+};

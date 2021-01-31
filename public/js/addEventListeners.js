@@ -8,13 +8,8 @@ import {
 } from './loginExitProfile.js';
 import authUser from './authorization.js';
 // eslint-disable-next-line import/no-cycle
-import {
-  showPreviousPage,
-  showNextPage,
-  showFirstPage,
-  showLastPage
-} from './pagination.js';
 import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
+import changeBtnAvailable from './pagination.js'
 
 
 function changeModalInner(settingsType) {
@@ -37,6 +32,7 @@ function clickListeners(e) {
   if (
     target.nodeName === 'SPAN' ||
     target.nodeName === 'TD' ||
+    target.classList.contains('page-link') ||
     target.classList.contains('mb-1')
   ) {
     target = target.parentNode;
@@ -45,7 +41,8 @@ function clickListeners(e) {
   while (target.hasAttribute('unclickable')) {
     target = target.parentNode;
   }
-  if (target.nodeName === 'TH') return;
+  if (target.nodeName === 'TH' || target.classList.contains('unclickable')) return;
+  console.log(target);
   // main btns
   const loginForm = document.querySelector('.login');
   const signinForm = document.querySelector('.signin');
@@ -166,14 +163,8 @@ function clickListeners(e) {
 
   // pagination
   if (target.classList.contains('first-page')) {
-    showFirstPage(currPage);
-  }
-  if (target.classList.contains('prev-page')) {
-    showPreviousPage(currPage);
-  }
-  if (target.classList.contains('next-page')) {
-    //showNextPage(currPage);
-    pageRender.pageNumber += 1;
+    pageRender.pageNumber = 1;
+    console.log(pageRender.pageNumber);
     if (pageRender.currentPage === 'main') {
       pageRender.mainPageArticlesContainer.innerHTML = '';
       pageRender.articlesManePageAddToDOM();
@@ -181,9 +172,53 @@ function clickListeners(e) {
       pageRender.userPageArticleListContainer.innerHTML = '';
       pageRender.articlesUserPageAddToDOM();
     }
+    changeBtnAvailable();
+  }
+  if (target.classList.contains('prev-page')) {
+    if (pageRender.pageNumber <= 1) {
+      pageRender.pageNumber = 1;
+    } else {
+      pageRender.pageNumber -= 1;
+    }
+    console.log(pageRender.pageNumber);
+    if (pageRender.currentPage === 'main') {
+      pageRender.mainPageArticlesContainer.innerHTML = '';
+      pageRender.articlesManePageAddToDOM();
+    } else if (pageRender.currentPage === 'userProfile') {
+      pageRender.userPageArticleListContainer.innerHTML = '';
+      pageRender.articlesUserPageAddToDOM();
+    }
+    changeBtnAvailable();
+  }
+  if (target.classList.contains('next-page')) {
+   
+    if (pageRender.pageNumber >= pageRender.maxPagesCount) {
+      pageRender.pageNumber = pageRender.maxPagesCount;
+    } else {
+      pageRender.pageNumber += 1;
+    }    
+    console.log(pageRender.pageNumber);
+    if (pageRender.currentPage === 'main') {
+      pageRender.mainPageArticlesContainer.innerHTML = '';
+      pageRender.articlesManePageAddToDOM();
+    } else if (pageRender.currentPage === 'userProfile') {
+      pageRender.userPageArticleListContainer.innerHTML = '';
+      pageRender.articlesUserPageAddToDOM();
+    }
+    changeBtnAvailable();
   }
   if (target.classList.contains('last-page')) {
-    showLastPage(10, currPage);
+    
+    pageRender.pageNumber = pageRender.maxPagesCount;
+    console.log(pageRender.pageNumber);
+    if (pageRender.currentPage === 'main') {
+      pageRender.mainPageArticlesContainer.innerHTML = '';
+      pageRender.articlesManePageAddToDOM();
+    } else if (pageRender.currentPage === 'userProfile') {
+      pageRender.userPageArticleListContainer.innerHTML = '';
+      pageRender.articlesUserPageAddToDOM();
+    }
+    changeBtnAvailable();
   }
 }
 

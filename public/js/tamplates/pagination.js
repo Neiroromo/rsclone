@@ -3,10 +3,10 @@ export default function createPagination() {
     <nav aria-label="..." class="mt-5">
       <ul class="pagination">
         <li class="page-item disabled first-page">
-          <span class="page-link">&#60;&#60;</span>
+          <span class="page-link text-dark">&#60;&#60;</span>
         </li>
         <li class="page-item disabled prev-page">
-          <a class="page-link text-dark" href="#">
+          <a class="page-link text-dark">
             &#60;
           </a>
         </li>
@@ -15,13 +15,13 @@ export default function createPagination() {
             1<span class="sr-only btn-confirm">(current)</span>
           </span>
         </li>
-        <li class="page-item">
-          <a class="page-link text-dark font-weight-bold next-page" href="#">
+        <li class="page-item next-page">
+          <a class="page-link text-dark font-weight-bold">
             &#62;
           </a>
         </li>
-        <li class="page-item">
-          <a class="page-link text-dark font-weight-bold last-page" href="#">
+        <li class="page-item last-page">
+          <a class="page-link text-dark font-weight-bold">
             &#62;&#62;
           </a>
         </li>

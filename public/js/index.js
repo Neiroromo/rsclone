@@ -8,4 +8,5 @@ addListeners();
 // window.onbeforeunload = function () {
 //   return 'Данное действие приведет к ошибке. Если вы хотите вернуть на главную страницу, то перезагрузите вкладку';
 // };
-pageRender.getMaxArticleCount();
+
+
