@@ -185,7 +185,7 @@ const listItemBehavior = {
     if (author === '*') {
       author = '';
     } else {
-      author = `author=${author}&`;
+      author = `authorID=${author}&`;
     }
     if (page === '*' || page === 0) {
       page = '';

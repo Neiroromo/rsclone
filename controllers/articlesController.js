@@ -66,9 +66,11 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 
 exports.createArticle = catchAsync(async (req, res) => {
   console.log(`createArticle`);
+
   const token = req.cookies.jwt;
   const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
   const currentUser = await User.findById(decoded.id);
+
   const userChangedID = currentUser._id;
   const { fileSize } = req.body;
   let { articleID } = req.body;
