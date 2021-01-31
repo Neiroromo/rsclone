@@ -5,8 +5,9 @@ const logger = require('morgan');
 const usersRouter = require('./routes/usersRouter');
 const indexRouter = require('./routes/indexRouter');
 const articlesRouter = require('./routes/articlesRouter');
-// const globalErrorHandler = require('./controllers/errorController');
 const cors = require('cors');
+// const globalErrorHandler = require('./controllers/errorController');
+// const AppError = require('./utils/appError');
 
 const app = express();
 const corsOptions = {
@@ -16,15 +17,9 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions));
-
-const morgan = require('morgan');
-// const globalErrorHandler = require('./controllers/errorController');
-const AppError = require('./utils/appError');
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// app.use(morgan('combined')); !!важно
+app.use(cors(corsOptions));
 app.use(
   '/css',
   express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css'))
@@ -39,12 +34,11 @@ app.use(
   express.static(path.join(__dirname, 'node_modules/jquery/dist'))
 );
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger('dev'));
 app.use(cookieParser());
 
-// app.use("/api/v1/articles", articlesRouter);
 app.get('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/articles', articlesRouter);
@@ -55,8 +49,8 @@ app.all('*', (req, res, next) => {
     message: 'Такой ссылки не существует!',
   });
 });
-// app.use(globalErrorHandler);
 
+// app.use(globalErrorHandler);
 app.use((err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
