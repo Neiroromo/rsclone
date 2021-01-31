@@ -78,6 +78,7 @@ const pageRender = {
       )
       .then((res) => {
         const articles = Object.values(res);
+        this.mainPageArticlesContainer.innerHTML = '';
         articles.forEach((article) => {
           const { title, desc, authorID, _id } = article;
           console.log('прверка: ', title, desc, authorID, _id);

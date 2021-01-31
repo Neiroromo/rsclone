@@ -82,7 +82,8 @@ function clickListeners(e) {
   }
   if (target.classList.contains('btn-search')) {
     pageRender.searchTitle = document.querySelector('#searchForm').value.trim();
-    searchArticle();
+    // searchArticle();
+    pageRender.articlesManePageAddToDOM();
   }
   if (target.classList.contains('mainPage-openArticle-btn')) {
     editor.articleID = target.getAttribute('data-articleID');
