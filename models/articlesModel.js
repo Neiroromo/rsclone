@@ -8,7 +8,7 @@ const articlesSchema = new mongoose.Schema({
     trim: true,
   },
   authorID: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },

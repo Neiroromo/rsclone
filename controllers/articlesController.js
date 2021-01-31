@@ -33,7 +33,12 @@ exports.showAllArticles = catchAsync(async (req, res) => {
   console.log(`showAllArticles: ${req.query}`);
   console.log(req.cookies.user);
   console.log(req.query);
-  const features = new APIFeatures(Article.find(), req.query)
+  const features = new APIFeatures(
+    Article.find({
+      title: { $regex: `${req.body.title}`, $options: 'i' },
+    }),
+    req.query
+  )
     .filter()
     .sort()
     .limitField()
@@ -47,25 +52,27 @@ exports.showAllArticles = catchAsync(async (req, res) => {
     data: {
       articles,
     },
-    message: 'you watch me!',
+    message: 'Все статьи',
     articles,
   });
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
   console.log(`createArticle`);
-
-  const { userChangedID, fileSize } = req.body;
+  const token = req.cookies.jwt;
+  const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
+  const currentUser = await User.findById(decoded.id);
+  const userChangedID = currentUser._id;
+  const { fileSize } = req.body;
   let { articleID } = req.body;
   let authorID;
   const changes = fileSize;
   if (articleID === null) {
-    // найти максимальный articleID в БД и articleID = maxDBArticleID + 1
-    articleID = 1; //!! изменить
-    authorID = userChangedID;
+    articleID =
+      (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID) + 1;
+    authorID = currentUser._id;
   } else {
-    // найти автора статьи с articleID
-    authorID = 'old author';
+    authorID = await Article.findById(articleID).authorID;
   }
 
   const articles = await Article.create({
@@ -84,6 +91,28 @@ exports.createArticle = catchAsync(async (req, res) => {
   res.json({
     status: 'OK',
     createdArticle: article,
+  });
+});
+
+exports.getMaxById = catchAsync(async (req, res, next) => {
+  console.log('hello');
+  let articles;
+  if (req.params.id === '*') {
+    articles = await Article.countDocuments({}, (err, count) => {
+      console.log('Number of docs: ', count);
+    });
+    console.log('hello1');
+  } else if (req.params.id) {
+    console.log(typeof req.params.id);
+    articles = await Article.find({
+      authorID: { $eq: req.params.id },
+    }).count((err, count) => {
+      console.log('Number of docs: ', count);
+    });
+  }
+
+  res.status(200).json({
+    maxCount: articles,
   });
 });
 
@@ -121,5 +150,6 @@ exports.deleteArticle = catchAsync(async (req, res) => {
   });
   res.status(201).json({
     status: 'success',
+    message: 'Выбранные статьи удалены!!!',
   });
 });

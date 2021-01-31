@@ -3,10 +3,10 @@ const regLogin = document.querySelector('#regLogin');
 const regPassword = document.querySelector('#regPassword');
 const regPasswordConfirm = document.querySelector('#regPasswordConfirm');
 const regEmail = document.querySelector('#regEmail');
-const regAPI = 'http://localhost:8000/api/v1/users/signup';
+const regAPI = 'http://127.0.0.1:8000/api/v1/users/signup';
 console.log(regAPI);
 
-async function regUser() {
+function regUser() {
   const nameReg = regLogin.value.trim().toLowerCase();
   const passwordReg = regPassword.value.trim();
   const passwordConfirmReg = regPasswordConfirm.value.trim();
@@ -19,23 +19,16 @@ async function regUser() {
     email: emailReg,
   };
 
-  console.log(userReg);
-  console.log(JSON.stringify(userReg));
-
-  try {
-    const response = await fetch(regAPI, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(userReg),
-    });
-
-    const regResult = response.json();
-    console.log(regResult);
-  } catch (err) {
-    alert(err);
-  }
+  const response = fetch(regAPI, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(userReg),
+  }).then((res) => {
+    console.log(res.json());
+  });
+  console.log(response);
 }
 
 btnRegister.addEventListener('click', regUser);
