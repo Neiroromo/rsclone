@@ -1,4 +1,5 @@
 import pageRender from './page-render.js';
+import loginCheck from './loginCheck.js';
 
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
@@ -10,12 +11,14 @@ const editor = {
   editor: undefined,
   editorOn: false,
   articleID: null,
+  pageState: 'read',
   saveBtn: document.querySelector('.open-save-modal'),
   discardBtn: document.querySelector('.open-discard-modal'),
   editBtn: document.querySelector('.switch-to-edit'),
   editorJSWorkspace: document.querySelector('.workspace__body'),
   titleInput: document.querySelector('.edit-article-title'),
   descTextAria: document.querySelector('#article-desc'),
+  changedArticlesContainer: document.querySelector('.changed-articles'),
   openedData: null,
   updatedVariables() {
     this.saveBtn = document.querySelector('.open-save-modal');
@@ -24,6 +27,7 @@ const editor = {
     this.editorJSWorkspace = document.querySelector('.workspace__body');
     this.titleInput = document.querySelector('.edit-article-title');
     this.descTextAria = document.querySelector('#article-desc');
+    this.changedArticlesContainer = document.querySelector('.changed-articles');
   },
   turnOnEditor() {
     this.saveBtn.classList.remove('d-none');
@@ -48,7 +52,7 @@ const editor = {
     this.editorOn = false;
   },
   saveArticle() {
-    const userChangedID = pageRender.userID;
+    const userChangedID = loginCheck.userID;
     const title = document.querySelector('.edit-article-title').value;
     const desc = document.querySelector('#article-desc').value;
     const date = new Date();
@@ -147,6 +151,7 @@ const editor = {
     });
     this.editor = editor;
   },
+  addChangedArticles() {},
 };
 
 export default editor;

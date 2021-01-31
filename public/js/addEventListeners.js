@@ -1,21 +1,16 @@
 import pageRender from './page-render.js';
 import editor from './editor.behavior.js';
 import listItemBehavior from './list-items.behavior.js';
-import regUser from './registration.js';
 import searchArticle from './search.js';
-import {
-  exitProfile
-} from './loginExitProfile.js';
-import authUser from './authorization.js';
 // eslint-disable-next-line import/no-cycle
 import {
   showPreviousPage,
   showNextPage,
   showFirstPage,
-  showLastPage
+  showLastPage,
 } from './pagination.js';
 import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
-
+import loginCheck from './loginCheck.js';
 
 function changeModalInner(settingsType) {
   const title = document.querySelector('#settingsTitle');
@@ -31,9 +26,7 @@ function changeModalInner(settingsType) {
 }
 
 function clickListeners(e) {
-  let {
-    target
-  } = e;
+  let { target } = e;
   if (
     target.nodeName === 'SPAN' ||
     target.nodeName === 'TD' ||
@@ -54,13 +47,8 @@ function clickListeners(e) {
   const btnLog = document.querySelector('#btnLog');
   const divProfile = document.querySelector('#divProfile');
   const btnUser = document.querySelector('.btn-user');
-  const btnExit = document.querySelector('#btnExit');
   const btnSubmit = document.querySelector('.submit-btn');
   const currPage = document.querySelector('.current-page');
-
-
-
-
 
   // лисенеры на начальной странице (main)
   if (target.classList.contains('link-login') || target.id === 'btnLog') {
@@ -68,18 +56,29 @@ function clickListeners(e) {
     loginForm.classList.remove('hide-modal');
     // regResultForm.classList.add("hide-modal");
   }
+
+  if (target.id === 'toMainPage') {
+    pageRender.renderNewPage('main');
+  }
   if (target.id === 'linkSignin') {
     loginForm.classList.add('hide-modal');
     signinForm.classList.remove('hide-modal');
   }
-  if (target.classList.contains('submit-btn')) {
-    authUser();
+  if (target.id === 'btnAuth') {
+    const email = document.querySelector('#authEmail').value;
+    const password = document.querySelector('#authPassword').value;
+    loginCheck.logIn(email, password);
   }
   if (target.id === 'btnExit') {
-    exitProfile();
+    loginCheck.logOut();
+    // exitProfile();
   }
   if (target.id === 'btnReg') {
-    regUser();
+    const name = document.querySelector('#regLogin').value;
+    const password = document.querySelector('#regPassword').value;
+    const passwordConfirm = document.querySelector('#regPasswordConfirm').value;
+    const email = document.querySelector('#regEmail').value;
+    loginCheck.registration(name, password, passwordConfirm, email);
   }
   if (target.classList.contains('btn-search')) {
     pageRender.searchTitle = document.querySelector('#searchForm').value.trim();
@@ -104,7 +103,11 @@ function clickListeners(e) {
     editor.saveArticle();
   }
   if (target.classList.contains('switch-to-edit')) {
-    editor.turnOnEditor();
+    if (loginCheck.isLoggedIn) {
+      editor.turnOnEditor();
+    } else {
+      alert('Для этого действия нужно войти');
+    }
   }
   if (target.classList.contains('hideShow-history')) {
     // const workspace = document.querySelector('.workspace');
@@ -155,10 +158,14 @@ function clickListeners(e) {
     listItemBehavior.selectArticle(e);
   }
   if (target.classList.contains('open-article-elem')) {
-    listItemBehavior.openArticle(e);
+    editor.articleID = listItemBehavior.getArticleID(e);
+    pageRender.renderNewPage('articlePage');
+    editor.pageState = 'read';
   }
   if (target.classList.contains('article-edit-btn')) {
-    listItemBehavior.editArticle(e);
+    editor.articleID = listItemBehavior.getArticleID(e);
+    editor.pageState = 'edit';
+    pageRender.renderNewPage('articlePage');
   }
   if (target.classList.contains('article-delete-btn')) {
     listItemBehavior.addIDToStack(e);

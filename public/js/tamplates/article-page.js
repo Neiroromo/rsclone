@@ -44,17 +44,7 @@ export default function createArticlePage() {
                            <th>Изменения</th>
                        </tr>
                        </thead>
-                       <tbody>
-                       <tr data-changedArticleID="123">
-                           <td>Пример</td>
-                           <td>14.02.1992</td>
-                           <td class="text-success">+342байт</td>
-                       </tr>
-                       <tr data-changedArticleID="321">
-                           <td>Пример 2</td>
-                           <td>14.02.1994</td>
-                           <td class="text-danger">-342байт</td>
-                       </tr>
+                       <tbody class="changed-articles">
                        </tbody>
                    </table>
                </div>

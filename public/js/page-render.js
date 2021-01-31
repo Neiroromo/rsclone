@@ -7,10 +7,10 @@ import createArticlePage from './tamplates/article-page.js';
 import editor from './editor.behavior.js';
 import createUserPage from './tamplates/user-page.js';
 import createArticleUserPageItem from './tamplates/createArticleUserPageItem.js';
+import loginCheck from './loginCheck.js';
 
 const pageRender = {
   currentPage: 'main',
-  pageState: 'read',
   pageContainer: document.querySelector('body'),
   renderContainer: document.querySelector('main'),
   mainPageArticlesContainer: '',
@@ -19,8 +19,6 @@ const pageRender = {
   articlesLimitOnPage: 1,
   numberOfArticles: null,
   maxPagesCount: null,
-  userName: 'alexis',
-  userID: '60131e1bc27be51d5896e5be',
   searchTitle: '',
   clearCurrantPage() {
     this.renderContainer.innerHTML = '';
@@ -44,6 +42,7 @@ const pageRender = {
       this.mainPageArticlesContainer = document.querySelector('.list-article');
       this.pageNumber = 1;
       this.articlesManePageAddToDOM();
+      editor.pageState = 'read';
     }
     if (pagaName === 'userProfile') {
       const userPageDOM = this.getDOMElemets(createUserPage());
@@ -54,6 +53,7 @@ const pageRender = {
       );
       this.pageNumber = 1;
       this.articlesUserPageAddToDOM();
+      editor.pageState = 'read';
     }
     if (pagaName === 'articlePage') {
       const articlePageDOM = this.getDOMElemets(createArticlePage());
@@ -70,7 +70,12 @@ const pageRender = {
   },
   articlesManePageAddToDOM() {
     listItemBehavior
-      .getArticlesList('*', this.pageNumber, this.articlesLimitOnPage, this.searchTitle)
+      .getArticlesList(
+        '*',
+        this.pageNumber,
+        this.articlesLimitOnPage,
+        this.searchTitle
+      )
       .then((res) => {
         const articles = Object.values(res);
         articles.forEach((article) => {
@@ -87,12 +92,12 @@ const pageRender = {
     console.log('enter in addArticleListToDOM');
     console.log(
       'data: ',
-      this.userID,
+      loginCheck.userID,
       this.pageNumber,
       this.articlesLimitOnPage
     );
     let articles = await listItemBehavior.getArticlesList(
-      this.userID,
+      loginCheck.userID,
       this.pageNumber,
       this.articlesLimitOnPage
     );
@@ -115,8 +120,10 @@ const pageRender = {
     const url = `http://localhost:8000/api/v1/articles/${userID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     this.numberOfArticles = res.maxCount;
-    this.maxPagesCount = Math.ceil(this.numberOfArticles / this.articlesLimitOnPage);
-  }
+    this.maxPagesCount = Math.ceil(
+      this.numberOfArticles / this.articlesLimitOnPage
+    );
+  },
 };
 
 export default pageRender;
