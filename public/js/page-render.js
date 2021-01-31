@@ -19,8 +19,8 @@ const pageRender = {
   articlesLimitOnPage: 10,
   numberOfArticles: null,
   numberOfUserArticles: null,
-  userName: '',
-  userID: '',
+  userName: 'alexis',
+  userID: '60131e1bc27be51d5896e5be',
   clearCurrantPage() {
     this.renderContainer.innerHTML = '';
   },
@@ -73,6 +73,7 @@ const pageRender = {
         const articles = Object.values(res);
         articles.forEach((article) => {
           const { title, desc, authorID, _id } = article;
+          console.log('прверка: ', title, desc, authorID, _id);
           const DOMElement = pageRender.getDOMElemets(
             createArticleMainPageItem(title, authorID, desc, _id)
           );
@@ -82,11 +83,18 @@ const pageRender = {
   },
   async articlesUserPageAddToDOM() {
     console.log('enter in addArticleListToDOM');
+    console.log(
+      'data: ',
+      this.userID,
+      this.pageNumber,
+      this.articlesLimitOnPage
+    );
     let articles = await listItemBehavior.getArticlesList(
       this.userID,
       this.pageNumber,
       this.articlesLimitOnPage
     );
+    console.log('dannie : ', articles);
     articles = Object.values(articles);
     console.log('данны в рендере', articles);
     this.userPageArticleListContainer.innerHTML = '';
