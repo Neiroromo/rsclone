@@ -193,6 +193,8 @@ const listItemBehavior = {
     } else {
       page = `page=${page}&limit=${limitOnPage}`;
     }
+    if (title === undefined) title = '';
+    console.log(author, page, limitOnPage, title);
     const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=${title}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     console.log(res);
