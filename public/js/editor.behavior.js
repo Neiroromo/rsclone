@@ -67,7 +67,7 @@ const editor = {
         };
         const fileSize = lengthInUtf8Bytes(JSON.stringify(toCompare));
         const save = {
-          articleID: this.articleID,
+          _id: this.articleID,
           userChangedID,
           title,
           desc,
@@ -115,15 +115,16 @@ const editor = {
           class: Header,
           inlineToolbar: true,
         },
-        image: {
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: 'http://localhost:8000/api/v1/articles/upload',
-              byUrl: 'http://localhost:8000/fetchUrl',
-            },
-          },
-        },
+        // image: {
+        //   class: ImageTool,
+        //   config: {
+        //     endpoints: {
+        //       byFile: 'http://localhost:8000/api/v1/articles/upload',
+        //       byUrl: 'http://localhost:8000/fetchUrl',
+        //     },
+        //   },
+        // },
+        image: SimpleImage,
         raw: RawTool,
         imageSimple: {
           class: SimpleImage,
@@ -145,7 +146,7 @@ const editor = {
         embed: Embed,
         quote: Quote,
       },
-      //   readOnly: true,
+      // readOnly: true,
       placeholder: 'Let`s write an awesome story!',
       data: this.openedData,
     });

@@ -67,21 +67,28 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 exports.createArticle = catchAsync(async (req, res) => {
   console.log(`createArticle`);
 
-  const token = req.cookies.jwt;
-  const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
-  const currentUser = await User.findById(decoded.id);
+  console.log(req.body);
 
-  const userChangedID = currentUser._id;
+  // const token = req.cookies.jwt;
+  // const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
+  // console.log('aaa');
+  // const currentUser = await User.findById(decoded.id);
+  const currentUser = req.body.userChangedID;
+  // const userChangedID = currentUser._id;
+  const userChangedID = currentUser;
   const { fileSize } = req.body;
-  let { articleID } = req.body;
+  const { _id } = req.body;
   let authorID;
-  let isLatest = true;
+  let articleID;
+  const isLatest = true;
   const changes = fileSize;
-  if (articleID === null) {
+  if (_id === null) {
     articleID =
       (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID) + 1;
-    authorID = currentUser._id;
+    // authorID = currentUser._id;
+    authorID = currentUser;
   } else {
+    // articleID = (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID); ///найти articleID по _id
     authorID = await Article.findById(articleID).authorID;
   }
 
