@@ -4,7 +4,7 @@ export default function createArticlePage() {
            <div class="col-md-9 container workspace">
                <div class="row workspace__header">
                    <div id="title">
-                       <input class="edit-article-title" type="text" value="Тестовый заголовок" disabled>
+                       <input class="edit-article-title" type="text" value="" placeholder="Введите название статьи" disabled>
                    </div>
                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                        <button type="button" class="d-none btn btn-success open-save-modal" data-toggle="modal" data-target="#saveModal">

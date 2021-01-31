@@ -1,5 +1,6 @@
 // const btnAuth = document.querySelector('#btnAuth');
 import { loginProfile } from './loginExitProfile.js';
+import pageRender from './page-render.js';
 
 const authEmail = document.querySelector('#authEmail');
 const authPassword = document.querySelector('#authPassword');
@@ -32,8 +33,8 @@ export default async function authUser() {
     console.log(response.message);
   } else {
     const dataUser = response.data.user.name;
-    localStorage.setItem('userName', dataUser);
-    localStorage.setItem('userID', response.data.user._id);
+    pageRender.userName = dataUser;
+    pageRender.userID = response.data.user._id;
     loginProfile(dataUser);
   }
 }

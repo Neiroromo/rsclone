@@ -54,10 +54,11 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 
 exports.createArticle = catchAsync(async (req, res) => {
   console.log(`createArticle`);
-
+  // articleID это _id
   const { userChangedID, fileSize } = req.body;
   let { articleID } = req.body;
   let authorID;
+  let isLatest = true;
   const changes = fileSize;
   if (articleID === null) {
     // найти максимальный articleID в БД и articleID = maxDBArticleID + 1
@@ -65,7 +66,10 @@ exports.createArticle = catchAsync(async (req, res) => {
     authorID = userChangedID;
   } else {
     // найти автора статьи с articleID
-    authorID = 'old author';
+    // найти articleID у статьи _id
+    // убрать isLatest у старой статьи
+    articleID = 1;
+    authorID = userChangedID;
   }
 
   const articles = await Article.create({
@@ -75,6 +79,7 @@ exports.createArticle = catchAsync(async (req, res) => {
     title: req.body.title,
     desc: req.body.desc,
     data: req.body.outputData,
+    isLatest,
     date: req.body.date,
     changes,
   }).catch((error) => {

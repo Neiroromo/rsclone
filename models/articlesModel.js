@@ -8,12 +8,12 @@ const articlesSchema = new mongoose.Schema({
     trim: true,
   },
   authorID: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },
   userChangedID: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },
@@ -29,6 +29,10 @@ const articlesSchema = new mongoose.Schema({
   },
   data: {
     type: Object,
+    required: true,
+  },
+  isLatest: {
+    type: Boolean,
     required: true,
   },
   date: {

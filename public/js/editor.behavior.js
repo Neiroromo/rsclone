@@ -15,6 +15,14 @@ const editor = {
   titleInput: document.querySelector('.edit-article-title'),
   descTextAria: document.querySelector('#article-desc'),
   openedData: null,
+  updatedVariables() {
+    this.saveBtn = document.querySelector('.open-save-modal');
+    this.discardBtn = document.querySelector('.open-discard-modal');
+    this.editBtn = document.querySelector('.switch-to-edit');
+    this.editorJSWorkspace = document.querySelector('.workspace__body');
+    this.titleInput = document.querySelector('.edit-article-title');
+    this.descTextAria = document.querySelector('#article-desc');
+  },
   turnOnEditor() {
     this.saveBtn.classList.remove('d-none');
     this.discardBtn.classList.remove('d-none');
@@ -61,6 +69,7 @@ const editor = {
           fileSize,
           date,
         };
+        console.log(save);
         const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
           method: 'POST',
           headers: {
@@ -75,6 +84,7 @@ const editor = {
   },
   getArticle(articleID) {},
   async openArticle(articleID) {
+    if (articleID === null) return;
     // получение данных статьи
     const url = `http://localhost:8000/api/v1/articles/${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
@@ -94,7 +104,6 @@ const editor = {
     });
   },
   createEditor(isLoad) {
-    console.log(this.openedData);
     const editor = new EditorJS({
       holderId: 'editorjs',
       tools: {
