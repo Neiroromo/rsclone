@@ -16,11 +16,12 @@ const pageRender = {
   mainPageArticlesContainer: '',
   userPageArticleListContainer: '',
   pageNumber: 1,
-  articlesLimitOnPage: 5,
+  articlesLimitOnPage: 1,
   numberOfArticles: null,
-  numberOfUserArticles: null,
+  maxPagesCount: null,
   userName: 'alexis',
   userID: '60131e1bc27be51d5896e5be',
+  searchTitle: '',
   clearCurrantPage() {
     this.renderContainer.innerHTML = '';
   },
@@ -46,7 +47,8 @@ const pageRender = {
     }
     if (pagaName === 'userProfile') {
       const userPageDOM = this.getDOMElemets(createUserPage());
-      this.renderContainer.append(userPageDOM);
+      const paginationDOM = this.getDOMElemets(createPagination());
+      this.renderContainer.append(userPageDOM, paginationDOM);
       this.userPageArticleListContainer = document.querySelector(
         '.articles-container'
       );
@@ -68,7 +70,7 @@ const pageRender = {
   },
   articlesManePageAddToDOM() {
     listItemBehavior
-      .getArticlesList('*', this.pageNumber, this.articlesLimitOnPage)
+      .getArticlesList('*', this.pageNumber, this.articlesLimitOnPage, this.searchTitle)
       .then((res) => {
         const articles = Object.values(res);
         articles.forEach((article) => {
@@ -107,6 +109,14 @@ const pageRender = {
       this.userPageArticleListContainer.append(userPageArticleDOM);
     });
   },
+
+  async getMaxArticleCount(userID) {
+    if (!userID) userID = '*';
+    const url = `http://localhost:8000/api/v1/articles/${userID}`;
+    const res = await fetch(`${url}`).then((response) => response.json());
+    this.numberOfArticles = res.maxCount;
+    this.maxPagesCount = Math.ceil(this.numberOfArticles / this.articlesLimitOnPage);
+  }
 };
 
 export default pageRender;

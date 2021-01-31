@@ -3,7 +3,7 @@
 export default async function searchArticle() {
   const searchForm = document.querySelector('#searchForm');
   const divArticle = document.querySelector('.list-article');
-  const searchText = searchForm.value.trim().replace(/ /g, '+');
+  const searchText = searchForm.value.trim();
 
   try {
     let urlSearch;

@@ -3,10 +3,17 @@ import editor from './editor.behavior.js';
 import listItemBehavior from './list-items.behavior.js';
 import regUser from './registration.js';
 import searchArticle from './search.js';
-import { exitProfile } from './loginExitProfile.js';
+import {
+  exitProfile
+} from './loginExitProfile.js';
 import authUser from './authorization.js';
 // eslint-disable-next-line import/no-cycle
-import { showPreviousPage, showNextPage, showFirstPage, showLastPage } from './pagination.js';
+import {
+  showPreviousPage,
+  showNextPage,
+  showFirstPage,
+  showLastPage
+} from './pagination.js';
 import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
 
 
@@ -24,7 +31,9 @@ function changeModalInner(settingsType) {
 }
 
 function clickListeners(e) {
-  let { target } = e;
+  let {
+    target
+  } = e;
   if (
     target.nodeName === 'SPAN' ||
     target.nodeName === 'TD' ||
@@ -73,6 +82,7 @@ function clickListeners(e) {
     regUser();
   }
   if (target.classList.contains('btn-search')) {
+    pageRender.searchTitle = document.querySelector('#searchForm').value.trim();
     searchArticle();
   }
   if (target.classList.contains('mainPage-openArticle-btn')) {
@@ -162,7 +172,15 @@ function clickListeners(e) {
     showPreviousPage(currPage);
   }
   if (target.classList.contains('next-page')) {
-    showNextPage(currPage);
+    //showNextPage(currPage);
+    pageRender.pageNumber += 1;
+    if (pageRender.currentPage === 'main') {
+      pageRender.mainPageArticlesContainer.innerHTML = '';
+      pageRender.articlesManePageAddToDOM();
+    } else if (pageRender.currentPage === 'userProfile') {
+      pageRender.userPageArticleListContainer.innerHTML = '';
+      pageRender.articlesUserPageAddToDOM();
+    }
   }
   if (target.classList.contains('last-page')) {
     showLastPage(10, currPage);

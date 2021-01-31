@@ -178,7 +178,7 @@ const listItemBehavior = {
     const { value } = document.querySelector('.change-value');
     alert(`изменить ${setting} на '${value}'`);
   },
-  async getArticlesList(author, page, limitOnPage) {
+  async getArticlesList(author, page, limitOnPage, title) {
     // если автор указан как *, то выводит все статьи
     // если страницы указаны как * или 0, то выводит все статьи с указанным автором
     console.log('enter in getArticles');
@@ -193,7 +193,7 @@ const listItemBehavior = {
     } else {
       page = `page=${page}&limit=${limitOnPage}`;
     }
-    const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=`;
+    const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=${title}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     console.log(res);
     console.log('данные фетча', res);

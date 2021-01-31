@@ -6,24 +6,24 @@ import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
 let currentPage = pageRender.pageNumber;
 
 
-function getMainArticles () {
-  listItemBehavior.getArticlesList('*', currentPage, pageRender.articlesLimitOnPage)
-    .then((res) => {
-      const articles = Object.values(res);
-      articles.forEach((article) => {
-        const {
-          title,
-          desc,
-          authorID
-        } = article;
-        const DOMElement = pageRender.getDOMElemets(
-          createArticleMainPageItem(title, authorID, desc)
-        );
-        console.log(pageRender.mainPageArticlesContainer);
-        document.querySelector('.list-article').append(DOMElement);
-      });
-    });
-}
+// function getMainArticles () {
+//   listItemBehavior.getArticlesList('*', currentPage, pageRender.articlesLimitOnPage)
+//     .then((res) => {
+//       const articles = Object.values(res);
+//       articles.forEach((article) => {
+//         const {
+//           title,
+//           desc,
+//           authorID
+//         } = article;
+//         const DOMElement = pageRender.getDOMElemets(
+//           createArticleMainPageItem(title, authorID, desc)
+//         );
+//         console.log(pageRender.mainPageArticlesContainer);
+//         document.querySelector('.list-article').append(DOMElement);
+//       });
+//     });
+// }
 
 export function showPreviousPage(actPage) {
   currentPage -= 1;
