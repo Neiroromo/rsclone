@@ -8,6 +8,7 @@ import editor from './editor.behavior.js';
 import createUserPage from './tamplates/user-page.js';
 import createArticleUserPageItem from './tamplates/createArticleUserPageItem.js';
 import loginCheck from './loginCheck.js';
+import changeBtnAvailable from './pagination.js';
 
 const pageRender = {
   currentPage: 'main',
@@ -16,14 +17,14 @@ const pageRender = {
   mainPageArticlesContainer: '',
   userPageArticleListContainer: '',
   pageNumber: 1,
-  articlesLimitOnPage: 1,
+  articlesLimitOnPage: 2,
   numberOfArticles: null,
   maxPagesCount: null,
   searchTitle: '',
   clearCurrantPage() {
     this.renderContainer.innerHTML = '';
   },
-  renderNewPage(pagaName) {
+  async renderNewPage(pagaName) {
     this.clearCurrantPage();
     this.currentPage = pagaName;
     if (pagaName === 'main') {
@@ -43,6 +44,8 @@ const pageRender = {
       this.pageNumber = 1;
       this.articlesManePageAddToDOM();
       editor.pageState = 'read';
+      await this.getMaxArticleCount();
+      changeBtnAvailable();
     }
     if (pagaName === 'userProfile') {
       const userPageDOM = this.getDOMElemets(createUserPage());
@@ -54,6 +57,8 @@ const pageRender = {
       this.pageNumber = 1;
       this.articlesUserPageAddToDOM();
       editor.pageState = 'read';
+      await this.getMaxArticleCount();
+      changeBtnAvailable();
     }
     if (pagaName === 'articlePage') {
       const articlePageDOM = this.getDOMElemets(createArticlePage());
@@ -116,8 +121,10 @@ const pageRender = {
     });
   },
 
-  async getMaxArticleCount(userID) {
-    if (!userID) userID = '*';
+  async getMaxArticleCount() {
+    const userID = this.userID;
+    if (userID === '') userID = '*';
+    console.log(userID);
     const url = `http://localhost:8000/api/v1/articles/${userID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     this.numberOfArticles = res.maxCount;
