@@ -194,7 +194,9 @@ const listItemBehavior = {
     }
     const url = `http://localhost:8000/api/v1/articles?${author}${page}`;
     const res = await fetch(`${url}`).then((response) => response.json());
+    console.log(res);
     const allArticles = { ...res.data.articles };
+    console.log(allArticles);
     return allArticles;
   },
 };

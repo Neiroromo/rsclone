@@ -5,6 +5,10 @@ import regUser from './registration.js';
 import searchArticle from './search.js';
 import { exitProfile } from './loginExitProfile.js';
 import authUser from './authorization.js';
+// eslint-disable-next-line import/no-cycle
+import { showPreviousPage, showNextPage, showFirstPage, showLastPage } from './pagination.js';
+import createArticleMainPageItem from './tamplates/articles-mainPage-item.js';
+
 
 function changeModalInner(settingsType) {
   const title = document.querySelector('#settingsTitle');
@@ -36,6 +40,12 @@ function clickListeners(e) {
   const btnUser = document.querySelector('.btn-user');
   const btnExit = document.querySelector('#btnExit');
   const btnSubmit = document.querySelector('.submit-btn');
+  const currPage = document.querySelector('.current-page');
+
+
+
+
+
   // лисенеры на начальной странице (main)
   if (target.classList.contains('link-login') || target.id === 'btnLog') {
     signinForm.classList.add('hide-modal');
@@ -126,6 +136,20 @@ function clickListeners(e) {
   }
   if (target.classList.contains('article-delete-btn')) {
     listItemBehavior.addIDToStack(e);
+  }
+
+  // pagination
+  if (target.classList.contains('first-page')) {
+    showFirstPage(currPage);
+  }
+  if (target.classList.contains('prev-page')) {
+    showPreviousPage(currPage);
+  }
+  if (target.classList.contains('next-page')) {
+    showNextPage(currPage);
+  }
+  if (target.classList.contains('last-page')) {
+    showLastPage(10, currPage);
   }
 }
 

@@ -10,8 +10,8 @@ export default function createPagination() {
             &#60;
           </a>
         </li>
-        <li class="page-item active btn-confirm current-page">
-          <span class="page-link btn-confirm">
+        <li class="page-item active btn-confirm">
+          <span class="page-link btn-confirm current-page">
             1<span class="sr-only btn-confirm">(current)</span>
           </span>
         </li>

@@ -9,7 +9,7 @@ const pageRender = {
   renderContainer: document.querySelector('main'),
   mainPageArticlesContainer: document.querySelector('.list-article'),
   pageNumber: 1,
-  articlesLimitOnPage: 10,
+  articlesLimitOnPage: 5,
   numberOfArticles: null,
   numberOfUserArticles: null,
   userName: '',
