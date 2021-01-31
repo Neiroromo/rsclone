@@ -33,10 +33,17 @@ exports.showAllArticles = catchAsync(async (req, res) => {
   console.log(`showAllArticles: ${req.query}`);
   console.log(req.cookies.user);
   console.log(req.query);
+  console.log(req.query.title);
+  let query;
+  if (!req.query.title) {
+    query = '';
+  } else {
+    query = req.query.title;
+  }
   const features = new APIFeatures(
     Article.find({
-      title: { $regex: `${req.body.title}`, $options: 'i' },
-    }),
+      title: { $regex: `${query}`, $options: 'i' },
+    }).find({ isLatest: { $eq: true } }),
     req.query
   )
     .filter()
