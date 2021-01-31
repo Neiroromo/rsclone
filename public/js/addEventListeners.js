@@ -25,11 +25,18 @@ function changeModalInner(settingsType) {
 
 function clickListeners(e) {
   let { target } = e;
-  if (target.nodeName === 'SPAN' || target.nodeName === 'TD') {
+  if (
+    target.nodeName === 'SPAN' ||
+    target.nodeName === 'TD' ||
+    target.classList.contains('mb-1')
+  ) {
+    target = target.parentNode;
+  }
+
+  while (target.hasAttribute('unclickable')) {
     target = target.parentNode;
   }
   if (target.nodeName === 'TH') return;
-
   // main btns
   const loginForm = document.querySelector('.login');
   const signinForm = document.querySelector('.signin');
@@ -67,6 +74,13 @@ function clickListeners(e) {
   }
   if (target.classList.contains('btn-search')) {
     searchArticle();
+  }
+  if (target.classList.contains('mainPage-openArticle-btn')) {
+    editor.articleID = target.getAttribute('data-articleID');
+    pageRender.renderNewPage('articlePage');
+  }
+  if (target.id === 'profile') {
+    pageRender.renderNewPage('userProfile');
   }
 
   // лисенеры на странице просмотра\редактирования статьи (articlePage)
@@ -114,7 +128,9 @@ function clickListeners(e) {
     listItemBehavior.deleteProfile();
   }
   if (target.classList.contains('main-create-btn')) {
-    listItemBehavior.createNewArticle();
+    pageRender.renderNewPage('articlePage');
+    editor.articleID = null;
+    // listItemBehavior.createNewArticle();
   }
   if (target.classList.contains('delete-articles-from-server-btn')) {
     listItemBehavior.deleteArticlesFromServer();

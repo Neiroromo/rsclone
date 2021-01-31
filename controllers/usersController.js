@@ -1,7 +1,7 @@
 const { findById } = require('../models/usersModel');
 const User = require('../models/usersModel');
 const catchAsync = require('../utils/catchAsync');
-
+const AppError = require('../utils/appError');
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
@@ -30,6 +30,20 @@ exports.updateMe = catchAsync(async (req, res) => {
     data: {
       user: newUser,
     },
+  });
+});
+
+exports.getNameById = catchAsync(async (req, res, next) => {
+  let name;
+  if (req.params.id) {
+    name = await User.findById(req.params.id).select('name');
+  }
+  if (!name) {
+    return next(new AppError('Пользавателя с данным айди не сущестует', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    name,
   });
 });
 exports.deleteMe = catchAsync(async (req, res) => {

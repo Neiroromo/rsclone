@@ -181,10 +181,11 @@ const listItemBehavior = {
   async getArticlesList(author, page, limitOnPage) {
     // если автор указан как *, то выводит все статьи
     // если страницы указаны как * или 0, то выводит все статьи с указанным автором
+    console.log('enter in getArticles');
     if (author === '*') {
       author = '';
     } else {
-      author = `author=${author}&`;
+      author = `authorID=${author}&`;
     }
     if (page === '*' || page === 0) {
       page = '';
@@ -192,11 +193,12 @@ const listItemBehavior = {
     } else {
       page = `page=${page}&limit=${limitOnPage}`;
     }
-    const url = `http://localhost:8000/api/v1/articles?${author}${page}`;
+    const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=`;
     const res = await fetch(`${url}`).then((response) => response.json());
     console.log(res);
+    console.log('данные фетча', res);
     const allArticles = { ...res.data.articles };
-    console.log(allArticles);
+    console.log('данные парсинга', allArticles);
     return allArticles;
   },
 };

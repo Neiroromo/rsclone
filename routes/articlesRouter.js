@@ -9,6 +9,8 @@ articleRouter
   .get(articlesController.showAllArticles) // Не нужно ввойти и получить куки
   .post(articlesController.createArticle);
 
+articleRouter.get('/:id', articlesController.getMaxById);
+
 articleRouter
   .route('/:name')
   .get(articlesController.getOneArticle)

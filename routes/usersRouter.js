@@ -17,7 +17,7 @@ usersRouter
   .post(usersController.createUser);
 usersRouter
   .route('/:id')
-  .get(usersController.getUser)
+  .get(usersController.getNameById)
   .patch(usersController.updateUser)
   .delete(usersController.deleteUser);
 

@@ -1,3 +1,5 @@
+import pageRender from './page-render.js';
+
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
   let m = encodeURIComponent(str).match(/%[89ABab]/g);
@@ -15,6 +17,14 @@ const editor = {
   titleInput: document.querySelector('.edit-article-title'),
   descTextAria: document.querySelector('#article-desc'),
   openedData: null,
+  updatedVariables() {
+    this.saveBtn = document.querySelector('.open-save-modal');
+    this.discardBtn = document.querySelector('.open-discard-modal');
+    this.editBtn = document.querySelector('.switch-to-edit');
+    this.editorJSWorkspace = document.querySelector('.workspace__body');
+    this.titleInput = document.querySelector('.edit-article-title');
+    this.descTextAria = document.querySelector('#article-desc');
+  },
   turnOnEditor() {
     this.saveBtn.classList.remove('d-none');
     this.discardBtn.classList.remove('d-none');
@@ -38,7 +48,7 @@ const editor = {
     this.editorOn = false;
   },
   saveArticle() {
-    const userChangedID = 1423;
+    const userChangedID = pageRender.userID;
     const title = document.querySelector('.edit-article-title').value;
     const desc = document.querySelector('#article-desc').value;
     const date = new Date();
@@ -61,6 +71,8 @@ const editor = {
           fileSize,
           date,
         };
+        console.log('save:');
+        console.log(save);
         const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
           method: 'POST',
           headers: {
@@ -75,26 +87,23 @@ const editor = {
   },
   getArticle(articleID) {},
   async openArticle(articleID) {
+    if (articleID === null) return;
     // получение данных статьи
-    const url = `http://localhost:8000/api/v1/articles/${articleID}`;
+    const url = `http://localhost:8000/api/v1/articles?_id=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
-    const article = { ...res.article };
+    const article = { ...res.articles[0] };
     console.log(article);
     // добавление заголовка
     this.titleInput.value = article.title;
     // добавление описания
     this.descTextAria.value = article.desc;
     // добавление тела статьи
-    // console.log(this.editor.render());
-    // console.log(article.data);
-    // this.editor.data = article.data;
     this.openedData = article.data;
     this.editor.isReady.then(() => {
       this.editor.render(this.openedData);
     });
   },
   createEditor(isLoad) {
-    console.log(this.openedData);
     const editor = new EditorJS({
       holderId: 'editorjs',
       tools: {
