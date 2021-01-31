@@ -7,7 +7,7 @@ pageRender.renderNewPage('main');
 addListeners();
 
 const a = listItemBehavior
-  .getArticlesList('*', 1, pageRender.articlesLimitOnPage)
+  .getArticlesList('*', pageRender.pageNumber, pageRender.articlesLimitOnPage)
   .then((res) => {
     const articles = Object.values(res);
     articles.forEach((article) => {
