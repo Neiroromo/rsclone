@@ -7,6 +7,11 @@ export default function createArticlePage() {
                        <input class="edit-article-title" type="text" value="" placeholder="Введите название статьи" disabled>
                    </div>
                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                   <button type="button" class="d-none btn btn-light see-article-inReadMode">
+                           <span class="material-icons">
+                           visibility
+                           </span>
+                       </button>
                        <button type="button" class="d-none btn btn-success open-save-modal" data-toggle="modal" data-target="#saveModal">
                            <span class="material-icons">
                                save

@@ -41,17 +41,9 @@ const listItemBehavior = {
       const id = this.getArticleID(articleID);
       this.articlesID.push(id);
     }
-    console.log('add to stack');
-    console.log(articleID);
-    console.log('stack rgtNow');
-    console.log(this.articlesID);
   },
   deleteIDFromStack(articleID) {
     if (!articleID) return;
-    console.log('delete from stack');
-    console.log(articleID);
-    console.log('stack rgtNow');
-    console.log(this.articlesID);
     if (this.selectingState) {
       const index = this.articlesID.indexOf(articleID);
       if (index > -1) {
@@ -94,8 +86,6 @@ const listItemBehavior = {
   },
   async deleteArticlesFromServer() {
     if (this.articlesID.length === 0) return;
-    console.log('stack rgtNow');
-    console.log(this.articlesID);
 
     const articleTitles = this.articlesID;
     const response = await fetch(
@@ -181,7 +171,6 @@ const listItemBehavior = {
   async getArticlesList(author, page, limitOnPage, title) {
     // если автор указан как *, то выводит все статьи
     // если страницы указаны как * или 0, то выводит все статьи с указанным автором
-    console.log('enter in getArticles');
     if (author === '*') {
       author = '';
     } else {
@@ -194,13 +183,9 @@ const listItemBehavior = {
       page = `page=${page}&limit=${limitOnPage}`;
     }
     if (title === undefined) title = '';
-    console.log(author, page, limitOnPage, title);
     const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=${title}`;
     const res = await fetch(`${url}`).then((response) => response.json());
-    console.log(res);
-    console.log('данные фетча', res);
     const allArticles = { ...res.data.articles };
-    console.log('данные парсинга', allArticles);
     return allArticles;
   },
 };

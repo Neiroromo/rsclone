@@ -34,7 +34,6 @@ function clickListeners(e) {
   }
   if (target.nodeName === 'TH' || target.classList.contains('unclickable'))
     return;
-  console.log(target);
   // main btns
   const loginForm = document.querySelector('.login');
   const signinForm = document.querySelector('.signin');
@@ -92,6 +91,11 @@ function clickListeners(e) {
   if (target.classList.contains('save-article-to-server')) {
     editor.saveArticle();
   }
+  if (target.classList.contains('see-article-inReadMode')) {
+    const resetChages = false;
+    if (editor.pageState === 'edit') editor.turnOffEditor(resetChages);
+    if (editor.pageState === 'read') editor.turnOnEditor();
+  }
   if (target.classList.contains('switch-to-edit')) {
     if (loginCheck.isLoggedIn) {
       editor.turnOnEditor();
@@ -108,7 +112,8 @@ function clickListeners(e) {
     // получить статью и загрузить ее в редактор
   }
   if (target.classList.contains('discard-article')) {
-    editor.turnOffEditor();
+    const resetChages = true;
+    editor.turnOffEditor(resetChages);
   }
 
   // лисенеры страницы профиля (userProfile)
@@ -140,7 +145,6 @@ function clickListeners(e) {
   }
   if (target.classList.contains('dismiss-delete-btn')) {
     listItemBehavior.deleteIDFromStack();
-    console.log('e');
   }
 
   // article list UL
@@ -164,7 +168,6 @@ function clickListeners(e) {
   // pagination
   if (target.classList.contains('first-page')) {
     pageRender.pageNumber = 1;
-    console.log(pageRender.pageNumber);
     if (pageRender.currentPage === 'main') {
       pageRender.mainPageArticlesContainer.innerHTML = '';
       pageRender.articlesManePageAddToDOM();
@@ -180,7 +183,6 @@ function clickListeners(e) {
     } else {
       pageRender.pageNumber -= 1;
     }
-    console.log(pageRender.pageNumber);
     if (pageRender.currentPage === 'main') {
       pageRender.mainPageArticlesContainer.innerHTML = '';
       pageRender.articlesManePageAddToDOM();
@@ -196,7 +198,6 @@ function clickListeners(e) {
     } else {
       pageRender.pageNumber += 1;
     }
-    console.log(pageRender.pageNumber);
     if (pageRender.currentPage === 'main') {
       pageRender.mainPageArticlesContainer.innerHTML = '';
       pageRender.articlesManePageAddToDOM();
@@ -208,7 +209,6 @@ function clickListeners(e) {
   }
   if (target.classList.contains('last-page')) {
     pageRender.pageNumber = pageRender.maxPagesCount;
-    console.log(pageRender.pageNumber);
     if (pageRender.currentPage === 'main') {
       pageRender.mainPageArticlesContainer.innerHTML = '';
       pageRender.articlesManePageAddToDOM();

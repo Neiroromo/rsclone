@@ -16,15 +16,20 @@ const editor = {
   discardBtn: document.querySelector('.open-discard-modal'),
   editBtn: document.querySelector('.switch-to-edit'),
   editorJSWorkspace: document.querySelector('.workspace__body'),
+  viewResultBtn: document.querySelector('.see-article-inReadMode'),
   titleInput: document.querySelector('.edit-article-title'),
   descTextAria: document.querySelector('#article-desc'),
   changedArticlesContainer: document.querySelector('.changed-articles'),
   openedData: null,
+  editingData: null,
+  openedTitleDesc: {},
+  editingTitleDesc: {},
   updatedVariables() {
     this.saveBtn = document.querySelector('.open-save-modal');
     this.discardBtn = document.querySelector('.open-discard-modal');
     this.editBtn = document.querySelector('.switch-to-edit');
     this.editorJSWorkspace = document.querySelector('.workspace__body');
+    this.viewResultBtn = document.querySelector('.see-article-inReadMode');
     this.titleInput = document.querySelector('.edit-article-title');
     this.descTextAria = document.querySelector('#article-desc');
     this.changedArticlesContainer = document.querySelector('.changed-articles');
@@ -36,38 +41,65 @@ const editor = {
 
     this.saveBtn.classList.remove('d-none');
     this.discardBtn.classList.remove('d-none');
+    this.viewResultBtn.classList.remove('d-none');
+    this.viewResultBtn.children[0].innerHTML = 'visibility';
     this.editBtn.classList.add('d-none');
     this.titleInput.removeAttribute('disabled');
 
     this.createEditor();
 
     this.editor.isReady.then(() => {
-      this.editor.render(this.openedData);
+      if (this.editingData === null) {
+        this.editor.render(this.openedData);
+      } else {
+        this.editor.render(this.editingData);
+      }
     });
   },
-  turnOffEditor() {
+  async turnOffEditor(resetChages) {
+    await this.editor.save().then((outputData) => {
+      this.editingData = outputData;
+    });
+    this.editingTitleDesc.title = this.titleInput.value;
+    this.editingTitleDesc.desc = this.descTextAria.value;
     this.editor.destroy();
 
     this.editorJSWorkspace.innerHTML = '';
     this.editorOn = false;
     this.pageState = 'read';
 
+    if (resetChages) {
+      this.viewResultBtn.classList.add('d-none');
+      this.viewResultBtn.children[0].innerHTML = 'visibility';
+      this.editBtn.classList.remove('d-none');
+    } else {
+      this.viewResultBtn.children[0].innerHTML = 'create';
+    }
+    this.titleInput.setAttribute('disabled', 'disabled');
     this.saveBtn.classList.add('d-none');
     this.discardBtn.classList.add('d-none');
-    this.editBtn.classList.remove('d-none');
-    this.titleInput.setAttribute('disabled', 'disabled');
 
-    this.enableReadMode(this.openedData);
+    // this.editBtn.classList.remove('d-none');
+    // this.titleInput.setAttribute('disabled', 'disabled');
+
+    if (resetChages) {
+      this.enableReadMode(this.openedData);
+      this.editingData = null;
+      this.editingTitleDesc = {};
+      this.titleInput.value = this.openedTitleDesc.title;
+      this.descTextAria.value = this.openedTitleDesc.desc;
+    } else {
+      this.enableReadMode(this.editingData);
+    }
   },
   saveArticle() {
     const userChangedID = loginCheck.userID;
-    const title = document.querySelector('.edit-article-title').value;
-    const desc = document.querySelector('#article-desc').value;
+    const title = this.titleInput.value;
+    const desc = this.descTextAria.value;
     const date = new Date();
     this.editor
       .save()
       .then(async (outputData) => {
-        console.log('Article data: ', outputData);
         const toCompare = {
           title,
           desc,
@@ -83,8 +115,6 @@ const editor = {
           fileSize,
           date,
         };
-        console.log('save:');
-        console.log(save);
         const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
           method: 'POST',
           headers: {
@@ -104,11 +134,12 @@ const editor = {
     const url = `http://localhost:8000/api/v1/articles?_id=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const article = { ...res.articles[0] };
-    console.log(article);
     // добавление заголовка
     this.titleInput.value = article.title;
+    this.openedTitleDesc.title = article.title;
     // добавление описания
     this.descTextAria.value = article.desc;
+    this.openedTitleDesc.desc = article.desc;
     // добавление тела статьи
     this.openedData = article.data;
     this.enableReadMode(this.openedData);
@@ -156,7 +187,7 @@ const editor = {
       },
       // readOnly: true,
       placeholder: 'Let`s write an awesome story!',
-      data: this.openedData,
+      data: {},
     });
     this.editor = editor;
   },
