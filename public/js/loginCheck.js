@@ -38,22 +38,22 @@ const loginCheck = {
     this.isLogged();
   },
   async logOut() {
-    // const response = await fetch(`${this.fetchURL}users/logout`)
-    //   .then((res) => res.json())
-    //   .catch((error) => error.json());
+    const response = await fetch(`${this.fetchURL}users/logout`)
+      .then((res) => res.json())
+      .catch((error) => error.json());
 
-    // if (response.status === 'fail') {
-    //   console.log(response.message);
-    // } else {
-    //   console.log('выход');
-    // }
+    if (response.status === 'fail') {
+      alert(response.message);
+    } else {
+      alert(document.cookie);
+    }
     alert('Нужно добавить выход с сервера');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userID');
-    this.isLoggedIn = false;
-    this.userName = '';
-    this.userID = '';
-    this.isLogged();
+    // localStorage.removeItem('userName');
+    // localStorage.removeItem('userID');
+    // this.isLoggedIn = false;
+    // this.userName = '';
+    // this.userID = '';
+    // this.isLogged();
   },
   async registration(name, password, passwordConfirm, email) {
     const data = { name, password, passwordConfirm, email };
