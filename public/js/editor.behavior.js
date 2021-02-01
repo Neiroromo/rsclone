@@ -1,5 +1,6 @@
 import pageRender from './page-render.js';
 import loginCheck from './loginCheck.js';
+import createChangedArticleItem from './tamplates/chenged-article-item.js';
 
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
@@ -11,6 +12,7 @@ const editor = {
   editor: undefined,
   editorOn: false,
   articleID: null,
+  articleIDMain: null,
   pageState: 'read',
   saveBtn: document.querySelector('.open-save-modal'),
   discardBtn: document.querySelector('.open-discard-modal'),
@@ -128,13 +130,13 @@ const editor = {
         console.log('Saving failed: ', error);
       });
   },
-  getArticle(articleID) {},
   async openArticle(articleID) {
     if (articleID === null) return;
     // получение данных статьи
     const url = `http://localhost:8000/api/v1/articles?_id=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const article = { ...res.articles[0] };
+    this.articleIDMain = article.articleID;
     // добавление заголовка
     this.titleInput.value = article.title;
     this.openedTitleDesc.title = article.title;
@@ -192,7 +194,45 @@ const editor = {
     });
     this.editor = editor;
   },
-  addChangedArticles() {},
+  async getChangedArticles() {
+    const articleID = this.articleIDMain;
+    const all = '&all=true';
+    const url = `http://localhost:8000/api/v1/articles?articleID=${articleID}${all}`;
+    const res = await fetch(`${url}`).then((response) => response.json());
+    const articles = { ...res.articles };
+    return articles;
+  },
+  addChangedArticles(changedArticles) {
+    let changesTest = 0;
+    changedArticles = Object.values(changedArticles);
+    console.log(changedArticles);
+    changedArticles.forEach(async (article) => {
+      const { _id, date, changes } = article;
+      const userName = await this.getUserName(article.userChangedID);
+      let textClass;
+      if (changesTest < article.changes) {
+        textClass = 'text-success';
+      } else if (changesTest > article.changes) {
+        textClass = 'text-danger';
+      } else {
+        textClass = 'text-secondary';
+      }
+      changesTest = article.changes;
+      this.changedArticlesContainer.innerHTML += createChangedArticleItem(
+        _id,
+        userName,
+        date,
+        changes,
+        textClass
+      );
+    });
+  },
+  async getUserName(userID) {
+    const url = `http://localhost:8000/api/v1/users/${userID}`;
+    const res = await fetch(`${url}`).then((response) => response.json());
+    const user = { ...res.name };
+    return user.name;
+  },
   enableReadMode(data) {
     this.editorOn = false;
     const parser = new edjsParser();

@@ -62,7 +62,8 @@ const pageRender = {
       const articlePageDOM = this.getDOMElemets(createArticlePage());
       this.renderContainer.append(articlePageDOM);
       editor.updatedVariables();
-      editor.openArticle(editor.articleID);
+      await editor.openArticle(editor.articleID);
+      editor.addChangedArticles(await editor.getChangedArticles());
     }
   },
   getDOMElemets(html) {

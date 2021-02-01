@@ -30,17 +30,45 @@ const upload = multer({
 exports.uploadArticlePhoto = upload.single('image');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
-  console.log(`showAllArticles: ${req.query}`);
+  console.log(`showAllArticles: ${req.query.all}`);
+  const withChanged = req.query.all || false;
+
   let query;
   if (!req.query.title) {
     query = '';
   } else {
     query = req.query.title;
   }
+
+  // let features;
+  // const a = req.query.articleID;
+  // if (withChanged) {
+  //   features = new APIFeatures(
+  //     Article.find(
+  //       {
+  //         articleID: '2',
+  //       },
+  //       function (err, arr) {
+  //         console.log(arr);
+  //       }
+  //     ),
+  //     req.query
+  //   );
+  // } else {
+  //   features = new APIFeatures(
+  //     Article.find({
+  //       title: { $regex: `${query}`, $options: 'i' },
+  //     }).find({ isLatest: { $eq: true } }),
+  //     req.query
+  //   );
+  // }
+
+  // features.filter().sort().limitField().paginate();
+
   const features = new APIFeatures(
     Article.find({
       title: { $regex: `${query}`, $options: 'i' },
-    }).find({ isLatest: { $eq: true } }),
+    }),
     req.query
   )
     .filter()
@@ -139,6 +167,8 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
+  console.log('Показать одну статью');
+  console.log(req.params);
   const article = await Article.findOne({ _id: req.params.name });
 
   if (!article) {
