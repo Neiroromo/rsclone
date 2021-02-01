@@ -2,6 +2,7 @@ module.exports = class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
+    this.count = null;
   }
 
   filter() {

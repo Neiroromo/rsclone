@@ -31,9 +31,6 @@ exports.uploadArticlePhoto = upload.single('image');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
   console.log(`showAllArticles: ${req.query}`);
-  console.log(req.cookies.user);
-  console.log(req.query);
-  console.log(req.query.title);
   let query;
   if (!req.query.title) {
     query = '';
@@ -50,7 +47,9 @@ exports.showAllArticles = catchAsync(async (req, res) => {
     .sort()
     .limitField()
     .paginate();
+
   const articles = await features.query;
+  const count = await features.query.countDocuments({});
   res.json({
     status: 'OK',
     headers: {
@@ -58,6 +57,7 @@ exports.showAllArticles = catchAsync(async (req, res) => {
     },
     data: {
       articles,
+      count,
     },
     message: 'Все статьи',
     articles,
@@ -124,7 +124,7 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
     console.log(typeof req.params.id);
     articles = await Article.find({
       authorID: { $eq: req.params.id },
-    }).count((err, count) => {
+    }).countDocuments((err, count) => {
       console.log('Number of docs: ', count);
     });
   }
@@ -135,7 +135,6 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  console.log(req.params);
   const article = await Article.findOne({ _id: req.params.name });
 
   if (!article) {
@@ -156,6 +155,17 @@ exports.updateArticle = catchAsync(async (req, res) => {
   res.status('200').json({
     result: 'success',
     article,
+  });
+});
+
+exports.getArticlesById = catchAsync(async (req, res) => {
+  const article = await Article.findById(req.body._id);
+  const articles = await Article.find({
+    articleID: { $eq: article.articleID },
+  });
+  res.json({
+    message: 'success',
+    articles,
   });
 });
 

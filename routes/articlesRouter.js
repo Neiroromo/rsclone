@@ -10,7 +10,7 @@ articleRouter
   .post(articlesController.createArticle);
 
 articleRouter.get('/:id', articlesController.getMaxById);
-
+articleRouter.post('/getArticlesById', articlesController.getArticlesById);
 articleRouter
   .route('/:name')
   .get(articlesController.getOneArticle)
