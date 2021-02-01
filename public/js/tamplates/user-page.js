@@ -14,8 +14,11 @@ export default function createUserPage() {
                 </span>
             </button>
             <div class=" dropdown-menu dropdown-menu-right settings__list">
+            <button class="dropdown-item drop-email-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                    изменить email
+                </button>
                 <button class="dropdown-item drop-login-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
-                    изменить ник
+                    изменить имя пользователя
                 </button>
                 <button class="dropdown-item drop-password-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
                     изменить пароль
@@ -91,7 +94,7 @@ export default function createUserPage() {
             </button>
             </div>
             <div class="modal-body">
-                Данное действие удалит пользователя и все статьи созданные им.
+                Данное действие удалит пользователя и все созданные им статьи.
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">

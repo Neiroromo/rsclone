@@ -34,7 +34,7 @@ const editor = {
     this.descTextAria = document.querySelector('#article-desc');
     this.changedArticlesContainer = document.querySelector('.changed-articles');
   },
-  turnOnEditor() {
+  turnOnEditor(isNew) {
     this.editorJSWorkspace.innerHTML = '';
     this.editorOn = true;
     this.pageState = 'edit';
@@ -47,14 +47,15 @@ const editor = {
     this.titleInput.removeAttribute('disabled');
 
     this.createEditor();
-
-    this.editor.isReady.then(() => {
-      if (this.editingData === null) {
-        this.editor.render(this.openedData);
-      } else {
-        this.editor.render(this.editingData);
-      }
-    });
+    if (!isNew) {
+      this.editor.isReady.then(() => {
+        if (this.editingData === null) {
+          this.editor.render(this.openedData);
+        } else {
+          this.editor.render(this.editingData);
+        }
+      });
+    }
   },
   async turnOffEditor(resetChages) {
     await this.editor.save().then((outputData) => {
@@ -165,9 +166,9 @@ const editor = {
           },
         },
         raw: RawTool,
-        imageSimple: {
-          class: SimpleImage,
-        },
+        // imageSimple: {
+        //   class: SimpleImage,
+        // },
         checklist: {
           class: Checklist,
           inlineToolbar: true,

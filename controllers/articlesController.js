@@ -84,9 +84,9 @@ exports.createArticle = catchAsync(async (req, res) => {
   const changes = fileSize;
   if (_id === null) {
     console.log('новая статья');
-    articleID =
-      (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID) + 1;
-    // authorID = currentUser._id;
+    const article = await Article.find({}).sort({ articleID: -1 }).limit(1);
+    articleID = article[0].articleID + 1;
+    console.log(articleID);
     authorID = currentUser;
   } else {
     console.log('новая версия существющей статьи');
@@ -174,6 +174,9 @@ exports.getArticlesById = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
+  return;
+  // приходят _id. надо у каждого _id найти articleID. и удалить все статьи с такими articleID.
+  // прим. у каждого переданного _id уникальный articleID, т.к. передаются только самые новые версии статей
   console.log('delete: ' + req.body);
   req.body.forEach(async (element) => {
     console.log('deleting now: ' + element);

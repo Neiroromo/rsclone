@@ -8,13 +8,25 @@ import changeBtnAvailable from './pagination.js';
 function changeModalInner(settingsType) {
   const title = document.querySelector('#settingsTitle');
   const body = document.querySelector('#settingsBody');
+  const input = document.querySelector('.change-value');
+
   if (settingsType === 'password') {
     title.innerHTML = 'Изменить пароль';
     body.innerHTML = 'Пароль';
+    input.value = '';
+    input.placeholder = 'Введите новый пароль';
   }
   if (settingsType === 'login') {
-    title.innerHTML = 'Изменить логин';
-    body.innerHTML = 'Логин';
+    title.innerHTML = 'Изменить имя пользователя';
+    body.innerHTML = 'Имя пользователя';
+    input.value = '';
+    input.placeholder = 'Введите новое имя пользователя';
+  }
+  if (settingsType === 'email') {
+    title.innerHTML = 'Изменить email';
+    body.innerHTML = 'Email';
+    input.value = '';
+    input.placeholder = 'Введите новый email';
   }
 }
 
@@ -121,6 +133,10 @@ function clickListeners(e) {
   if (target.nodeName === 'SPAN') {
     target = target.parentNode;
   }
+  if (target.classList.contains('drop-email-btn')) {
+    listItemBehavior.changeSettings = 'email';
+    changeModalInner('email');
+  }
   if (target.classList.contains('drop-login-btn')) {
     listItemBehavior.changeSettings = 'login';
     changeModalInner('login');
@@ -133,11 +149,13 @@ function clickListeners(e) {
     listItemBehavior.changeUserSettings();
   }
   if (target.classList.contains('delete-user-btn')) {
-    listItemBehavior.deleteProfile();
+    loginCheck.deleteUser();
   }
   if (target.classList.contains('main-create-btn')) {
-    pageRender.renderNewPage('articlePage');
     editor.articleID = null;
+    pageRender.renderNewPage('articlePage');
+    const isNew = true;
+    editor.turnOnEditor(isNew);
     // listItemBehavior.createNewArticle();
   }
   if (target.classList.contains('delete-articles-from-server-btn')) {

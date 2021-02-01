@@ -21,9 +21,21 @@ exports.getAllUsers = catchAsync(async (req, res) => {
 });
 exports.updateMe = catchAsync(async (req, res) => {
   const filteredBody = filterObj(req.body, 'name', 'email');
-  await User.findByIdAndUpdate(req.user._id, filteredBody, {
-    runValidators: true,
-  });
+  console.log('обновление данных аккаунта');
+  console.log(req.body, req.user._id);
+  const settingType = req.body.settingType;
+  const newValue = req.body.newValue;
+  // if (settingType === 'login')
+  //   await User.findByIdAndUpdate(req.user._id, { name: newValue });
+  // if (settingType === 'password')
+  //   await User.findByIdAndUpdate(req.user._id, { password: newValue });
+  // if (settingType === 'email')
+  //   await User.findByIdAndUpdate(req.user._id, { email: newValue });
+
+  // старое поле
+  // await User.findByIdAndUpdate(req.user._id, filteredBody, {
+  //   runValidators: true,
+  // });
   const newUser = await User.findById(req.user._id);
   res.status(200).json({
     status: 'success',

@@ -1,3 +1,4 @@
+import loginCheck from './loginCheck.js';
 import pageRender from './page-render.js';
 
 const listItemBehavior = {
@@ -87,7 +88,7 @@ const listItemBehavior = {
   async deleteArticlesFromServer() {
     if (this.articlesID.length === 0) return;
 
-    const articleTitles = this.articlesID;
+    const { articlesID } = this;
     const response = await fetch(
       'http://127.0.0.1:8000/api/v1/articles/:name/',
       {
@@ -95,18 +96,18 @@ const listItemBehavior = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(articleTitles),
+        body: JSON.stringify(articlesID),
       }
     ).then((res) => res.json());
-    const { status } = response;
-    this.articlesID = [];
-
-    const click = new Event('click', {
-      bubbles: true,
-    });
-    document.querySelector('.dismiss-delete-btn').dispatchEvent(click);
-    pageRender.articlesUserPageAddToDOM();
-    this.changeSelectingState();
+    if (response.status === 'fail') {
+      console.log(response.message);
+      alert('Ошибка');
+    } else {
+      this.articlesID = [];
+      loginCheck.closeModal();
+      pageRender.articlesUserPageAddToDOM();
+      this.changeSelectingState();
+    }
   },
   openArticle(e) {
     //   открыть статью
@@ -122,51 +123,10 @@ const listItemBehavior = {
   createNewArticle() {
     alert('создание новой статьи');
   },
-  async deleteProfile() {
-    alert('delete');
-    // получить все статьи
-    // let url = 'http://localhost:8000/api/v1/articles/';
-    // let res = await fetch(`${url}`).then((response) => response.json());
-    // let allArticles = { ...res.data.articles };
-    // добавить статью
-    // const save = {
-    //   userID: 123,
-    //   title: 'test add article title 5',
-    //   desc: 'test add article description',
-    // };
-    // const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(save),
-    // });
-    // удалить статью
-    // let articleTitle = { title: 'test add article title' };
-    // let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(articleTitle),
-    // });
-    // // обновить статью
-    // const articleTitle = {
-    //   name: 'test add article title 5',
-    //   title: 'updated title',
-    // };
-    // await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(articleTitle),
-    // });
-  },
   changeUserSettings() {
     const setting = this.changeSettings;
     const { value } = document.querySelector('.change-value');
-    alert(`изменить ${setting} на '${value}'`);
+    loginCheck.changeSettings(setting, value);
   },
   async getArticlesList(author, page, limitOnPage, title) {
     // если автор указан как *, то выводит все статьи
@@ -191,3 +151,42 @@ const listItemBehavior = {
 };
 
 export default listItemBehavior;
+
+// получить все статьи
+// let url = 'http://localhost:8000/api/v1/articles/';
+// let res = await fetch(`${url}`).then((response) => response.json());
+// let allArticles = { ...res.data.articles };
+// добавить статью
+// const save = {
+//   userID: 123,
+//   title: 'test add article title 5',
+//   desc: 'test add article description',
+// };
+// const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(save),
+// });
+// удалить статью
+// let articleTitle = { title: 'test add article title' };
+// let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
+//   method: 'DELETE',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(articleTitle),
+// });
+// // обновить статью
+// const articleTitle = {
+//   name: 'test add article title 5',
+//   title: 'updated title',
+// };
+// await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
+//   method: 'PATCH',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(articleTitle),
+// });
