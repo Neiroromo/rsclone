@@ -78,7 +78,7 @@ function clickListeners(e) {
   }
   if (target.classList.contains('btn-search')) {
     pageRender.searchTitle = document.querySelector('#searchForm').value.trim();
-    // searchArticle();
+    pageRender.pageNumber = 1;
     pageRender.articlesManePageAddToDOM();
   }
   if (target.classList.contains('mainPage-openArticle-btn')) {

@@ -51,8 +51,8 @@ const loginCheck = {
     localStorage.removeItem('userName');
     localStorage.removeItem('userID');
     this.isLoggedIn = false;
-    this.userName = null;
-    this.userID = null;
+    this.userName = '';
+    this.userID = '';
     this.isLogged();
   },
   async registration(name, password, passwordConfirm, email) {

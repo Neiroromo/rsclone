@@ -44,8 +44,6 @@ const pageRender = {
       this.pageNumber = 1;
       this.articlesManePageAddToDOM();
       editor.pageState = 'read';
-      await this.getMaxArticleCount();
-      changeBtnAvailable();
     }
     if (pagaName === 'userProfile') {
       const userPageDOM = this.getDOMElemets(createUserPage());
@@ -55,12 +53,12 @@ const pageRender = {
         '.articles-container'
       );
       this.pageNumber = 1;
+      this.searchTitle = '';
       this.articlesUserPageAddToDOM();
       editor.pageState = 'read';
-      await this.getMaxArticleCount();
-      changeBtnAvailable();
     }
     if (pagaName === 'articlePage') {
+      this.searchTitle = '';
       const articlePageDOM = this.getDOMElemets(createArticlePage());
       this.renderContainer.append(articlePageDOM);
       editor.updatedVariables();
@@ -73,7 +71,10 @@ const pageRender = {
     const DOMElemets = htmlObj.documentElement.lastChild.firstChild;
     return DOMElemets;
   },
-  articlesManePageAddToDOM() {
+  async articlesManePageAddToDOM() {
+    await this.getMaxArticleCount();
+    changeBtnAvailable();
+
     listItemBehavior
       .getArticlesList(
         '*',
@@ -95,6 +96,9 @@ const pageRender = {
       });
   },
   async articlesUserPageAddToDOM() {
+    await this.getMaxArticleCount();
+    changeBtnAvailable();
+
     console.log('enter in addArticleListToDOM');
     console.log(
       'data: ',
@@ -122,14 +126,19 @@ const pageRender = {
   },
 
   async getMaxArticleCount() {
-    const userID = loginCheck.userID;
-    let title = '';
-    if (userID === '') userID = '*';
-    // if (this.searchTitle !== '') title = `?title=${this.searchTitle}`;
-    console.log(userID);
-    const url = `http://localhost:8000/api/v1/articles${title}/${userID}`;
+    const URL = loginCheck.fetchURL;
+    let title = this.searchTitle;
+    let authorID = loginCheck.userID;
+    if (title !== '') title = `title=${title}`;
+    if (this.currentPage !== 'main') {
+      authorID = `authorID=${authorID}`;
+    } else {
+      authorID = '';
+    }
+
+    const url = `${URL}articles?${title}${authorID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
-    this.numberOfArticles = res.maxCount;
+    this.numberOfArticles = res.data.count;
     this.maxPagesCount = Math.ceil(
       this.numberOfArticles / this.articlesLimitOnPage
     );
