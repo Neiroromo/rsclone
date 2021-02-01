@@ -7,14 +7,15 @@ articleRouter
   .route('/')
   // .get(authController.protect, articlesController.showAllArticles) // нужно войти и получить куки , тогда будет доступ
   .get(articlesController.showAllArticles) // Не нужно войти и получить куки
-  .post(articlesController.createArticle);
+  .post(articlesController.createArticle)
+  .delete(articlesController.deleteArticle);
 
 articleRouter.get('/:id', articlesController.getMaxById);
 articleRouter.post('/getArticlesById', articlesController.getArticlesById);
 articleRouter
   .route('/:name')
   .get(articlesController.getOneArticle)
-  .delete(articlesController.deleteArticle)
+
   .patch(articlesController.updateArticle);
 
 articleRouter.route('/upload').post(
