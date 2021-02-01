@@ -17,7 +17,7 @@ const pageRender = {
   mainPageArticlesContainer: '',
   userPageArticleListContainer: '',
   pageNumber: 1,
-  articlesLimitOnPage: 1,
+  articlesLimitOnPage: 5,
   numberOfArticles: null,
   maxPagesCount: null,
   searchTitle: '',

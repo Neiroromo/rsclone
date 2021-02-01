@@ -65,7 +65,7 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 });
 
 exports.createArticle = catchAsync(async (req, res) => {
-  console.log(`createArticle`);
+  console.log(`создание статьи`);
 
   console.log(req.body);
 
@@ -83,16 +83,21 @@ exports.createArticle = catchAsync(async (req, res) => {
   const isLatest = true;
   const changes = fileSize;
   if (_id === null) {
+    console.log('новая статья');
     articleID =
       (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID) + 1;
     // authorID = currentUser._id;
     authorID = currentUser;
   } else {
-    // articleID = (await Article.find({}).sort({ articleID: 1 }).limit(1).articleID); ///найти articleID по _id
-    authorID = await Article.findById(articleID).authorID;
+    console.log('новая версия существющей статьи');
+    console.log(_id);
+    await Article.findById(_id, function (err, article) {
+      authorID = article.authorID;
+      articleID = article.articleID;
+    });
+    await Article.findOneAndUpdate({ _id: `${_id}` }, { isLatest: false });
   }
-
-  const articles = await Article.create({
+  const article = await Article.create({
     articleID,
     authorID,
     userChangedID,
@@ -105,7 +110,6 @@ exports.createArticle = catchAsync(async (req, res) => {
   }).catch((error) => {
     console.log(error);
   });
-  // console.log(req.file);
   res.json({
     status: 'OK',
     createdArticle: article,
