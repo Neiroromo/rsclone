@@ -30,26 +30,34 @@ const editor = {
     this.changedArticlesContainer = document.querySelector('.changed-articles');
   },
   turnOnEditor() {
+    this.editorJSWorkspace.innerHTML = '';
+    this.editorOn = true;
+    this.pageState = 'edit';
+
     this.saveBtn.classList.remove('d-none');
     this.discardBtn.classList.remove('d-none');
     this.editBtn.classList.add('d-none');
     this.titleInput.removeAttribute('disabled');
-    // this.editorJSWorkspace.setAttribute('id', 'editorjs');
-    // this.editor.readOnly = false;
-    // console.log(this.openedData);
-    // this.editor.blocks = this.openedData;
-    // this.editor.render(this.openedData);
-    // console.log(this.editor.blocks);
-    this.editorOn = true;
+
+    this.createEditor();
+
+    this.editor.isReady.then(() => {
+      this.editor.render(this.openedData);
+    });
   },
   turnOffEditor() {
+    this.editor.destroy();
+
+    this.editorJSWorkspace.innerHTML = '';
+    this.editorOn = false;
+    this.pageState = 'read';
+
     this.saveBtn.classList.add('d-none');
     this.discardBtn.classList.add('d-none');
     this.editBtn.classList.remove('d-none');
     this.titleInput.setAttribute('disabled', 'disabled');
-    // this.editorJSWorkspace.setAttribute('id', '');
-    // this.editor.readOnly = true;
-    this.editorOn = false;
+
+    this.enableReadMode(this.openedData);
   },
   saveArticle() {
     const userChangedID = loginCheck.userID;
@@ -103,11 +111,12 @@ const editor = {
     this.descTextAria.value = article.desc;
     // добавление тела статьи
     this.openedData = article.data;
-    this.editor.isReady.then(() => {
-      this.editor.render(this.openedData);
-    });
+    this.enableReadMode(this.openedData);
+    // this.editor.isReady.then(() => {
+    //   this.editor.render(this.openedData);
+    // });
   },
-  createEditor(isLoad) {
+  createEditor() {
     const editor = new EditorJS({
       holderId: 'editorjs',
       tools: {
@@ -115,16 +124,15 @@ const editor = {
           class: Header,
           inlineToolbar: true,
         },
-        // image: {
-        //   class: ImageTool,
-        //   config: {
-        //     endpoints: {
-        //       byFile: 'http://localhost:8000/api/v1/articles/upload',
-        //       byUrl: 'http://localhost:8000/fetchUrl',
-        //     },
-        //   },
-        // },
-        image: SimpleImage,
+        image: {
+          class: ImageTool,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost:8000/api/v1/articles/upload',
+              byUrl: 'http://localhost:8000/fetchUrl',
+            },
+          },
+        },
         raw: RawTool,
         imageSimple: {
           class: SimpleImage,
@@ -153,6 +161,13 @@ const editor = {
     this.editor = editor;
   },
   addChangedArticles() {},
+  enableReadMode(data) {
+    this.editorOn = false;
+    const parser = new edjsParser();
+    const markup = parser.parse(data);
+    this.editorJSWorkspace.innerHTML = '';
+    this.editorJSWorkspace.innerHTML = markup;
+  },
 };
 
 export default editor;
