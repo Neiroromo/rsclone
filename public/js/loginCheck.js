@@ -28,6 +28,7 @@ const loginCheck = {
       .catch((error) => error.json());
 
     if (response.status === 'fail') {
+      alert('Введенные данные не верны');
       console.log(response.message);
     } else {
       this.userName = response.data.user.name;
@@ -43,17 +44,15 @@ const loginCheck = {
       .catch((error) => error.json());
 
     if (response.status === 'fail') {
-      alert(response.message);
+      console(response.message);
     } else {
-      alert(document.cookie);
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userID');
+      this.isLoggedIn = false;
+      this.userName = '';
+      this.userID = '';
+      this.isLogged();
     }
-    alert('Нужно добавить выход с сервера');
-    // localStorage.removeItem('userName');
-    // localStorage.removeItem('userID');
-    // this.isLoggedIn = false;
-    // this.userName = '';
-    // this.userID = '';
-    // this.isLogged();
   },
   async registration(name, password, passwordConfirm, email) {
     const data = { name, password, passwordConfirm, email };
@@ -68,6 +67,7 @@ const loginCheck = {
       .catch((error) => error.json());
     if (response.status === 'fail') {
       console.log(response.message);
+      alert('Ошибка при регистрации');
     } else {
       this.userName = response.data.user.name;
       this.userID = response.data.user._id;
