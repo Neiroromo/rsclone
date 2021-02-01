@@ -38,13 +38,6 @@ function clickListeners(e) {
   // main btns
   const loginForm = document.querySelector('.login');
   const signinForm = document.querySelector('.signin');
-  const loginLinks = document.querySelectorAll('.link-login');
-  const signinLink = document.querySelector('#linkSignin');
-  const btnLog = document.querySelector('#btnLog');
-  const divProfile = document.querySelector('#divProfile');
-  const btnUser = document.querySelector('.btn-user');
-  const btnSubmit = document.querySelector('.submit-btn');
-  const currPage = document.querySelector('.current-page');
 
   // лисенеры на начальной странице (main)
   if (target.classList.contains('link-login') || target.id === 'btnLog') {

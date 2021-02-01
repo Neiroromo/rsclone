@@ -35,6 +35,7 @@ const loginCheck = {
       this.userID = response.data.user._id;
       localStorage.setItem('userName', this.userName);
       localStorage.setItem('userID', this.userID);
+      this.closeModal();
     }
     this.isLogged();
   },
@@ -73,8 +74,16 @@ const loginCheck = {
       this.userID = response.data.user._id;
       localStorage.setItem('userName', this.userName);
       localStorage.setItem('userID', this.userID);
+      this.closeModal();
     }
     this.isLogged();
+  },
+  closeModal() {
+    const click = new Event('click', {
+      bubbles: true,
+    });
+    const closeBtn = document.querySelector('.close');
+    closeBtn.dispatchEvent(click);
   },
 };
 

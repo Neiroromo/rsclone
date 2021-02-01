@@ -8,8 +8,8 @@
       user
     </button>
     <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item border" href="#" id="profile">profile</a>
-      <a class="dropdown-item border" href="" id="btnExit">exit</a>
+      <a class="dropdown-item border" href="#" id="profile">профиль</a>
+      <a class="dropdown-item border" href="" id="btnExit">выход</a>
     </div>
   </div>
 </nav>
@@ -18,7 +18,7 @@
   <div class="modal-dialog">
     <div class="modal-content login">
       <div class="modal-header">
-        <h5 class="modal-title">Login window</h5>
+        <h5 class="modal-title">Войти</h5>
         <span class="text-danger err-message"></span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -32,27 +32,23 @@
               aria-describedby="emailHelp">
           </div>
           <div class="form-group">
-            <label for="authPassword">password</label>
+            <label for="authPassword">Пароль</label>
             <input type="password" class="form-control" id="authPassword">
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-        <button type="button" class="btn btn-primary" id="linkSignin">sign up</button>
-        <button type="submit" class="btn btn-primary submit-btn btn-confirm" id="btnAuth" data-dismiss="modal">Login</button>
+        <button type="button" class="btn btn-primary" id="linkSignin">зарегистрироваться</button>
+        <button type="submit" class="btn btn-primary submit-btn btn-confirm" id="btnAuth">Войти</button>
 
       </div>
 
     </div>
     <div class="modal-content signin hide-modal">
       <div class="modal-header">
-        <h5 class="modal-title">Sign Up Window</h5>
+        <h5 class="modal-title">Регистрация</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -60,15 +56,15 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="regLogin">login</label>
+            <label for="regLogin">Логин</label>
             <input required type="text" class="form-control" id="regLogin" aria-describedby="emailHelp">
           </div>
           <div class="form-group">
-            <label for="regPassword">password</label>
+            <label for="regPassword">Пароль</label>
             <input required type="password" class="form-control" id="regPassword">
           </div>
           <div class="form-group">
-            <label for="regPasswordConfirm">confirm password</label>
+            <label for="regPasswordConfirm">Подтверждение пароля</label>
             <input required type="password" class="form-control" id="regPasswordConfirm">
           </div>
           <div class="form-group">
@@ -76,18 +72,12 @@
             <input required type="email" class="form-control" id="regEmail" aria-describedby="emailHelp">
           </div>
 
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-            <label class="form-check-label" for="exampleCheck2">Check me out</label>
-          </div>
-
         </form>
       </div>
       <div class="modal-footer">
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-        <button type="button" class="btn btn-primary link-login" id="linkLogin">Login</button>
+        <button type="button" class="btn btn-primary link-login" id="linkLogin">войти</button>
 
-        <button type="submit" class="btn btn-primary btn-confirm" id="btnReg" data-dismiss="modal">Register</button>
+        <button type="submit" class="btn btn-primary btn-confirm" id="btnReg" >Зарегистрироваться</button>
       </div>
     </div>
   </div>
