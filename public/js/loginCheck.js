@@ -122,14 +122,13 @@ const loginCheck = {
       alert('Ошибка');
     } else {
       console.log('удален');
-      // this.closeModal();
-      // localStorage.removeItem('userName');
-      // localStorage.removeItem('userID');
-      // this.isLoggedIn = false;
-      // this.userName = '';
-      // this.userID = '';
-      // this.isLogged();
-      // pageRender.renderNewPage('main');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userID');
+      this.isLoggedIn = false;
+      this.userName = '';
+      this.userID = '';
+      this.isLogged();
+      pageRender.renderNewPage('main');
     }
   },
 };

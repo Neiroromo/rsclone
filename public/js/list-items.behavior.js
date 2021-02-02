@@ -89,16 +89,13 @@ const listItemBehavior = {
     if (this.articlesID.length === 0) return;
 
     const { articlesID } = this;
-    const response = await fetch(
-      'http://127.0.0.1:8000/api/v1/articles/:name/',
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(articlesID),
-      }
-    ).then((res) => res.json());
+    const response = await fetch('http://127.0.0.1:8000/api/v1/articles/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(articlesID),
+    }).then((res) => res.json());
     if (response.status === 'fail') {
       console.log(response.message);
       alert('Ошибка');
@@ -128,13 +125,13 @@ const listItemBehavior = {
     const { value } = document.querySelector('.change-value');
     loginCheck.changeSettings(setting, value);
   },
-  async getArticlesList(author, page, limitOnPage, title) {
+  async getArticlesList(author, page, limitOnPage, title, isLatest) {
     // если автор указан как *, то выводит все статьи
     // если страницы указаны как * или 0, то выводит все статьи с указанным автором
     if (author === '*') {
       author = '';
     } else {
-      author = `authorID=${author}&`;
+      author = `authorID=${author}`;
     }
     if (page === '*' || page === 0) {
       page = '';
@@ -142,8 +139,17 @@ const listItemBehavior = {
     } else {
       page = `page=${page}&limit=${limitOnPage}`;
     }
-    if (title === undefined) title = '';
-    const url = `http://localhost:8000/api/v1/articles?${author}${page}&title=${title}`;
+    if (title === undefined) {
+      title = '';
+    } else {
+      title = `title=${title}`;
+    }
+    if (isLatest) {
+      isLatest = `isLatest=true`;
+    } else {
+      isLatest = '';
+    }
+    const url = `http://localhost:8000/api/v1/articles?${author}&${page}&${title}&${isLatest}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const allArticles = { ...res.data.articles };
     return allArticles;

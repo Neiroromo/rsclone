@@ -100,6 +100,11 @@ function clickListeners(e) {
   }
   if (target.nodeName === 'TH') return;
 
+  if (target.classList.contains('open-changed-article')) {
+    const articlesID = target.getAttribute('data-changedarticleid');
+    editor.articleID = articlesID;
+    pageRender.renderNewPage('articlePage');
+  }
   if (target.classList.contains('save-article-to-server')) {
     editor.saveArticle();
   }

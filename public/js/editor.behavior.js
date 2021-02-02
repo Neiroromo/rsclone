@@ -100,6 +100,10 @@ const editor = {
     const title = this.titleInput.value;
     const desc = this.descTextAria.value;
     const date = new Date();
+    if (title === '' || desc === '') {
+      alert('Обязательные поля: Заголовок, описание');
+      return;
+    }
     this.editor
       .save()
       .then(async (outputData) => {
@@ -124,8 +128,15 @@ const editor = {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(save),
-        });
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            this.articleID = res.createdArticle._id;
+            this.articleIDMain = res.createdArticle.articleID;
+            pageRender.renderNewPage('articlePage');
+          });
       })
+      .then((res) => res.json())
       .catch((error) => {
         console.log('Saving failed: ', error);
       });
@@ -196,18 +207,18 @@ const editor = {
   },
   async getChangedArticles() {
     const articleID = this.articleIDMain;
-    const all = '&all=true';
-    const url = `http://localhost:8000/api/v1/articles?articleID=${articleID}${all}`;
+    if (articleID === null) return;
+    const url = `http://localhost:8000/api/v1/articles?articleID=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const articles = { ...res.articles };
-    return articles;
+    this.addChangedArticles(articles);
   },
   addChangedArticles(changedArticles) {
     let changesTest = 0;
     changedArticles = Object.values(changedArticles);
-    console.log(changedArticles);
     changedArticles.forEach(async (article) => {
-      const { _id, date, changes } = article;
+      const { _id, changes } = article;
+      let { date } = article;
       const userName = await this.getUserName(article.userChangedID);
       let textClass;
       if (changesTest < article.changes) {
@@ -217,13 +228,21 @@ const editor = {
       } else {
         textClass = 'text-secondary';
       }
+      date = new Date(date);
+      const day = date.getDay();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      date = `${day}-${month}-${year}`;
       changesTest = article.changes;
+      let trClass = '';
+      if (_id === this.articleID) trClass = 'current-changed-page';
       this.changedArticlesContainer.innerHTML += createChangedArticleItem(
         _id,
         userName,
         date,
         changes,
-        textClass
+        textClass,
+        trClass
       );
     });
   },

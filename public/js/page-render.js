@@ -43,7 +43,11 @@ const pageRender = {
       this.mainPageArticlesContainer = document.querySelector('.list-article');
       this.pageNumber = 1;
       this.articlesManePageAddToDOM();
+      editor.articleID = null;
+      editor.articleIDMain = null;
+      this.editorOn = false;
       editor.pageState = 'read';
+      this.editingData = null;
     }
     if (pagaName === 'userProfile') {
       const userPageDOM = this.getDOMElemets(createUserPage());
@@ -55,7 +59,11 @@ const pageRender = {
       this.pageNumber = 1;
       this.searchTitle = '';
       this.articlesUserPageAddToDOM();
+      editor.articleID = null;
+      editor.articleIDMain = null;
+      this.editorOn = false;
       editor.pageState = 'read';
+      this.editingData = null;
     }
     if (pagaName === 'articlePage') {
       this.searchTitle = '';
@@ -63,7 +71,7 @@ const pageRender = {
       this.renderContainer.append(articlePageDOM);
       editor.updatedVariables();
       await editor.openArticle(editor.articleID);
-      editor.addChangedArticles(await editor.getChangedArticles());
+      await editor.getChangedArticles();
     }
   },
   getDOMElemets(html) {
@@ -80,7 +88,8 @@ const pageRender = {
         '*',
         this.pageNumber,
         this.articlesLimitOnPage,
-        this.searchTitle
+        this.searchTitle,
+        true
       )
       .then((res) => {
         const articles = Object.values(res);
@@ -100,7 +109,9 @@ const pageRender = {
     let articles = await listItemBehavior.getArticlesList(
       loginCheck.userID,
       this.pageNumber,
-      this.articlesLimitOnPage
+      this.articlesLimitOnPage,
+      undefined,
+      true
     );
     articles = Object.values(articles);
     this.userPageArticleListContainer.innerHTML = '';
@@ -118,6 +129,7 @@ const pageRender = {
     const URL = loginCheck.fetchURL;
     let title = this.searchTitle;
     let authorID = loginCheck.userID;
+    const isLatest = `&isLatest=true`;
     if (title !== '') title = `title=${title}`;
     if (this.currentPage !== 'main') {
       authorID = `authorID=${authorID}`;
@@ -125,7 +137,7 @@ const pageRender = {
       authorID = '';
     }
 
-    const url = `${URL}articles?${title}${authorID}`;
+    const url = `${URL}articles?${title}${authorID}${isLatest}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     this.numberOfArticles = res.data.count;
     this.maxPagesCount = Math.ceil(

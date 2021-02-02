@@ -15,7 +15,6 @@ articleRouter.post('/getArticlesById', articlesController.getArticlesById);
 articleRouter
   .route('/:name')
   .get(articlesController.getOneArticle)
-
   .patch(articlesController.updateArticle);
 
 articleRouter.route('/upload').post(

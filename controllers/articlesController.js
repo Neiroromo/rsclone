@@ -68,7 +68,6 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 
 exports.createArticle = catchAsync(async (req, res, next) => {
   console.log(`создание статьи`);
-
   // const token = req.cookies.jwt;
   // const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
   // console.log('aaa');
@@ -83,11 +82,59 @@ exports.createArticle = catchAsync(async (req, res, next) => {
   const isLatest = true;
   const changes = fileSize;
 
+  async function create() {
+    console.log('asdasd', {
+      articleID,
+      authorID,
+      userChangedID,
+      title: req.body.title,
+      desc: req.body.desc,
+      data: req.body.outputData,
+      isLatest,
+      date: req.body.date,
+      changes,
+    });
+    const article = await Article.create({
+      articleID,
+      authorID,
+      userChangedID,
+      title: req.body.title,
+      desc: req.body.desc,
+      data: req.body.outputData,
+      isLatest,
+      date: req.body.date,
+      changes,
+    }).catch((error) => {
+      console.log(error);
+    });
+    res.json({
+      status: 'OK',
+      createdArticle: article,
+    });
+  }
+
   if (_id === null) {
     const article = await Article.find({}).sort({ articleID: -1 }).limit(1);
-    articleID = article[0].articleID + 1;
-    console.log(articleID);
+    if (article.length === 0) {
+      articleID = 1;
+    } else {
+      articleID = article[0].articleID + 1;
+    }
+
+    console.log('article id is ', articleID);
     authorID = currentUser;
+    console.log({
+      articleID,
+      authorID,
+      userChangedID,
+      title: req.body.title,
+      desc: req.body.desc,
+      data: req.body.outputData,
+      isLatest,
+      date: req.body.date,
+      changes,
+    });
+    create();
   } else {
     let oldTitle, oldDesc, oldData;
 
@@ -118,32 +165,16 @@ exports.createArticle = catchAsync(async (req, res, next) => {
                 new AppError('Статья с данным содержанием уже существует', 401)
               );
             } else {
+              await Article.findOneAndUpdate(
+                { _id: `${_id}` },
+                { isLatest: false }
+              );
               create();
             }
           }
         );
       }
     );
-  }
-  async function create() {
-    await Article.findOneAndUpdate({ _id: `${_id}` }, { isLatest: false });
-    const article = await Article.create({
-      articleID,
-      authorID,
-      userChangedID,
-      title: req.body.title,
-      desc: req.body.desc,
-      data: req.body.outputData,
-      isLatest,
-      date: req.body.date,
-      changes,
-    }).catch((error) => {
-      console.log(error);
-    });
-    res.json({
-      status: 'OK',
-      createdArticle: article,
-    });
   }
 });
 
@@ -207,7 +238,8 @@ exports.getArticlesById = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
-  const arrayId = req.body.articlesID;
+  console.log('delete: ', req.body);
+  const arrayId = req.body;
   arrayId.forEach(async (id) => {
     const article = await Article.findById(id);
     const deleteId = article.articleID;

@@ -3,9 +3,10 @@ export default function createChangedArticleItem(
   userName,
   date,
   size,
-  textClass
+  textClass,
+  currentPageClass
 ) {
-  const html = `<tr data-changedArticleID="${articleID}">
+  const html = `<tr class='open-changed-article ${currentPageClass}' data-changedArticleID="${articleID}">
     <td>${userName}</td>
     <td>${date}</td>
     <td class="${textClass}">${size}</td>

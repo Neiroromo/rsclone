@@ -2,7 +2,7 @@ import pageRender from './page-render.js';
 
 export default function changeBtnAvailable() {
   if (pageRender.pageNumber <= 1) {
-    if (pageRender.maxPagesCount === 1) {
+    if (pageRender.maxPagesCount === 1 || pageRender.maxPagesCount === 0) {
       document
         .querySelector('.first-page')
         .classList.add('disabled', 'unclickable');

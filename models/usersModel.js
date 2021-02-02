@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 6,
+    minlength: 4,
     maxlength: 15,
     unique: true,
     trim: true,
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Пожалуйста введите пароль'],
-    minlength: 8,
+    minlength: 6,
     select: false,
   },
   passwordConfirm: {
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     required: [true, 'Пожалуйста введите почту!'],
     minlength: 1,
-    maxlength: 30,
+    maxlength: 50,
     unique: true,
     // validate: [validator.isEmail, 'Введена не валидная почта'],
   },
