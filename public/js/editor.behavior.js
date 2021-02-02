@@ -265,6 +265,14 @@ const editor = {
     const markup = parser.parse(data);
     this.editorJSWorkspace.innerHTML = '';
     this.editorJSWorkspace.innerHTML = markup;
+    setTimeout(this.normalizeRender, 50);
+  },
+  normalizeRender() {
+    const fullWidthImgs = document.querySelectorAll('.img-fullwidth');
+    fullWidthImgs.forEach((img) => {
+      img.style.height = 'auto';
+      img.style.height = `${img.offsetHeight}px`;
+    });
   },
 };
 

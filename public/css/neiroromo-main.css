@@ -131,8 +131,6 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  /* max-height: calc(100vh - 94px); */
-  /* overflow-y: scroll; */
   border: 1px solid red;
 }
 .history {

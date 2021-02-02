@@ -27,11 +27,7 @@ export default function createArticlePage() {
                                create
                                </span>
                        </button>
-                       <button type="button" class="btn btn-secondary hideShow-history">
-                           <span class="material-icons">
-                               arrow_right_alt
-                               </span>
-                       </button>
+                       
                    </div>
                </div>
                <div class="row workspace__body" id="editorjs">
