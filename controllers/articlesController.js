@@ -136,13 +136,13 @@ exports.createArticle = catchAsync(async (req, res, next) => {
     });
     create();
   } else {
+    console.log('изменение старой статьи');
     let oldTitle, oldDesc, oldData;
 
     await Article.findById(_id, function (err, article) {
       authorID = article.authorID;
       articleID = article.articleID;
     });
-
     const article = await Article.find(
       { _id: { $eq: _id } },
       async (err, article) => {
@@ -156,9 +156,10 @@ exports.createArticle = catchAsync(async (req, res, next) => {
               oldDesc: article[0].desc,
               oldData: article[0].data,
             });
+
             if (
-              req.body.title === oldTitle ||
-              req.body.desc === oldDesc ||
+              req.body.title === oldTitle &&
+              req.body.desc === oldDesc &&
               JSON.stringify(req.body.outputData) === JSON.stringify(oldData)
             ) {
               return next(
