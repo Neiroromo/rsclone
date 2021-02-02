@@ -44,6 +44,7 @@ export default function createArticlePage() {
                    <table class="table">
                        <thead>
                        <tr class="thead">
+                            <th>Номер</th>
                            <th>Пользователь</th>
                            <th>Дата</th>
                            <th>Изменения</th>

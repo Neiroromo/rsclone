@@ -58,6 +58,7 @@ const loginCheck = {
   },
   async registration(name, password, passwordConfirm, email) {
     const data = { name, password, passwordConfirm, email };
+
     const response = await fetch(`${this.fetchURL}users/signup`, {
       method: 'POST',
       headers: {
@@ -67,9 +68,12 @@ const loginCheck = {
     })
       .then((res) => res.json())
       .catch((error) => error.json());
-    if (response.status === 'fail') {
+    console.log(response);
+    if (response.status === 'error') {
       console.log(response.message);
-      alert('Ошибка при регистрации');
+      alert(
+        `Введенные данные не соответсвуют требованиям:\nИмя пользователя и почта: минимум 4 символа\nПароль: минимум 6 символов\n${response.message}`
+      );
     } else {
       this.userName = response.data.user.name;
       this.userID = response.data.user._id;
@@ -89,6 +93,11 @@ const loginCheck = {
     });
   },
   async changeSettings(settingType, newValue) {
+    const validation = this.validation(settingType, newValue);
+    if (!validation) {
+      alert('Введенные данные не соответсвуют требованиям');
+      return;
+    }
     const data = {
       settingType,
       newValue,
@@ -104,13 +113,18 @@ const loginCheck = {
       .catch((error) => error.json());
     if (response.status === 'fail') {
       console.log(response.message);
-      alert('Ошибка при регистрации');
+      alert(
+        'Введенные данные не соответсвуют требованиям:\nИмя пользователя и почта: минимум 4 символа'
+      );
     } else {
       this.userName = response.data.user.name;
       this.userID = response.data.user._id;
       localStorage.setItem('userName', this.userName);
       localStorage.setItem('userID', this.userID);
+      this.isLogged();
+      alert('Новые данные сохранены');
       this.closeModal();
+      pageRender.renderNewPage('userProfile');
     }
   },
   async deleteUser() {
@@ -127,9 +141,20 @@ const loginCheck = {
       this.isLoggedIn = false;
       this.userName = '';
       this.userID = '';
+      this.closeModal();
       this.isLogged();
       pageRender.renderNewPage('main');
     }
+  },
+  validation(setting, val) {
+    let answer = true;
+    if (setting === 'login') {
+      if (val.length < 4) answer = false;
+    }
+    if (setting === 'email') {
+      if (val.length < 4) answer = false;
+    }
+    return answer;
   },
 };
 

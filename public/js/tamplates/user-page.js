@@ -20,9 +20,7 @@ export default function createUserPage() {
                 <button class="dropdown-item drop-login-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
                     изменить имя пользователя
                 </button>
-                <button class="dropdown-item drop-password-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
-                    изменить пароль
-                </button>
+                
                 <button class="dropdown-item drop-delete-user-btn" type="button" data-toggle="modal" data-target="#deleteUser">
                     удалить профиль
                 </button>

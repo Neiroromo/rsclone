@@ -1,4 +1,5 @@
 export default function createChangedArticleItem(
+  number,
   articleID,
   userName,
   date,
@@ -6,8 +7,10 @@ export default function createChangedArticleItem(
   textClass,
   currentPageClass
 ) {
+  if (userName === undefined) userName = 'пользователь удален';
   const html = `<tr class='open-changed-article ${currentPageClass}' data-changedArticleID="${articleID}">
-    <td>${userName}</td>
+  <td>${number}</td>
+  <td>${userName}</td>
     <td>${date}</td>
     <td class="${textClass}">${size}</td>
   </tr>`;

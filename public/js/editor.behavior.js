@@ -174,11 +174,11 @@ const editor = {
           config: {
             endpoints: {
               byFile: 'http://localhost:8000/api/v1/articles/upload',
-              byUrl: 'http://localhost:8000/fetchUrl',
+              // byUrl: 'http://localhost:8000/fetchUrl',
             },
           },
         },
-        raw: RawTool,
+        // raw: RawTool,
         // imageSimple: {
         //   class: SimpleImage,
         // },
@@ -186,12 +186,12 @@ const editor = {
           class: Checklist,
           inlineToolbar: true,
         },
-        linkTool: {
-          class: LinkTool,
-          config: {
-            endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching
-          },
-        },
+        // linkTool: {
+        //   class: LinkTool,
+        //   config: {
+        //     endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching
+        //   },
+        // },
         list: {
           class: List,
           inlineToolbar: true,
@@ -216,17 +216,22 @@ const editor = {
   addChangedArticles(changedArticles) {
     let changesTest = 0;
     changedArticles = Object.values(changedArticles);
+    let i = 1;
+
     changedArticles.forEach(async (article) => {
-      const { _id, changes } = article;
-      let { date } = article;
+      const { _id } = article;
+      let { date, changes } = article;
       const userName = await this.getUserName(article.userChangedID);
       let textClass;
       if (changesTest < article.changes) {
         textClass = 'text-success';
+        changes = `+${changes - changesTest} Кбайт`;
       } else if (changesTest > article.changes) {
         textClass = 'text-danger';
+        changes = `${changes - changesTest} Кбайт`;
       } else {
         textClass = 'text-secondary';
+        changes = '+0 Кбайт';
       }
       date = new Date(date);
       const day = date.getDay();
@@ -237,6 +242,7 @@ const editor = {
       let trClass = '';
       if (_id === this.articleID) trClass = 'current-changed-page';
       this.changedArticlesContainer.innerHTML += createChangedArticleItem(
+        i,
         _id,
         userName,
         date,
@@ -244,6 +250,7 @@ const editor = {
         textClass,
         trClass
       );
+      i += 1;
     });
   },
   async getUserName(userID) {
