@@ -9,7 +9,7 @@ const loginCheck = {
   isLogged() {
     const userName = localStorage.getItem('userName');
     const userID = localStorage.getItem('userID');
-    if (userName && userID) {
+    if (userName && userID && document.cookie) {
       this.isLoggedIn = true;
       this.userName = userName;
       this.userID = userID;
