@@ -144,7 +144,7 @@ const editor = {
   async openArticle(articleID) {
     if (articleID === null) return;
     // получение данных статьи
-    const url = `http://localhost:8000/api/v1/articles?_id=${articleID}`;
+    const url = `${loginCheck.fetchURL}articles?_id=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const article = { ...res.articles[0] };
     this.articleIDMain = article.articleID;
@@ -173,7 +173,7 @@ const editor = {
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: 'http://localhost:8000/api/v1/articles/upload',
+              byFile: `${loginCheck.fetchURL}articles/upload`,
               // byUrl: 'http://localhost:8000/fetchUrl',
             },
           },
@@ -208,7 +208,7 @@ const editor = {
   async getChangedArticles() {
     const articleID = this.articleIDMain;
     if (articleID === null) return;
-    const url = `http://localhost:8000/api/v1/articles?articleID=${articleID}`;
+    const url = `${loginCheck.fetchURL}articles?articleID=${articleID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const articles = { ...res.articles };
     this.addChangedArticles(articles);
@@ -254,7 +254,7 @@ const editor = {
     });
   },
   async getUserName(userID) {
-    const url = `http://localhost:8000/api/v1/users/${userID}`;
+    const url = `${loginCheck.fetchURL}users/${userID}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const user = { ...res.name };
     return user.name;

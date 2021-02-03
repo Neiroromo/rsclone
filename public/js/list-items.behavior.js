@@ -149,7 +149,8 @@ const listItemBehavior = {
     } else {
       isLatest = '';
     }
-    const url = `http://localhost:8000/api/v1/articles?${author}&${page}&${title}&${isLatest}`;
+    const URL = loginCheck.fetchURL;
+    const url = `${URL}articles?${author}&${page}&${title}&${isLatest}`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const allArticles = { ...res.data.articles };
     return allArticles;
@@ -157,42 +158,3 @@ const listItemBehavior = {
 };
 
 export default listItemBehavior;
-
-// получить все статьи
-// let url = 'http://localhost:8000/api/v1/articles/';
-// let res = await fetch(`${url}`).then((response) => response.json());
-// let allArticles = { ...res.data.articles };
-// добавить статью
-// const save = {
-//   userID: 123,
-//   title: 'test add article title 5',
-//   desc: 'test add article description',
-// };
-// const response = await fetch('http://127.0.0.1:8000/api/v1/articles', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(save),
-// });
-// удалить статью
-// let articleTitle = { title: 'test add article title' };
-// let response = await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
-//   method: 'DELETE',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(articleTitle),
-// });
-// // обновить статью
-// const articleTitle = {
-//   name: 'test add article title 5',
-//   title: 'updated title',
-// };
-// await fetch('http://127.0.0.1:8000/api/v1/articles/:name/', {
-//   method: 'PATCH',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(articleTitle),
-// });
