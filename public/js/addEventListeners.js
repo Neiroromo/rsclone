@@ -253,4 +253,10 @@ export default function addListeners() {
   bodyElement.addEventListener('click', (e) => {
     clickListeners(e);
   });
+
+  window.addEventListener('resize', () => {
+    if (pageRender.currentPage === 'articlePage') {
+      editor.normalizeRender();
+    }
+  });
 }
