@@ -30,7 +30,6 @@ const loginCheck = {
 
     if (response.status === 'fail') {
       alert('Введенные данные не верны');
-      console.log(response.message);
     } else {
       this.userName = response.data.user.name;
       this.userID = response.data.user._id;
@@ -68,9 +67,7 @@ const loginCheck = {
     })
       .then((res) => res.json())
       .catch((error) => error.json());
-    console.log(response);
     if (response.status === 'error') {
-      console.log(response.message);
       alert(
         `Введенные данные не соответсвуют требованиям:\nИмя пользователя и почта: минимум 4 символа\nПароль: минимум 6 символов\n${response.message}`
       );
@@ -112,7 +109,6 @@ const loginCheck = {
       .then((res) => res.json())
       .catch((error) => error.json());
     if (response.status === 'fail') {
-      console.log(response.message);
       alert(
         'Введенные данные не соответсвуют требованиям:\nИмя пользователя и почта: минимум 4 символа'
       );
@@ -132,10 +128,8 @@ const loginCheck = {
       .then((res) => res.json())
       .catch((error) => error.json());
     if (response.status === 'fail') {
-      console.log(response.message);
       alert('Ошибка');
     } else {
-      console.log('удален');
       localStorage.removeItem('userName');
       localStorage.removeItem('userID');
       this.isLoggedIn = false;

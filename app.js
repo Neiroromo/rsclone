@@ -11,10 +11,11 @@ const cors = require('cors');
 
 const app = express();
 const corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:8000',
   methods: 'GET,POST,DELETE,PATCH',
   preflightContinue: false,
   optionsSuccessStatus: 204,
+  credentials: true,
 };
 
 app.set('views', path.join(__dirname, 'views'));

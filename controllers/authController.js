@@ -55,9 +55,7 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   if (!req.body.email || !req.body.password) {
-    console.log('wtd');
     return next(
       new AppError('Пожалуйста введите коректную почту и пароль', 400)
     );
@@ -104,6 +102,5 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   req.user = freshUser;
-  console.log(req.user);
   next();
 });

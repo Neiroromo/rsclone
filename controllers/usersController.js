@@ -22,8 +22,6 @@ exports.getAllUsers = catchAsync(async (req, res) => {
 });
 exports.updateMe = catchAsync(async (req, res) => {
   const filteredBody = filterObj(req.body, 'name', 'email');
-  console.log('обновление данных аккаунта');
-  console.log(req.body, req.user._id);
   const settingType = req.body.settingType;
   const newValue = req.body.newValue;
   if (settingType === 'login')
