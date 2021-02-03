@@ -25,7 +25,7 @@ articleRouter.route('/upload').post(
     res.json({
       success: 1,
       file: {
-        url: `http://localhost:8000/img/articles/${req.file.filename}`,
+        url: `/img/articles/${req.file.filename}`,
       },
     });
   }
