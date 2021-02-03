@@ -7,8 +7,8 @@ articleRouter
   .route('/')
   // .get(authController.protect, articlesController.showAllArticles) // нужно войти и получить куки , тогда будет доступ
   .get(articlesController.showAllArticles) // Не нужно войти и получить куки
-  .post(articlesController.createArticle)
-  .delete(articlesController.deleteArticle);
+  .post(authController.protect, articlesController.createArticle)
+  .delete(authController.protect, articlesController.deleteArticle);
 
 articleRouter.get('/:id', articlesController.getMaxById);
 articleRouter.post('/getArticlesById', articlesController.getArticlesById);
@@ -25,7 +25,7 @@ articleRouter.route('/upload').post(
     res.json({
       success: 1,
       file: {
-        url: `http://127.0.0.1:8000/img/articles/${req.file.filename}`,
+        url: `http://localhost:8000/img/articles/${req.file.filename}`,
       },
     });
   }

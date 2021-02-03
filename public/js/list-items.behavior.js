@@ -89,15 +89,15 @@ const listItemBehavior = {
     if (this.articlesID.length === 0) return;
 
     const { articlesID } = this;
-    const response = await fetch('http://127.0.0.1:8000/api/v1/articles/', {
+    const response = await fetch('http://localhost:8000/api/v1/articles/', {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(articlesID),
     }).then((res) => res.json());
     if (response.status === 'fail') {
-      console.log(response.message);
       alert('Ошибка');
     } else {
       this.articlesID = [];

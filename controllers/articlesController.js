@@ -30,8 +30,6 @@ const upload = multer({
 exports.uploadArticlePhoto = upload.single('image');
 
 exports.showAllArticles = catchAsync(async (req, res) => {
-  console.log(`showAllArticles:`);
-
   let query;
   if (!req.query.title) {
     query = '';
@@ -67,10 +65,8 @@ exports.showAllArticles = catchAsync(async (req, res) => {
 });
 
 exports.createArticle = catchAsync(async (req, res, next) => {
-  console.log(`создание статьи`);
   // const token = req.cookies.jwt;
   // const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
-  // console.log('aaa');
   // const currentUser = await User.findById(decoded.id);
   const currentUser = req.body.userChangedID;
   // const userChangedID = currentUser._id;
@@ -83,17 +79,6 @@ exports.createArticle = catchAsync(async (req, res, next) => {
   const changes = fileSize;
 
   async function create() {
-    console.log('asdasd', {
-      articleID,
-      authorID,
-      userChangedID,
-      title: req.body.title,
-      desc: req.body.desc,
-      data: req.body.outputData,
-      isLatest,
-      date: req.body.date,
-      changes,
-    });
     const article = await Article.create({
       articleID,
       authorID,
@@ -105,7 +90,7 @@ exports.createArticle = catchAsync(async (req, res, next) => {
       date: req.body.date,
       changes,
     }).catch((error) => {
-      console.log(error);
+      error;
     });
     res.json({
       status: 'OK',
@@ -121,22 +106,10 @@ exports.createArticle = catchAsync(async (req, res, next) => {
       articleID = article[0].articleID + 1;
     }
 
-    console.log('article id is ', articleID);
+    'article id is ', articleID;
     authorID = currentUser;
-    console.log({
-      articleID,
-      authorID,
-      userChangedID,
-      title: req.body.title,
-      desc: req.body.desc,
-      data: req.body.outputData,
-      isLatest,
-      date: req.body.date,
-      changes,
-    });
     create();
   } else {
-    console.log('изменение старой статьи');
     let oldTitle, oldDesc, oldData;
 
     await Article.findById(_id, function (err, article) {
@@ -180,20 +153,13 @@ exports.createArticle = catchAsync(async (req, res, next) => {
 });
 
 exports.getMaxById = catchAsync(async (req, res, next) => {
-  console.log('hello');
   let articles;
   if (req.params.id === '*') {
-    articles = await Article.countDocuments({}, (err, count) => {
-      console.log('Number of docs: ', count);
-    });
-    console.log('hello1');
+    articles = await Article.countDocuments({});
   } else if (req.params.id) {
-    console.log(typeof req.params.id);
     articles = await Article.find({
       authorID: { $eq: req.params.id },
-    }).countDocuments((err, count) => {
-      console.log('Number of docs: ', count);
-    });
+    }).countDocuments({});
   }
 
   res.status(200).json({
@@ -202,8 +168,6 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  console.log('Показать одну статью');
-  console.log(req.params);
   const article = await Article.findOne({ _id: req.params.name });
 
   if (!article) {
@@ -216,7 +180,6 @@ exports.getOneArticle = catchAsync(async (req, res, next) => {
 });
 
 exports.updateArticle = catchAsync(async (req, res) => {
-  console.log(`update: ${req}`);
   const article = await Article.findOneAndUpdate(req.params.name, req.body, {
     new: true,
     runValidators: true,
@@ -239,7 +202,6 @@ exports.getArticlesById = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
-  console.log('delete: ', req.body);
   const arrayId = req.body;
   arrayId.forEach(async (id) => {
     const article = await Article.findById(id);
