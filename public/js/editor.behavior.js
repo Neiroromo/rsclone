@@ -252,43 +252,6 @@ const editor = {
       );
       i += 1;
     }
-
-    // changedArticles.forEach(async (article) => {
-    //   console.log('piz', article);
-    //   const { _id } = article;
-    //   let { date, changes } = article;
-    //   const userName = await this.getUserName(article.userChangedID);
-    //   let textClass;
-    //   if (changesTest < article.changes) {
-    //     textClass = 'text-success';
-    //     changes = `+${changes - changesTest} Кбайт`;
-    //   } else if (changesTest > article.changes) {
-    //     textClass = 'text-danger';
-    //     changes = `${changes - changesTest} Кбайт`;
-    //   } else {
-    //     textClass = 'text-secondary';
-    //     changes = '+0 Кбайт';
-    //   }
-    //   date = new Date(date);
-    //   const day = date.getDay();
-    //   const month = date.getMonth();
-    //   const year = date.getFullYear();
-    //   date = `${day}-${month}-${year}`;
-    //   changesTest = article.changes;
-    //   let trClass = '';
-    //   if (_id === this.articleID) trClass = 'current-changed-page';
-    //   console.log({ i, _id, userName, date, changes, textClass, trClass });
-    //   this.changedArticlesContainer.innerHTML += createChangedArticleItem(
-    //     i,
-    //     _id,
-    //     userName,
-    //     date,
-    //     changes,
-    //     textClass,
-    //     trClass
-    //   );
-    //   i += 1;
-    // });
   },
   async getUserName(userID) {
     const url = `${loginCheck.fetchURL}users/${userID}`;

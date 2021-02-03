@@ -67,7 +67,6 @@ const loginCheck = {
     })
       .then((res) => res.json())
       .catch((error) => error.json());
-    // console.log(response);
     if (response.status === 'error') {
       alert(
         `Введенные данные не соответсвуют требованиям:\nИмя пользователя и почта: минимум 4 символа\nПароль: минимум 6 символов\n${response.message}`
@@ -131,7 +130,6 @@ const loginCheck = {
     if (response.status === 'fail') {
       alert('Ошибка');
     } else {
-      // console.log('удален');
       localStorage.removeItem('userName');
       localStorage.removeItem('userID');
       this.isLoggedIn = false;

@@ -177,12 +177,6 @@ function clickListeners(e) {
     listItemBehavior.selectArticle(e);
   }
   if (target.classList.contains('article-item')) {
-    // const checkbox = target.children[0];
-    // console.log(checkbox);
-    // const click = new Event('click', {
-    //   bubbles: true,
-    // });
-    // checkbox.dispatchEvent(click);
   }
   if (target.classList.contains('open-article-elem')) {
     if (listItemBehavior.selectingState) return;
