@@ -93,11 +93,21 @@ const pageRender = {
       )
       .then((res) => {
         const articles = Object.values(res);
+        console.log(articles);
         this.mainPageArticlesContainer.innerHTML = '';
+
         articles.forEach((article) => {
           const { title, desc, authorID, _id } = article;
+          let imgUrl = '/img/nophoto.png';
+          article.data.blocks.forEach((block) => {
+            if (block.type === 'image') {
+              imgUrl = block.data.file.url;
+              return undefined;
+            }
+          });
+
           const DOMElement = pageRender.getDOMElemets(
-            createArticleMainPageItem(title, authorID, desc, _id)
+            createArticleMainPageItem(title, authorID, desc, _id, imgUrl)
           );
           this.mainPageArticlesContainer.append(DOMElement);
         });
