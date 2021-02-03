@@ -11,7 +11,7 @@ const cors = require('cors');
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:8000',
+  origin: '*',
   methods: 'GET,POST,DELETE,PATCH',
   preflightContinue: false,
   optionsSuccessStatus: 204,

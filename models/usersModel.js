@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 50,
     unique: true,
-    // validate: [validator.isEmail, 'Введена не валидная почта'],
+    validate: [validator.isEmail, 'Введена не валидная почта'],
   },
   photo: {
     type: String,

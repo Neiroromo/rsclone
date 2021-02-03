@@ -8,6 +8,14 @@ body {
 
   /* margin-bottom: 2rem; */
 }
+.title-article {
+  font-size: 1.5rem
+  !important;
+  color: darkorchid
+  !important;
+  text-transform: capitalize;
+
+}
 .container {
   padding-left: 0 !important;
   padding-right: 0 !important;

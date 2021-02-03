@@ -9,7 +9,7 @@ export default function createArticleMainPageItem(
   <div class='main-article-holder' style="display:flex; justify-content: space-between" unclickable>
     <div style="align-self: center;" unclickable>
       <div class="d-flex w-100 justify-content-between" unclickable>
-        <h5 class="mb-1" unclickable>${title}</h5>
+        <h5 class="mb-1 title-article" unclickable>${title}</h5>
         <small unclickable></small> 
       </div>
       <p class="mb-1" unclickable>${desc}</p>

@@ -5,7 +5,6 @@ const articleRouter = express.Router();
 
 articleRouter
   .route('/')
-  // .get(authController.protect, articlesController.showAllArticles) // нужно войти и получить куки , тогда будет доступ
   .get(articlesController.showAllArticles) // Не нужно войти и получить куки
   .post(authController.protect, articlesController.createArticle)
   .delete(authController.protect, articlesController.deleteArticle);
