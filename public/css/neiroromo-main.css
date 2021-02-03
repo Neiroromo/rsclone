@@ -242,4 +242,13 @@ tr:not(.thead):hover {
     padding-left: 0;
   }
 }
+
+@media screen and (max-width: 400px) {
+  body {
+    zoom: 0.79;
+  }
+  .article-page-container {
+    padding: 0;
+  }
+}
 /* article view end*/
