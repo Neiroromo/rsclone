@@ -5,7 +5,7 @@ const loginCheck = {
   isLoggedIn: false,
   userName: '',
   userID: '',
-  fetchURL: 'https://glacial-brook-82025.herokuapp.com/api/v1/',
+  fetchURL: '/api/v1/',
   isLogged() {
     const userName = localStorage.getItem('userName');
     const userID = localStorage.getItem('userID');
