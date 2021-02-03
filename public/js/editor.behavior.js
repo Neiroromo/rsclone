@@ -156,6 +156,9 @@ const editor = {
     this.openedTitleDesc.desc = article.desc;
     // добавление тела статьи
     this.openedData = article.data;
+    this.editingTitleDesc = {};
+    this.editingData = null;
+
     this.enableReadMode(this.openedData);
     // this.editor.isReady.then(() => {
     //   this.editor.render(this.openedData);
