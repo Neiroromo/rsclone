@@ -69,6 +69,8 @@ select {
   color: inherit;
 }
 .material-icons {
+  width: inherit;
+  height: inherit;
   font-size: inherit;
   color: inherit;
 }

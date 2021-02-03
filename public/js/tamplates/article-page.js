@@ -1,7 +1,7 @@
 export default function createArticlePage() {
   const html = `<div class="container-fluid article-page-container">
-       <div class="row">
-           <div class="col-md-9 container workspace">
+     
+           <div class="container workspace">
                <div class="row workspace__header">
                    <div id="title">
                        <input class="edit-article-title" type="text" value="" placeholder="Введите название статьи" disabled>
@@ -33,7 +33,7 @@ export default function createArticlePage() {
                <div class="row workspace__body" id="editorjs">
                </div>
            </div>
-           <div class="col-md-3 history">
+           <div class=" history">
 
                <div class="panel panel-default">
                    <div class="panel-heading text-center text-uppercase font-weight-bold">Предыдущие версии</div>
@@ -54,7 +54,7 @@ export default function createArticlePage() {
 
 
            </div>
-       </div>
+
 
                <!-- Modal save Article-->
                <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

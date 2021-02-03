@@ -32,6 +32,7 @@ function changeModalInner(settingsType) {
 
 function clickListeners(e) {
   let { target } = e;
+  // console.log(target);
   if (
     target.nodeName === 'SPAN' ||
     target.nodeName === 'TD' ||
@@ -44,6 +45,7 @@ function clickListeners(e) {
   while (target.hasAttribute('unclickable')) {
     target = target.parentNode;
   }
+
   if (target.nodeName === 'TH' || target.classList.contains('unclickable'))
     return;
   // main btns
@@ -174,7 +176,16 @@ function clickListeners(e) {
   if (target.classList.contains('article-checkbox')) {
     listItemBehavior.selectArticle(e);
   }
+  if (target.classList.contains('article-item')) {
+    // const checkbox = target.children[0];
+    // console.log(checkbox);
+    // const click = new Event('click', {
+    //   bubbles: true,
+    // });
+    // checkbox.dispatchEvent(click);
+  }
   if (target.classList.contains('open-article-elem')) {
+    if (listItemBehavior.selectingState) return;
     editor.articleID = listItemBehavior.getArticleID(e);
     pageRender.renderNewPage('articlePage');
     editor.pageState = 'read';

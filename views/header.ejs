@@ -1,13 +1,13 @@
-<nav>
-  <button type="button" class="btn btn-primary" id="toMainPage">Главная страница</button>
-  <button data-toggle="modal" data-target="#myModal" class="btn btn-link text-dark font-weight-bold"
-    id="btnLog">login</button>
+<nav class="container-fluid">
+  <button type="button" class="btn btn-link header-btn" id="toMainPage">Главная страница</button>
+  <button data-toggle="modal" data-target="#myModal" class="btn btn-link text-dark header-btn"
+    id="btnLog">Войти</button>
   <div class="dropdown" id='divProfile' hidden>
-    <button class="btn btn-link text-dark btn-user" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    <button class="btn btn-link text-dark btn-user header-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       user
     </button>
-    <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu p-0 dropdown-menu-right" aria-labelledby="dropdownMenuButton">
       <a class="dropdown-item border" href="#" id="profile">профиль</a>
       <a class="dropdown-item border" href="" id="btnExit">выход</a>
     </div>

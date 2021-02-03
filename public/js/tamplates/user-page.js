@@ -2,13 +2,13 @@ export default function createUserPage() {
   const userName = localStorage.getItem('userName');
 
   const html = `<div class="container py-5 user-profile-container">
-    <div class="row align-items-center">
-        <div class=" col-sm-5 col-md-3 user-name"><h2>
+    <div class="row user-page-head">
+        <div class=" user-name"><h2>
             ${userName}
         </h2></div>
-        <div class=" col-sm-1 col-md-1 settings__btn-container">    
+        <div class="settings__btn-container">    
             <div class="btn-group">
-            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class='settings__btn' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="material-icons">
                     settings
                 </span>
@@ -27,15 +27,14 @@ export default function createUserPage() {
             </div>
         </div>
         </div>
-        <div class="col-sm-2 col-md-4"></div>
-        <div class=" col-sm-2 col-md-2 main-create-btn-container">
+        <div class="main-create-btn-container">
             <button class="btn btn-success main-create-btn">
                 <span>
                     новая статья
                 </span>
             </button>
         </div>
-        <div class=" col-sm-2 col-md-2 main-delete-btn-container">
+        <div class=" main-delete-btn-container">
             <button class="btn btn-danger main-delete-btn" data-toggle="modal" data-target="#deleteArticle" disabled>
                 <span>
                     удалить
