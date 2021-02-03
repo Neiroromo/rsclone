@@ -89,7 +89,7 @@ const listItemBehavior = {
     if (this.articlesID.length === 0) return;
 
     const { articlesID } = this;
-    const response = await fetch('http://localhost:8000/api/v1/articles/', {
+    const response = await fetch(`${loginCheck.fetchURL}articles`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
