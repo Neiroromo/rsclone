@@ -5,3 +5,4 @@ import loginCheck from './loginCheck.js';
 loginCheck.isLogged();
 pageRender.renderNewPage('main');
 addListeners();
+//пытаюсь запустить хироку
