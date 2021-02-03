@@ -21,6 +21,7 @@ footer {
   bottom: 0; */
 }
 .footer {
+  margin-top: 10px;
   display: flex;
   align-items: center;
   /* position: absolute;
