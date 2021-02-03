@@ -32,7 +32,7 @@ function changeModalInner(settingsType) {
 
 function clickListeners(e) {
   let { target } = e;
-  // console.log(target);
+  console.log(target);
   if (
     target.nodeName === 'SPAN' ||
     target.nodeName === 'TD' ||

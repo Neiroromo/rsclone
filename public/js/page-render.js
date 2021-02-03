@@ -93,7 +93,7 @@ const pageRender = {
       )
       .then((res) => {
         const articles = Object.values(res);
-        console.log(articles);
+
         this.mainPageArticlesContainer.innerHTML = '';
 
         articles.forEach((article) => {
@@ -105,7 +105,6 @@ const pageRender = {
               return undefined;
             }
           });
-
           const DOMElement = pageRender.getDOMElemets(
             createArticleMainPageItem(title, authorID, desc, _id, imgUrl)
           );
