@@ -68,7 +68,7 @@ const loginCheck = {
     })
       .then((res) => res.json())
       .catch((error) => error.json());
-    console.log(response);
+    // console.log(response);
     if (response.status === 'error') {
       console.log(response.message);
       alert(
@@ -135,7 +135,7 @@ const loginCheck = {
       console.log(response.message);
       alert('Ошибка');
     } else {
-      console.log('удален');
+      // console.log('удален');
       localStorage.removeItem('userName');
       localStorage.removeItem('userID');
       this.isLoggedIn = false;

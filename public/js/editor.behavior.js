@@ -208,17 +208,17 @@ const editor = {
   async getChangedArticles() {
     const articleID = this.articleIDMain;
     if (articleID === null) return;
-    const url = `${loginCheck.fetchURL}articles?articleID=${articleID}`;
+    const url = `${loginCheck.fetchURL}articles?articleID=${articleID}&sort=date`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const articles = { ...res.articles };
     this.addChangedArticles(articles);
   },
-  addChangedArticles(changedArticles) {
+  async addChangedArticles(changedArticles) {
     let changesTest = 0;
     changedArticles = Object.values(changedArticles);
     let i = 1;
-
-    changedArticles.forEach(async (article) => {
+    for (let index = 0; index < changedArticles.length; index += 1) {
+      const article = changedArticles[index];
       const { _id } = article;
       let { date, changes } = article;
       const userName = await this.getUserName(article.userChangedID);
@@ -251,7 +251,44 @@ const editor = {
         trClass
       );
       i += 1;
-    });
+    }
+
+    // changedArticles.forEach(async (article) => {
+    //   console.log('piz', article);
+    //   const { _id } = article;
+    //   let { date, changes } = article;
+    //   const userName = await this.getUserName(article.userChangedID);
+    //   let textClass;
+    //   if (changesTest < article.changes) {
+    //     textClass = 'text-success';
+    //     changes = `+${changes - changesTest} Кбайт`;
+    //   } else if (changesTest > article.changes) {
+    //     textClass = 'text-danger';
+    //     changes = `${changes - changesTest} Кбайт`;
+    //   } else {
+    //     textClass = 'text-secondary';
+    //     changes = '+0 Кбайт';
+    //   }
+    //   date = new Date(date);
+    //   const day = date.getDay();
+    //   const month = date.getMonth();
+    //   const year = date.getFullYear();
+    //   date = `${day}-${month}-${year}`;
+    //   changesTest = article.changes;
+    //   let trClass = '';
+    //   if (_id === this.articleID) trClass = 'current-changed-page';
+    //   console.log({ i, _id, userName, date, changes, textClass, trClass });
+    //   this.changedArticlesContainer.innerHTML += createChangedArticleItem(
+    //     i,
+    //     _id,
+    //     userName,
+    //     date,
+    //     changes,
+    //     textClass,
+    //     trClass
+    //   );
+    //   i += 1;
+    // });
   },
   async getUserName(userID) {
     const url = `${loginCheck.fetchURL}users/${userID}`;

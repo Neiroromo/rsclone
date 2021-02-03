@@ -150,7 +150,7 @@ const listItemBehavior = {
       isLatest = '';
     }
     const URL = loginCheck.fetchURL;
-    const url = `${URL}articles?${author}&${page}&${title}&${isLatest}`;
+    const url = `${URL}articles?${author}&${page}&${title}&${isLatest}&sort=date`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const allArticles = { ...res.data.articles };
     return allArticles;
