@@ -156,9 +156,7 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
   let articles;
   if (req.params.id === '*') {
     articles = await Article.countDocuments({});
-    console.log('hello1');
   } else if (req.params.id) {
-    console.log(typeof req.params.id);
     articles = await Article.find({
       authorID: { $eq: req.params.id },
     }).countDocuments({});
@@ -170,8 +168,6 @@ exports.getMaxById = catchAsync(async (req, res, next) => {
 });
 
 exports.getOneArticle = catchAsync(async (req, res, next) => {
-  console.log('Показать одну статью');
-  console.log(req.params);
   const article = await Article.findOne({ _id: req.params.name });
 
   if (!article) {
@@ -184,7 +180,6 @@ exports.getOneArticle = catchAsync(async (req, res, next) => {
 });
 
 exports.updateArticle = catchAsync(async (req, res) => {
-  console.log(`update: ${req}`);
   const article = await Article.findOneAndUpdate(req.params.name, req.body, {
     new: true,
     runValidators: true,
@@ -207,7 +202,6 @@ exports.getArticlesById = catchAsync(async (req, res) => {
 });
 
 exports.deleteArticle = catchAsync(async (req, res) => {
-  console.log('delete: ', req.body);
   const arrayId = req.body;
   arrayId.forEach(async (id) => {
     const article = await Article.findById(id);
