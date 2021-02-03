@@ -4,9 +4,5 @@ import loginCheck from './loginCheck.js';
 
 loginCheck.isLogged();
 pageRender.renderNewPage('main');
-// pageRender.renderNewPage('userProfile');
 addListeners();
-
-// window.onbeforeunload = function () {
-//   return 'Данное действие приведет к ошибке. Если вы хотите вернуть на главную страницу, то перезагрузите вкладку';
-// };
+//пытаюсь запустить хироку

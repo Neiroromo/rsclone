@@ -156,6 +156,9 @@ const editor = {
     this.openedTitleDesc.desc = article.desc;
     // добавление тела статьи
     this.openedData = article.data;
+    this.editingTitleDesc = {};
+    this.editingData = null;
+
     this.enableReadMode(this.openedData);
     // this.editor.isReady.then(() => {
     //   this.editor.render(this.openedData);
@@ -208,35 +211,59 @@ const editor = {
   async getChangedArticles() {
     const articleID = this.articleIDMain;
     if (articleID === null) return;
-    const url = `${loginCheck.fetchURL}articles?articleID=${articleID}`;
+    const url = `${loginCheck.fetchURL}articles?articleID=${articleID}&sort=date`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const articles = { ...res.articles };
     this.addChangedArticles(articles);
   },
-  addChangedArticles(changedArticles) {
-    let changesTest = 0;
+  async addChangedArticles(changedArticles) {
     changedArticles = Object.values(changedArticles);
-    let i = 1;
+    let i = changedArticles.length;
+    let changesArray = [];
+    for (let index = 0; index < changedArticles.length; index += 1) {
+      changesArray.push(changedArticles[index].changes);
+    }
+    changesArray.reverse();
+    let pushArr = [];
+    pushArr.push(changesArray[0]);
+    let changesTest = pushArr[0];
+    for (let index = 1; index <= changesArray.length; index += 1) {
+      let item = changesArray[index];
+      if (item > changesTest) {
+        //стал больше
+        pushArr.push(item - changesTest);
+      } else if (item < changesTest) {
+        //меньше
+        pushArr.push(item - changesTest);
+      } else if (item === 0) {
+        pushArr.push(0);
+      }
+      changesTest = item;
+    }
+    pushArr.reverse();
 
-    changedArticles.forEach(async (article) => {
+    for (let index = 0; index < changedArticles.length; index += 1) {
+      const article = changedArticles[index];
       const { _id } = article;
       let { date, changes } = article;
       const userName = await this.getUserName(article.userChangedID);
       let textClass;
-      if (changesTest < article.changes) {
+      if (pushArr[index] > 0) {
         textClass = 'text-success';
-        changes = `+${changes - changesTest} Кбайт`;
-      } else if (changesTest > article.changes) {
+        changes = `+${pushArr[index]} Кбайт`;
+      } else if (pushArr[index] < 0) {
         textClass = 'text-danger';
-        changes = `${changes - changesTest} Кбайт`;
-      } else {
+        changes = `${pushArr[index]} Кбайт`;
+      } else if (pushArr[index] === 0) {
         textClass = 'text-secondary';
         changes = '+0 Кбайт';
       }
       date = new Date(date);
-      const day = date.getDay();
-      const month = date.getMonth();
-      const year = date.getFullYear();
+      let day = date.getDay().toString();
+      if (day.length < 2) day = `0${day}`;
+      let month = date.getMonth().toString();
+      if (month.length < 2) month = `0${month}`;
+      const year = date.getFullYear().toString();
       date = `${day}-${month}-${year}`;
       changesTest = article.changes;
       let trClass = '';
@@ -250,8 +277,8 @@ const editor = {
         textClass,
         trClass
       );
-      i += 1;
-    });
+      i -= 1;
+    }
   },
   async getUserName(userID) {
     const url = `${loginCheck.fetchURL}users/${userID}`;

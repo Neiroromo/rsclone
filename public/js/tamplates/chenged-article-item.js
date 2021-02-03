@@ -7,7 +7,11 @@ export default function createChangedArticleItem(
   textClass,
   currentPageClass
 ) {
-  if (userName === undefined) userName = 'пользователь удален';
-  const html = `<tr class='open-changed-article ${currentPageClass}' data-changedArticleID="${articleID}"> <td>${number}</td><td>${userName}</td><td>${date}</td><td class="${textClass}">${size}</td></tr>`;
+  let deleteUserHighlight = '';
+  if (userName === undefined) {
+    userName = 'пользователь удален';
+    deleteUserHighlight = 'text-danger';
+  }
+  const html = `<tr class='open-changed-article ${currentPageClass}' data-changedArticleID="${articleID}"> <td>${number}</td><td class='${deleteUserHighlight}'>${userName}</td><td style='min-width: 96px;'>${date}</td><td class="${textClass}">${size}</td></tr>`;
   return html;
 }

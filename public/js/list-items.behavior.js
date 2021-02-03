@@ -89,7 +89,7 @@ const listItemBehavior = {
     if (this.articlesID.length === 0) return;
 
     const { articlesID } = this;
-    const response = await fetch('http://localhost:8000/api/v1/articles/', {
+    const response = await fetch(`${loginCheck.fetchURL}articles`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -150,7 +150,7 @@ const listItemBehavior = {
       isLatest = '';
     }
     const URL = loginCheck.fetchURL;
-    const url = `${URL}articles?${author}&${page}&${title}&${isLatest}`;
+    const url = `${URL}articles?${author}&${page}&${title}&${isLatest}&sort=date`;
     const res = await fetch(`${url}`).then((response) => response.json());
     const allArticles = { ...res.data.articles };
     return allArticles;

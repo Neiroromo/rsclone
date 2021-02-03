@@ -20,7 +20,7 @@ module.exports = class APIFeatures {
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(',').join(' ');
-      this.query = this.query.sort(sortBy);
+      this.query = this.query.sort({ [sortBy]: -1 });
     } else {
       this.query = this.query.sort('-views');
     }

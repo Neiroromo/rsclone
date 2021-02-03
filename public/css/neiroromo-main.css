@@ -21,6 +21,7 @@ footer {
   bottom: 0; */
 }
 .footer {
+  margin-top: 10px;
   display: flex;
   align-items: center;
   /* position: absolute;
@@ -240,6 +241,15 @@ tr:not(.thead):hover {
   .history {
     border-left: none;
     padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    zoom: 0.79;
+  }
+  .article-page-container {
+    padding: 0;
   }
 }
 /* article view end*/
