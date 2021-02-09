@@ -1,0 +1,34 @@
+const dotenv = require('dotenv');
+
+dotenv.config({ path: `${__dirname}/../config.env` });
+
+const app = require('../app');
+const debug = require('debug')('rsclone:server');
+const http = require('http');
+
+const port = process.env.PORT || '3000';
+
+app.set('port', port);
+
+
+const mongoose = require('mongoose');
+
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('DB connection successful');
+  });
+
+
+const server = http.createServer(app);
+server.listen(port);
+
